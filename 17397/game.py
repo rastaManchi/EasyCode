@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 pygame.init()
 
@@ -9,9 +10,14 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 BG = (144, 0, 255)
+
+enemy = pygame.Rect(50, 50, 50, 50)
+enemy_img_orig = pygame.image.load('player.png')
+enemy_img = pygame.transform.scale(enemy_img_orig, (enemy.width, enemy.height))
+
 player = pygame.Rect(250, 250, 50, 50)
-player_img = pygame.image.load('player.jpg')
-player_img = pygame.transform.scale(player_img, (player.width, player.height))
+player_img_orig = pygame.image.load('player.png')
+player_img = pygame.transform.scale(player_img_orig, (player.width, player.height))
 direction = ''
 
 while True:
@@ -27,6 +33,14 @@ while True:
                 direction = 'left'
             elif event.key == pygame.K_d:
                 direction = 'right'
+            elif event.key == pygame.K_1:
+                player.width = player.width * 2
+                player.height = player.height * 2
+                player_img = pygame.transform.scale(player_img_orig, (player.width, player.height))
+            elif event.key == pygame.K_2:
+                player.width = player.width * 0.5
+                player.height = player.height * 0.5
+                player_img = pygame.transform.scale(player_img_orig, (player.width, player.height))
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_w or event.key == pygame.K_s or event.key == pygame.K_a or event.key == pygame.K_d:
                 direction = ''
@@ -39,6 +53,9 @@ while True:
         player.x -= 5
     elif direction == 'right':
         player.x += 5
+    if player.colliderect(enemy):
+        sys.exit()
     screen.blit(player_img, player)
+    screen.blit(enemy_img, enemy)
     pygame.display.update()
     clock.tick(60)
