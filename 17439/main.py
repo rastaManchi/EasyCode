@@ -1,16 +1,28 @@
-# import random
-# import time
-# print('Старт')
-# a = random.randint(2, 10)
-# time.sleep(a)
-# print('Конец')
-
-import random
+# text = '''Привет
+# Меня зовут Булат.'''
 
 
-grani = input('Кол-во граней: ')
-grani = int(grani)
-result = random.randint(1, grani)
-print(result)
+# print(text[0])
+# print(text[5])
+# print(text[5:9])
+
+# choice = input('Вы будете кушать? Да/Нет')
+# print(choice)
+# choice = choice.lower()
+# print(choice)
+# choice = choice.upper()
+# print(choice)
+
+# print(text)
 
 
+name = input('Введите имя: ')
+surname = input('Введите фамилию: ')
+age = input('Введите возраст: ')
+dep = input('Введите отдел: ')
+status = input('На сколько процентов завершена стажировка: ')
+print(f'''Имя: {name}
+Фамилия: {surname}
+Возраст: {age}
+Отдел: {dep}
+Стажировка: {status}%''')
