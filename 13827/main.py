@@ -1,25 +1,36 @@
+HP_Player = 100
+HP_NPS = 100
 
-names = ["Булат", 'Илья', 'Марк']
-print(f"В компании: {names}")
-names[0] = "Михаил"
-print(f"Булат уволился, пришел Михаил: {names}")
-names.append("Павел") #добавить элемент в список 
-print(f"Добавили Павла: {names}")
-names.append("Валера")
-print(f"Добавили Валеру: {names}")
+import random
 
-# Удаление по индексу
-names.pop(0)
+Fire = random.randint(15,30)
+Ice = 20
+Iand = 5
 
-# Удаление по значению
-names.remove("Павел")
-print(names)
-
-if "Валера" in names: # проверка наличия элемента в списке
-    names.remove("Валера")
-    print(f'Валера Нашелся, мы его уволили\n{names}')
+while HP_Player > 0 and HP_NPS > 0:
+    Atak = random.randint(0, 1)
+    if Atak == 0:
+        print('Атаку проводит Player')
+        Atak2 = random.randint(1,3)
+        if Atak2 == 1:
+            print('Огонь')
+            HP_NPS -= Fire
+        elif Atak2 == 2:
+            print('Лед')
+            HP_NPS -= Ice
+        else:
+            print('Земля')
+            HP_NPS -= Iand
+    else:
+        print('Атаку проводит враг')
+        Atak2 = random.randint(1,3)
+        if Atak2 == 1:
+            print('Огонь')
+            HP_Player -= Fire
+        elif Atak2 == 2:
+            print('Лед')
+            HP_Player -= Ice
+        else:
+            print('Земля')
+            HP_Player -= Iand
     
-else:
-    print('Валера не найден!')
-
-print(f"В комании осталось {len(names)} человек\n{names}")
