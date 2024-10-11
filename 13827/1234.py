@@ -1,30 +1,35 @@
-names = []
-feeds = []
-animals = []
+HP_Player = 100
+HP_NPS = 100
 
+import random
 
-for i in range(10):
-    name = input()
-    feed = 0
-    animal = input()
-    names.append(name)
-    feeds.append(feed)
-    animals.append(animal)
+Fire = random.randint(15,30)
+Ice = 20
+Iand = 5
 
-
-action = input('Что вы хотите сделать 1-покормить/2-информация о животных: ')
-while action != 'stop':
-    if action == '1':
-        animal_name = input('Введите имя животного: ')
-        for i in range(10):
-            if names[i] == animal_name:
-                if feeds[i] < 3:
-                    feeds[i] += 1
-                    print('Покормили')
-                else:
-                    print('Животное сыто')
-    elif action == '2':
-        for i in range(10):
-            print(f"{animals[i]} {names[i]} Сегодня кушал {feeds[i]} раз")
-    
-    action = input('ЧТо вы хотите сделать 1-покормить/2-информация о животных: ')        
+while HP_Player > 0 and HP_NPS > 0:
+    Atak = random.randint(0, 1)
+    if Atak == 0:
+        print('Атаку проводит Player')
+        Atak2 = random.randint(1,3)
+        if Atak2 == 1:
+            print('Огонь')
+            HP_NPS -= Fire
+        elif Atak2 == 2:
+            print('Лед')
+            HP_NPS -= Ice
+        else:
+            print('Земля')
+            HP_NPS -= Iand
+    else:
+        print('Атаку проводит враг')
+        Atak2 = random.randint(1,3)
+        if Atak2 == 1:
+            print('Огонь')
+            HP_Player -= Fire
+        elif Atak2 == 2:
+            print('Лед')
+            HP_Player -= Ice
+        else:
+            print('Земля')
+            HP_Player -= Iand
