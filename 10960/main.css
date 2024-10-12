@@ -1,106 +1,56 @@
-.parent {
-    display: flex;
-    width: 100%;
-}
-
-.block {
-    transition: width 0.3s;
-}
-
-.block1 {
-    width: 50%;
-    background-color: lightcoral;
-}
-
-.block2 {
-    width: 30%;
-    background-color: lightblue;
-}
-
-.block3 {
-    width: 20%;
-    background-color: lightgreen;
-}
-
-.block:hover {
-    width: calc(50% + 10%);
-}
-
-.block1:hover ~ .block2 {
-    width: calc(30% - 5%);
-}
-
-.block1:hover ~ .block3 {
-    width: calc(20% - 5%);
-}
-
-.block2:hover ~ .block1 {
-    width: calc(50% - 5%);
-}
-
-.block2:hover ~ .block3 {
-    width: calc(20% - 5%);
-}
-
-.block3:hover ~ .block1 {
-    width: calc(50% - 5%);
-}
-
-.block3:hover ~ .block2 {
-    width: calc(30% - 5%);
-}
-
-/*  */
-
-.menu {
-    font-size: 16px;
-    list-style: none;
-    display: flex;
-}
-
-.menu-item {
-    margin-right: 1.5em;
-}
-
-/*  */
-
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+    background-image: url("f7ce9e6f3d484d87b7590326ea3b0130.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    
 }
 
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 2vh 0;
+    background-color: rgba(255, 255, 255, 0.1);
     text-align: center;
-    font-size: 3vw;
+    padding: 0.1vh;
+    border-radius: 20px;
 }
 
-.section {
-    padding: 5vh 5vw;
+main {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.1vh;
+    border-radius: 20px;
+    margin: 0.1vw;
 }
 
-.section:nth-child(even) {
-    background-color: #f2f2f2;
+.blocks {
+    display: flex;
 }
 
-h2 {
-    font-size: 2.5vw;
-    margin-bottom: 2vh;
+.small_boxes {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.1vh;
+    border-radius: 20px;
+    margin: 0.1vw;
 }
 
-p {
-    font-size: 2vw;
-    line-height: 1.5;
+.huge_box {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.1vh;
+    border-radius: 20px;
+    max-width: 50%;
+    margin: 0.1vw;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+.box1 {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.1vh;
+    border-radius: 20px;
+    margin: 0.1vw;
 }
 
-footer {
-    background-color: #333;
+.box2 {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.1vh;
+    border-radius: 20px;
+    margin: 0.1vw;
 }
-
