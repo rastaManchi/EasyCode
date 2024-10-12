@@ -1,45 +1,32 @@
-# name = input('Имя: ')
-# surname = input('Фамилия: ')
-# age = input('Возраст: ')
-# dep = input('Отдел: ')
-# status = input('Стажировка: ')
-# print('Имя: ', name)
-# print('Фамилия: ', surname)
-# print('Возраст: ', age)
-# print('Отдел: ', dep)
-# print('Стажировка: ', status, '%')
+# text = "Easy Code"
+# print(text[5:9])
+
+# name1 = 'Булат'
+# name2 = 'Герман'
+# name3 = 'Павел'
+# name4 = 'Артем'
 
 
-# name = input('Введите имя:')
-# surname = input('Введите фамилию')
-# age = input('Введите возраст:')
-# dep = input('Введите отдел:')
-# status = input('На сколько процентов завершена стажировка?')
-# print('Имя:', name)
-# print('Фамилия:', surname)
-# print('Возраст:', age)
-# print('Отдел:', dep)
-# print('Стажировка завершена на:', status)
-# name = input('Введите имя:')
-# project = input('Введите название проекта:')
-# days = input('Сколько дней работал:')
-# days = int(days)
-# hours = input('Сколько часов работал:')
-# hours = int(hours)
-# result = days * 9 + hours
-# print('Работник', name, 'потратил', result, 'часа(ов) на проект', project)
+# print(f'В моей команде:\n{name1}\n{name2}\n{name3}\n{name4}')
 
 
-# import random
-# import time
-# print('Старт')
-# num = random.randint(1, 10)
-# time.sleep(num)
-# print('Конец, прошло', num, 'секунд')
+# text = '''Безусловно, экономическая повестка сегодняшнего дня играет определяющее значение для направлений прогрессивного развития.
+# Учитывая ключевые сценарии поведения, постоянный количественный рост и сфера нашей активности позволяет оценить значение первоочередных требований.
+# А ещё многие известные личности лишь добавляют фракционных разногласий и обнародованы.'''
+
+# print(text)
+
+# is_eat = input('Будете кушать? Да/Нет: ')
+# print(is_eat)
+
+# small_letters = is_eat.lower() # маленькие буквы
+# print(small_letters)
+
+# big_letters = is_eat.upper() # большие буквы
+# print(big_letters)
+
+text = 'Привет '
+length = len(text)
+print(length)
 
 
-# import random 
-# dice = input('Кол-во граней: ')
-# dice = int(dice)
-# result = random.randint(1, dice)
-# print(result)
