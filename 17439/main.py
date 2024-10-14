@@ -1,30 +1,17 @@
-# text = '''Привет
-# Меня зовут Булат.'''
+# a = 10
+# b = 10
 
+# print(a > b)
+# print(a < b)
+# print(a >= b)
+# print(a <= b)
+# print(a == b)
+# print(a != b)
 
-# print(text[0])
-# print(text[5])
-# print(text[5:9])
+floor = int(input('Какой этаж? '))
+water = int(input('Сколько литров? '))
 
-# choice = input('Вы будете кушать? Да/Нет')
-# print(choice)
-# choice = choice.lower()
-# print(choice)
-# choice = choice.upper()
-# print(choice)
-
-# print(text)
-
-
-# name = input('Введите имя: ')
-# surname = input('Введите фамилию: ')
-# age = input('Введите возраст: ')
-# dep = input('Введите отдел: ')
-# status = input('На сколько процентов завершена стажировка: ')
-# print(f'''Имя: {name}
-# Фамилия: {surname}
-# Возраст: {age}
-# Отдел: {dep}
-# Стажировка: {status}%''')
-
-print(len('Привет'))
+if (floor <= 53 and water <= 5) or (floor <= 99 and water <= 2) or (floor <= 100 and water <= 1):
+    print('Смогу!')
+else:
+    print('Не смогу!')
