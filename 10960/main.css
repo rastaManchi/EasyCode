@@ -1,8 +1,14 @@
-body {
-    background-image: url("f7ce9e6f3d484d87b7590326ea3b0130.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: white;
+html, body {
+    height: 100%;
+    background: rgb(255,150,150);
+    background: -moz-linear-gradient(180deg, rgba(255,150,150,1) 0%, rgba(243,213,163,1) 50%, rgba(230,246,184,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255,150,150,1) 0%, rgba(243,213,163,1) 50%, rgba(230,246,184,1) 100%);
+    background: linear-gradient(180deg, rgba(255,150,150,1) 0%, rgba(243,213,163,1) 50%, rgba(230,246,184,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff9696",endColorstr="#e6f6b8",GradientType=1);
+    color: black;
+    font-family: "Island Moments", cursive;
+    font-weight: 100;
+    font-style: normal;
     
 }
 
@@ -11,30 +17,33 @@ header {
     text-align: center;
     padding: 0.1vh;
     border-radius: 20px;
+    font-size: 20px;
 }
 
 main {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.377);
     padding: 0.1vh;
     border-radius: 20px;
     margin: 0.1vw;
+    height: 80%;
 }
 
 .blocks {
     display: flex;
+    height: 100%;
 }
 
 .small_boxes {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.377);
     padding: 0.1vh;
     border-radius: 20px;
     margin: 0.1vw;
 }
 
 .huge_box {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.377);
     padding: 0.1vh;
     border-radius: 20px;
     max-width: 50%;
@@ -42,15 +51,31 @@ main {
 }
 
 .box1 {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.377);
     padding: 0.1vh;
     border-radius: 20px;
     margin: 0.1vw;
 }
 
 .box2 {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.377);
     padding: 0.1vh;
     border-radius: 20px;
     margin: 0.1vw;
+}
+
+.box1:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: 2s;
+}
+.box2:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: 2s;
+}
+.huge_box:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: 2s;
 }
