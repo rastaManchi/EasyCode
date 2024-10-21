@@ -1,15 +1,11 @@
-class User:
-    def __init__(self, name, login, password):
-        self.name = name
-        self.login= login
-        self.password = password
+class Rect:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
 
-    def hello(self):
-        print(f"Приветствую! Меня зовут {self.name}")
+    def get_area(self):
+        print(self.width * self.height)
 
-
-user2 = User('Кирилл', 'login2', 'qwerty123')
-user = User('Булат', 'login', 'qwerty')
-
-
-user2.hello()
+rect = Rect(100, 100)
+rect.get_area()
+rect.get_perimeter()
