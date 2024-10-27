@@ -1,61 +1,50 @@
-names = ['Кастрюля', 'Тарелка', 'Ноутбук']
-prices = [500, 300, 100000]
+all = [
+    {'name': 'Детская', 'length': 5, 'min_age': 7, 'status': 'open'},
+    {'name': 'Кантемир', 'length': 100, 'min_age': 12, 'status': 'fix'},
+    {'name': 'Закатное солнце', 'length': 20, 'min_age': 16, 'status': 'close'},
+    {'name': 'Красный дракон', 'length': 53, 'min_age': 16, 'status': 'open'}
+]
 
-for i in range(len(names)):
-     print(f'{names[i]} -- {prices[i]}')
-    
-products = {'Кастрюля':500, 'Тарелка':300, 'Ноутбук': 10000, 'Пылесос': 999999}
-products['Кастрюля'] = 1000
-products['Утюг'] = 3000
-del products['Кастрюля']
-print(products)
+films = {
+   'Магия': [
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
+       ],
+   'Фантастика': [
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
+       ],
+   'Космос': [
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
+   ],
+   'Marvel': [
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
+       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
+   ]
+}
 
-if 'Пылесос' in products:
-    print(products['Пылесос'])
-    del products['Пылесос']
+# print('1-е решение!')
+# print(films['Космос'][0])
+# print(films['Космос'][1])
+# print(films['Космос'][2])
+# print(films['Космос'][3])
 
-#1
-slides = {'Десткая': 5, 'Закатное солнце': 20, 'Жираф': 31, 'Красный дракон': 53, 'Кантемир': 100}
-#2
-del slides['Жираф']
-name = input('Введите название горки: ')
-length = int(input('Введите длину горки: '))
-slides[name] = length
-#3
-slide_name = input('Какая горка вас интересует? ')
-while slide_name != 'stop':
-    if slide_name in slides:
-        print(f'Протяженность горки "{slide_name}" состовляет {slides[slide_name]} метр(а/ов) ')
-    elif slide_name == 'add':
-        new_name = input('Введите название горки: ')
-        if new_name not in slides:
-            slides[new_name] = int(input('Введите протяженность: '))
-    elif slide_name == 'delete':
-        del_name = input('Введите название горки: ')
-        if del_name in slides:
-            del slides[del_name]
-    elif slide_name == 'all':
-        print(slides)
-    else:
-        print('Такой горки нет!')
-    slide_name = input('Какая горка вас интересует? ')
+# print('_'*100)
+# print('\n2-е решение!')
 
-products = {'Кастрюля':500, 'Тарелка':300, 'Ноутбук': 10000, 'Пылесос': 999999}
+films['Космос'].append(
+    {
+        'name': 'Новый фильм',
+        'age': 2024
+    }
+)
 
-
-# for key in products:
-#     print(f'{key} -- {products[key]}')
-
-for key, value in products.items():
-    print(f'{key} -- {value}')
-
-print(list(products.keys()))
-print(list(products.values()))
-
-
-slides = {'Десткая': 5, 'Закатное солнце': 20, 'Жираф': 31, 'Красный дракон': 53, 'Кантемир': 100}
-
-names = list(slides.keys())
-names.sort()
-for name in names:
-    print(f'{name} -- {slides[name]}')
+for zhanr in films:
+    print(zhanr)
+    for film in films[zhanr]:
+        print(f'{film["name"]} -- {film["age"]}')
