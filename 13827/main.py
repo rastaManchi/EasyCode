@@ -1,50 +1,23 @@
-all = [
-    {'name': 'Детская', 'length': 5, 'min_age': 7, 'status': 'open'},
-    {'name': 'Кантемир', 'length': 100, 'min_age': 12, 'status': 'fix'},
-    {'name': 'Закатное солнце', 'length': 20, 'min_age': 16, 'status': 'close'},
-    {'name': 'Красный дракон', 'length': 53, 'min_age': 16, 'status': 'open'}
-]
+import random 
 
-films = {
-   'Магия': [
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
-       ],
-   'Фантастика': [
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
-       ],
-   'Космос': [
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
-   ],
-   'Marvel': [
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002},
-       {'name': 'Гарри Поттер и Философский Камень', 'age': 2002}
-   ]
-}
 
-# print('1-е решение!')
-# print(films['Космос'][0])
-# print(films['Космос'][1])
-# print(films['Космос'][2])
-# print(films['Космос'][3])
+def create_card():
+    number = random.randint(10, 99)
+    while number in cards:
+        number = random.randint(10, 99)
+    cards.append(number)
+    return number
 
-# print('_'*100)
-# print('\n2-е решение!')
 
-films['Космос'].append(
-    {
-        'name': 'Новый фильм',
-        'age': 2024
-    }
-)
+cards = []
 
-for zhanr in films:
-    print(zhanr)
-    for film in films[zhanr]:
-        print(f'{film["name"]} -- {film["age"]}')
+
+def card_expiration(month, year):
+    return f'{month}/{year+4}'
+
+
+for i in range(50):
+    create_card()
+
+print(cards)
+
