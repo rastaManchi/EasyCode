@@ -24,3 +24,14 @@ for (let key in player) {
 
 
 
+const dictionary = {
+    'привет':'hello',
+    'мир':'world'
+}
+
+function translate(word) {
+    return dictionary[word];
+}
+
+console.log(translate('привет'));
+console.log(translate('мир'))
