@@ -1,6 +1,7 @@
 
-// let  player = {}
+// let  player = {'c':3}
 
+// player['c'] = 3;
 // player.name = "Булат";
 // player.age = 22;
 // player.position = "Holl";
