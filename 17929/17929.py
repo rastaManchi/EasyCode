@@ -1,28 +1,11 @@
-moscow_mam = 861
-moscow_uch = 2399
-mam_uch = 1744
+cups = int(input('Введите кол-во чашек: '))
 
-city1 = input('Введите город: ')
-city2 = input('Введите город: ')
-
-if city1 == 'Москва':
-    if city2 == 'Мамадыш':
-        print(moscow_mam)
-    elif city2 == 'Учкудук':
-        print(moscow_uch)
-    elif city2 == 'Москва':
-        print(0)
-elif city1 == 'Мамадыш':
-    if city2 == 'Москва':
-        print(moscow_mam)
-    elif city2 == 'Учкудук':
-        print(mam_uch)
-    elif city2 == 'Мамадыш':
-        print(0)
-elif city1 == 'Учкудук':
-    if city2 == 'Мамадыш':
-        print(mam_uch)
-    elif city2 == 'Москва':
-        print(moscow_uch)
-    elif city2 == 'Учкудук':
-        print(0)
+while cups != -1:
+    name = input('Введите имя: ')
+    if name == 'Вася':
+        print('Васе сегодня кофе нельзя!')
+    else:
+        floor = int(input('Какой этаж'))
+        if (1 <= cups <= 3 and floor <= 100) or (4 <= cups <= 7 and floor <= 50) or (8 <= cups and floor <= 2):
+            print('Донесу')
+    cups = int(input('Введите кол-во чашек: '))

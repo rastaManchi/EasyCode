@@ -12,14 +12,19 @@ clock = pygame.time.Clock()
 
 BG = (144, 0, 255)
 
-enemy = pygame.Rect(50, 50, 50, 50)
-enemy_img_orig = pygame.image.load('player.png')
-enemy_img = pygame.transform.scale(enemy_img_orig, (enemy.width, enemy.height))
 
-player = pygame.Rect(250, 250, 50, 50)
-player_img_orig = pygame.image.load('player.png')
-player_img = pygame.transform.scale(player_img_orig, (player.width, player.height))
-direction = ''
+class Sprite:
+    def __init__(self, x, y, w, h, img_path):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.orig_img = pygame.image.load(img_path)
+        self.image = pygame.transform.scale(self.orig_img, (w, h))
+
+
+enemy = Sprite(50, 50, 50, 50, 'enemy.png')
+
+player = Sprite(250, 250, 50, 50, 'player.png')
+
+direction = 'none'
 
 while True:
     if game_state == 0:
@@ -62,10 +67,10 @@ while True:
         elif direction == 'left':
             player.x -= 5
         elif direction == 'right':
-            player.x += 5
-        if player.colliderect(enemy):
-            sys.exit()
-        screen.blit(player_img, player)
-        screen.blit(enemy_img, enemy)
+            player.rect.x += 5
+        # if player.colliderect(enemy):
+        #     sys.exit()
+        screen.blit(player.image, player)
+        screen.blit(enemy.image, enemy)
     pygame.display.update()
     clock.tick(60)
