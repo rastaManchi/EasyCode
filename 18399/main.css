@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+input[type="email"],input[type="text"],input[type="password"] {
+    background-color: white;
+    transition: 1s;
+    width: 100px;
+    height: 10px;
+}
+
+input[type="email"]:hover,input[type="text"]:hover,input[type="password"]:hover {
+    background-color: blueviolet;
+}
+
+input[type="email"]:focus,input[type="text"]:focus,input[type="password"]:focus {
+    background-color: brown;
+    width: 200px;
+    height: 20px;
+}
