@@ -1,0 +1,37 @@
+html, body {
+    background-color: grey;
+    color: black;
+}
+
+.grid-container  {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.grid-item {
+    background-color: #ddd;
+    padding: 20px;
+}
+
+.card-1 {
+    grid-column: span 2;
+    grid-row: span 1
+}
+
+.card-2 {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+.card-3 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+.card-4 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+.card-9 {
+    grid-column: span 3;
+}
