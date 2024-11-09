@@ -1,0 +1,25 @@
+html, body {
+    background-color: rgb(44, 40, 40);
+    color: white
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
+    text-align: center;
+}
+p {
+    font-size: 18px;
+    font-style: italic;
+}
+
+div {
+    background-color: rgba(255, 255, 255, 0.132);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
+}

@@ -7,16 +7,13 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div>
-        <h3>Тренажер английских слов</h3>
-
-        <p id="english_word"></p>
-
-        <input type="text" id="userInput">
-
-        <button onclick="checkTranslation()">Проверить</button>
+    <div class="timer-container">
+        <input type="number" id="hours" placeholder="Hours" min="0">
+        <input type="number" id="minutes" placeholder="Minutes" min="0" max="59">
+        <input type="number" id="seconds" placeholder="Seconds" min="0" max="59">
+        <button id="start-button">Start Timer</button>
+        <div id="timer-display">00:00:00</div>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>
