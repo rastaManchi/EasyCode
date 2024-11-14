@@ -99,6 +99,7 @@ class Timer {
 
         this.updateDisplay(totalSeconds);
 
+
         this.intervalid = setInterval(() => {
             totalSeconds--;
             this.updateDisplay(totalSeconds);

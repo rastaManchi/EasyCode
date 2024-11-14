@@ -1,0 +1,26 @@
+body {
+    background-color:darkviolet;
+    color: white;
+}
+
+p {
+    color: aqua;
+}
+
+h2 {
+    color: red;
+    background-color: bisque;
+    font-size: 40px;
+    font-family: Impact, sans-serif;
+    font-weight: 100;
+    font-style: italic;
+
+    text-align: center;
+
+    text-decoration: underline;
+    text-transform: uppercase;
+    line-height: 2;
+    letter-spacing: 5px;
+    word-spacing: 15px;
+    text-shadow: 10px 15px 5px rgb(0, 128, 255);
+}

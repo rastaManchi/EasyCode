@@ -1,5 +1,62 @@
-.article {
-    background-color: black;
-    padding: 15px;
-    color: white
+html, body {
+    background-color: rgb(60, 2, 70);
+    color: black;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    border: 1px solid white
+}
+
+.item1 {
+    background-color: gray;
+    flex: 0 0 100px;
+    /* flex-basis: 100px; */
+    /* flex-shrink: 1; */
+    /* flex-grow: 1; */
+}
+
+.item2 {
+    background-color: yellow;
+    flex: 1 2 150px;
+    /* flex-basis: 150px; */
+    /* flex-shrink: 0; */
+    /* flex-grow: 2; */
+}
+
+.item3 {
+    background-color: blueviolet;
+    flex: 1 0 200px;
+    /* flex-basis: 200px; */
+    /* flex-shrink: 1; */
+    /* flex-grow: 1; */
+}
+
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.register_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register_form input {
+    width: 230px;
+    margin-bottom: 10px;
+}
+
+.register_form button {
+    width: 90px;
 }
