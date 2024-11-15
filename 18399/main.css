@@ -1,5 +1,7 @@
-body {
-    background-color: rgb(161, 230, 220);
+html, body {
+    height: 100%;
+    background: rgb(100,149,221);
+    background: linear-gradient(180deg, rgba(100,149,221,1) 0%, rgba(101,127,56,1) 27%, rgba(61,61,25,1) 59%, rgba(61,25,41,1) 100%);
     color:black;
     margin: 0;
     padding: 0;
