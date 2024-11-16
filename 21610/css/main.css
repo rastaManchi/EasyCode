@@ -5,33 +5,23 @@ html, body {
 
 .grid-container  {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(25, 1fr);
     grid-gap: 10px;
 }
 
-.grid-item {
-    background-color: #ddd;
-    padding: 20px;
+.item {
+    border: 1px solid black;
 }
 
-.card-1 {
-    grid-column: span 2;
-    grid-row: span 1
+
+.nested-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
 }
 
-.card-2 {
-    grid-column: span 1;
-    grid-row: span 2;
-}
-.card-3 {
-    grid-column: span 1;
-    grid-row: span 1;
-}
-.card-4 {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-.card-9 {
-    grid-column: span 3;
+.nested-item {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
 }

@@ -1,128 +1,87 @@
-// const lion = {
-//     name: 'Симба',
-//     sound: 'p-p-p',
-//     makesound: function() {
-//         console.log(`${this.name} издает звук ${this.sound}`)
-//     }
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d')
+
+
+ctx.beginPath();
+// ctx.quadraticCurveTo(100, 0, 100, 300);
+ctx.moveTo(120, 250); // Нижняя левая точка облака
+ctx.bezierCurveTo(100, 230, 140, 200, 180, 220); // Левая верхняя часть
+ctx.bezierCurveTo(220, 180, 280, 180, 320, 220); // Верхняя часть облака
+ctx.bezierCurveTo(360, 200, 400, 230, 380, 250); // Правая верхняя часть
+ctx.bezierCurveTo(420, 290, 360, 320, 320, 300); // Правая нижняя часть
+ctx.bezierCurveTo(280, 340, 220, 340, 180, 300); // Нижняя часть облака
+ctx.bezierCurveTo(140, 320, 100, 290, 120, 250); // Левая нижняя часть
+ctx.fillStyle = 'lightgray';
+ctx.fill();
+ctx.strokeStyle = 'gray';
+ctx.stroke();
+
+// const player = new Image();
+// player.src = 'enemy.png';
+// player.onload = function() {
+//     ctx.drawImage(player, 20, 300, canvas.width, canvas.height)
 // }
 
-// const elephant = {
-//     name: 'Дамбо',
-//     sound: 'тууууу-тууууу',
-//     makesound: function() {
-//         console.log(`${this.name} издает звук ${this.sound}`)
-//     }
+// player.onerror = function() {
+//     console.log('Ошибка загрузки изображения!')
 // }
 
-// lion.makesound();
-// elephant.makesound();
 
-// class Animal {
-//     constructor(name, sound) {
-//         this.name = name;
-//         this.sound = sound;
-//     }
+ctx.beginPath();
+ctx.arc(250, 250, 100, 0, Math.PI * 2, true);
+ctx.fillStyle = 'yellow';
+ctx.fill();
+ctx.stroke();
+ctx.closePath();
 
-//     makeSound() {
-//         console.log(`${this.name} издает звук ${this.sound}`)
-//     }
-// }
+ctx.beginPath();
+ctx.arc(210, 220, 10, 0, Math.PI * 2, true);  
+ctx.arc(290, 220, 10, 0, Math.PI * 2, true);  
+ctx.fillStyle = 'black';
+ctx.fill();
+ctx.closePath();
 
-// const simba = new Animal('Симба', 'р-р-р');
-// const dumbo = new Animal('Дамбо', 'тууууу-тууууу');
-
-// simba.makeSound();
-// dumbo.makeSound();
-
-
-// class Car {
-//     constructor(brand, model, year) {
-//         this.brand = brand;
-//         this.model = model;
-//         this.year = year;
-//         this.mileage = 0;
-//     }
-
-//     drive(distance) {
-//         this.mileage += distance;
-//         console.log(`${this.brand} ${this.model} проехал ${distance} км. Общий пробег: ${this.mileage} км.`)
-//     }    
-// }
-
-// const MyCar = new Car('Toyota', 'Corolla', 2020)
-// MyCar.drive(50)
-// MyCar.drive(100)
-
-// class ElectricCar extends Car {
-//     constructor(brand, model, year, batteryCapacity) {
-//         super(brand, model, year);
-//         this.batteryCapacity = batteryCapacity;
-//         this.batteryLevel = 50;
-//     }
-
-//     charge(amount) {
-//         this.batteryLevel = Math.min(this.batteryLevel + amount, 100);
-//         console.log(`${this.brand} ${this.model} заряжен на ${this.batteryLevel}%`)
-//     }
-// }
-
-// const MyElectricCar = new ElectricCar('Tesla', 'Model Y', 2021, 50000);
-// MyElectricCar.drive(50);
-// MyElectricCar.drive(200);
-// MyElectricCar.charge(20);
-// MyElectricCar.charge(100);
+ctx.beginPath();
+ctx.arc(250, 250, 60, 0, Math.PI, false); 
+ctx.stroke();
+ctx.closePath();
 
 
-class Timer {
-    constructor() {
-        this.hoursinput = document.getElementById('hours');
-        this.minutesinput = document.getElementById('minutes');
-        this.secondsinput = document.getElementById('seconds');
-        this.display = document.getElementById('timer-display');
-        this.startButton = document.getElementById('start-button');
-        this.intervalid = null;
 
 
-        this.startButton.addEventListener('click', () => {
-            this.startTimer();
-        })
-    }
+// ctx.fillStyle = 'green';
+// ctx.fillRect(10, 10, 100, 100);
 
-    startTimer() {
-        let totalSeconds = parseInt(this.hoursinput.value || 0) * 3600 + parseInt(this.minutesinput.value || 0)*60 + parseInt(this.secondsinput.value || 0);
-        console.log(totalSeconds);
+// ctx.strokeStyle = 'red';
+// ctx.strokeRect(150, 10, 100, 100);
 
-        if (totalSeconds <= 0) {
-            alert("Укажите число больше 0 секунд")
-            return;
-        }
-
-        this.updateDisplay(totalSeconds);
+// ctx.clearRect(20, 20, 30, 30)
 
 
-        this.intervalid = setInterval(() => {
-            totalSeconds--;
-            this.updateDisplay(totalSeconds);
+// ctx.beginPath();
+// ctx.moveTo(350, 10);
+// ctx.lineTo(450, 10);
+// ctx.lineTo(450, 160);
+// ctx.closePath();
+// ctx.stroke();
 
-            if (totalSeconds <= 0) {
-                clearInterval(this.intervalid);
-            }
-        }, 1000);
+// ctx.beginPath();
+// ctx.moveTo(650, 10);
+// ctx.lineTo(700, 160);
+// ctx.lineTo(800, 160);
+// ctx.closePath();
+// ctx.fillStyle = 'yellow';
+// ctx.fill();
 
-    }
+// ctx.fillStyle = 'red';
+// ctx.stroke();
 
-    updateDisplay(totalSeconds) {
-        const hours = Math.floor(totalSeconds/3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+// ctx.beginPath();
+// ctx.arc(100, 200, 50, 0, Math.PI * 2, true);
+// ctx.strokeStyle = 'black';
+// ctx.stroke();
 
-        this.display.textContent = String(hours).padStart(2, '0') + ':' +
-        String(minutes).padStart(2, '0') + ':' +
-        String(seconds).padStart(2, '0');
-    }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    new Timer();
-})
-
+// ctx.beginPath();
+// ctx.arc(250, 200, 50, 0, Math.PI, true);
+// ctx.stroke();

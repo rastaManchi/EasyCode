@@ -1,17 +1,18 @@
-const dictionary = {
-    'привет': 'hello',
-    'мир': 'world'
+function test(keyword) {
+    const nickname = document.getElementById('nickname').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    user = {
+        nickname: nickname,
+        email: email,
+        password: password,
+        keyword: keyword
+    }
+    console.log(user)
 }
 
-for (let key in dictionary) {
-    console.log(`Ключ ${key} -- Значение ${dictionary[key]}`)
-}
 
-const a = 5;
-
-if (a>5){
-    console.log('...')
-}
+test('Тест')
 
 
 

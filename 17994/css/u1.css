@@ -1,31 +1,70 @@
 body {
-    background-color: rgba(72, 2, 95, 0.551);
-    color: white;
+    background-color: rgba(142, 142, 142, 0.551);
 }
 
-h2 {
-    color:cyan;
-    font-size: 30px;
-    font-weight: 400;
-    font-style: italic;
-    text-align: center;
-    text-decoration: underline;
-    text-transform: uppercase;
-    line-height: 1.5;
-    letter-spacing: 10px;
-    word-spacing: 50px;
-    text-shadow:  5px 5px 5px rgb(255, 40, 40);
+a {
+    font-size: 50px;
 }
 
-img {
-    width: 100px;
+li {
+    background-color: black;
+    padding: 10px;
+    margin: 5px;
+    transition: 0.5s;
 }
 
-p {
-    color: black;
+li:hover {
     background-color: white;
-    font-size: 24px;
-    font-family: Impact, sans-serif;
-    margin-bottom: 10px;
+}
+
+form {
+    background: -webkit-linear-gradient(45deg, rgb(22, 135, 186), rgb(87, 80, 195));
+    background: -moz-linear-gradient(45deg, rgb(22, 135, 186), rgb(87, 80, 195));
+    background: linear-gradient(45deg, rgb(22, 135, 186), rgb(87, 80, 195));
+    width: 300px;
     padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"], input[type="password"] {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    transition: 1s;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    -webkit-box-shadow: 0px 0px 20px 23px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 20px 23px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 20px 23px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    background-color: #83d4d7;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+    transition: 0.3s;
+}  
+
+button:hover {
+    background-color: #589193;
+    -webkit-box-shadow: 0px 0px 20px 7px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0px 0px 20px 7px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 20px 7px rgba(255, 255, 255, 0.2);
+}
+
+button:active {
+    background-color: yellow;
+}
+
+button:disabled {
+    display: none;
 }
