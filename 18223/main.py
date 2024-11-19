@@ -1,32 +1,14 @@
-mosc_mam = 861
-mosc_uch = 2399
-mam_uch = 1744
+import random
 
+user_choice = int(input('Выбери:\n1-ножницы\n2-камень\n3-бумага\n'))
+pc_choice = random.randint(1, 3)
 
-city1 = input('Введите город: ')
-city2 = input('Введите город: ')
-
-
-if city1 == 'Москва':
-    if city2 == 'Мамадыш':
-        print(mosc_mam)
-    elif city2 == 'Учкудук':
-        print(mosc_uch)
-    elif city2 == city1:
-        print(0)
-elif city1 == 'Мамадыш':
-    if city2 == 'Москва':
-        print(mosc_mam)
-    elif city2 == 'Учкудук':
-        print(mam_uch)
-    elif city2 == city1:
-        print(0)
-elif city1 == 'Учкудук':
-    if city2 == 'Мамадыш':
-        print(mam_uch)
-    elif city2 == 'Москва':
-        print(mosc_uch)
-    elif city2 == city1:
-        print(0)
+if (user_choice == 1 and pc_choice == 3) or \
+    (user_choice == 2 and pc_choice == 1) or \
+    (user_choice == 3 and pc_choice == 2):
+    print('Вы победили')
+elif user_choice == pc_choice:
+    print('Ничья')
 else:
-    print('Ошибка!')
+    print('Вы проиграли!')
+print(f'Пользователь {user_choice} -- Компьютер {pc_choice}')

@@ -1,17 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=x, initial-scale=1.0">
-    <title>Document</title>
+    <title>Типовой блок Шапка сайта</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="main.css">
-</head>
-<body>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h1>Текстовое Лого</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Ссылка 1</a></li>
+          <li><a href="#">Ссылка 2</a></li>
+          <li><a href="#">Ссылка 3</a></li>
+        </ul>
+      </nav>
+      <form class="search-form" action="#">
+        <input type="text" placeholder="Поиск">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </header>
+    
 
-    <div class="container">
-        <h1>Заголовок</h1>
-        <p>Текст</p>
-    </div>
+    <aside class="sidebar">
+        <div class="sidebar-heading">Последние блоговые записи</div>
+        <div class="blog-post">
+          <h3>Заголовок первой записи</h3>
+          <img src="image1.jpg" alt="Изображение первой записи">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu vestibulum leo. Nullam et eros eleifend, semper quam id, cursus risus.</p>
+          <span>Рубрика: Рубрика 1</span><br>
+          <span>Дата: 1 января 2024</span><br>
+          <span>Автор: Имя автора</span>
+        </div>
+        <div class="blog-post">
+          <h3>Заголовок второй записи</h3>
+          <img src="image2.jpg" alt="Изображение второй записи">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu vestibulum leo. Nullam et eros eleifend, semper quam id, cursus risus.</p>
+          <span>Рубрика: Рубрика 2</span><br>
+          <span>Дата: 2 января 2024</span><br>
+          <span>Автор: Имя автора</span>
+        </div>
+    </aside>
 
-</body>
+
+
+    <footer>
+        <div class="footer-column">
+            <h3>Контакты</h3>
+            <ul class="footer-links">
+            <li><a href="tel:123456789">Телефон: 123456789</a></li>
+            <li><a href="mailto:info@example.com">Email: info@example.com</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Политика конфиденциальности</h3>
+            <ul class="footer-links">
+            <li><a href="#">Условия использования</a></li>
+            <li><a href="#">Политика использования файлов Cookie</a></li>
+            <li><a href="#">Соглашение о конфиденциальности</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Социальные сети</h3>
+            <div class="footer-social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <p class="copyright">
+            &copy; 2022 Пример сайта. Все права защищены.
+            </p>
+        </div>
+    </footer>
+  
+  </body>
 </html>
+
