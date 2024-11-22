@@ -3,8 +3,8 @@ player = {
     'armor': 0.95,
     'hp': 100,
     'attack': 5,
-    'luck': 10,
-    'money': 10000,
+    'luck': 1000,
+    'money': 100000000,
     'inventory': []
 }
 
