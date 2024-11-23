@@ -1,27 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
 html, body {
-    background-color: grey;
-    color: black;
+    height: 100%;
+    background: rgb(100,149,221);
+    background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
 }
 
-.grid-container  {
-    display: grid;
-    grid-template-columns: repeat(25, 1fr);
-    grid-gap: 10px;
+.container {
+    min-width: 320px;
+    max-width: 1200px;
+    margin: auto;
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background-color: rgb(231, 76, 60);
+    flex-basis: 10vh;
+}
+main {
+    flex: 1 1 auto;
+    display: flex;
+}
+aside {
+    background-color: rgb(64, 224, 208);
+    flex-basis: 20%;
+}
+section {
+    background-color: rgb(243, 156, 18);
+    flex: 1 1 auto;
+}
+section+aside {
+    background-color: rgb(41, 128, 185);
+    flex-basis: 20%;
+}
+footer {
+    background-color: rgb(197, 17, 98);
+    flex-basis: 10vh;
 }
 
-.item {
-    border: 1px solid black;
+@media (max-width: 1200px) { /* большие экраны */
+    /* ваши стили */
 }
 
-
-.nested-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
+@media (max-width: 768px) { /* средние экраны */
+/* ваши стили */
 }
 
-.nested-item {
-    border: 1px solid black;
-    padding: 5px;
-    margin: 5px;
+@media (max-width: 480px) { /* малые экраны */
+/* ваши стили */
 }
+
+  
