@@ -7,36 +7,25 @@
         <link rel="stylesheet" href="css/u1.css">
     </head>
     <body>
-        
-        <header>
-            <ul>
-                <li>
-                    <a href="#">Главная</a>
-                </li>
-                <li>
-                    <a href="https://ya.ru" target="_blank">О нас</a>
-                </li>
-            </ul>
-        </header>
+        <ul>
+            <li class="buy">
+                <p>Молоко</p>
+            </li>
 
-        <form>
-            <div>
-                <input type="text">
-            </div>
-            
-            <div>
-                <input type="password">
-            </div>
-            
-            <div>
-                <input type="range" id="remember_me">
-                <label for="remember_me">Запомнить меня</label>
-            </div>
-            
-            <button disabled>Login</button>
-        </form>
+            <li>
+                <p>Яблоко</p>
+            </li>
 
-        
-
+            <li class="buy">
+                <p>Мед</p>
+            </li>
+        </ul>
     </body>
+
+    <script>
+        const button = document.getElementById("check");
+        button.addEventListener('click', function() {
+            alert("Вы нажали кнопку!")
+        })
+    </script>
 </html>

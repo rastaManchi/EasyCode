@@ -6,13 +6,14 @@ function test(keyword) {
         nickname: nickname,
         email: email,
         password: password,
-        keyword: keyword
+        csrf_token: keyword
     }
     console.log(user)
+    fetch('/test', {
+        method: "POST",
+        body: JSON.stringify(user)
+    })
 }
-
-
-test('Тест')
 
 
 

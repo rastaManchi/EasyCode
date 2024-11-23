@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    color: white;
+    background: rgb(100,149,221);
+    background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(238, 238, 238, 0.272);
+}
+
+h2 {
+    text-align: center;
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.272);
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
+}

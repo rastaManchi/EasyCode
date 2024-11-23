@@ -1,87 +1,166 @@
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d')
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+let x = canvas.width / 2;
+let y = canvas.height / 2;
+const speed = 5;
+let dx = 0;
+let dy = 0;
+
+// Враг
+let enemyX = canvas.width / 4;
+let enemyY = 50;
+const enemyWidth = 80;
+const enemyHeight = 50;
+let enemySpeed = 2;
+let enemyDx = enemySpeed;
 
 
-ctx.beginPath();
-// ctx.quadraticCurveTo(100, 0, 100, 300);
-ctx.moveTo(120, 250); // Нижняя левая точка облака
-ctx.bezierCurveTo(100, 230, 140, 200, 180, 220); // Левая верхняя часть
-ctx.bezierCurveTo(220, 180, 280, 180, 320, 220); // Верхняя часть облака
-ctx.bezierCurveTo(360, 200, 400, 230, 380, 250); // Правая верхняя часть
-ctx.bezierCurveTo(420, 290, 360, 320, 320, 300); // Правая нижняя часть
-ctx.bezierCurveTo(280, 340, 220, 340, 180, 300); // Нижняя часть облака
-ctx.bezierCurveTo(140, 320, 100, 290, 120, 250); // Левая нижняя часть
-ctx.fillStyle = 'lightgray';
-ctx.fill();
-ctx.strokeStyle = 'gray';
-ctx.stroke();
+const image = new Image();
+image.src = 'cursor.png';
 
-// const player = new Image();
-// player.src = 'enemy.png';
-// player.onload = function() {
-//     ctx.drawImage(player, 20, 300, canvas.width, canvas.height)
+let cursorImage = {
+    x: 0,
+    y: 0,
+    width: 24,
+    height: 24
+}
+
+canvas.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    cursorImage.x = event.clientX - rect.left - cursorImage.width/2;
+    cursorImage.y = event.clientY - rect.top - cursorImage.height/2;
+    draw();
+})
+
+// Функция для рисования квадрата
+function drawSquare() {
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(x, y, 50, 50);
+}
+
+// Функция для рисования врага
+function drawEnemy() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(enemyX, enemyY, enemyWidth, enemyHeight);
+}
+
+// Обработка нажатия клавиш
+function keyDownHandler(event) {
+    if (event.key === 'ArrowRight') {
+        dx = speed;
+    } else if (event.key === 'ArrowLeft') {
+        dx = -speed;
+    } else if (event.key === 'ArrowUp') {
+        dy = -speed;
+    } else if (event.key === 'ArrowDown') {
+        dy = speed;
+    }
+}
+
+// Обработка отпускания клавиш
+function keyUpHandler(event) {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        dx = 0;
+    }
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        dy = 0;
+    }
+}
+
+// Подписка на события клавиатуры
+document.addEventListener('keydown', keyDownHandler);
+document.addEventListener('keyup', keyUpHandler);
+
+// Проверка столкновений
+function checkCollision() {
+    if (x < enemyX + enemyWidth && x + 50 > enemyX && y < enemyY + enemyHeight && y + 50 > enemyY) {
+        stopGame();
+    }
+}
+
+// Остановка игры при столкновении
+function stopGame() {
+    dx = 0;
+    dy = 0;
+    enemyDx = 0;
+}
+
+// Запуск анимации
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(image, cursorImage.x, cursorImage.y, cursorImage.width, cursorImage.height);
+    drawSquare();
+    drawEnemy();
+    checkCollision();
+
+    x += dx;
+    y += dy;
+
+    // Обновление позиции врага
+    enemyX += enemyDx;
+    if (enemyX + enemyWidth > canvas.width || enemyX < 0) {
+        enemyDx = -enemyDx;
+    }
+}
+
+image.onload = animate();
+
+
+// Управление на стрелочки
+
+// let x = canvas.width / 2;
+// let y = canvas.height / 2;
+
+// const speed = 5;
+// let dx = 0;
+// let dy = 0;
+
+
+// function drawcursorImage() {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     ctx.fillStyle = 'purple';
+//     ctx.fillRect(x, y, 50, 50);
+//     x += dx;
+//     y += dy;
 // }
 
-// player.onerror = function() {
-//     console.log('Ошибка загрузки изображения!')
+
+// function keyDownHandler(event) {
+//     if (event.key == 'ArrowRight') {
+//         dx = speed;
+//     } else if (event.key == 'ArrowLeft') {
+//         dx = -speed;
+//     } else if (event.key == 'ArrowUp') {
+//         dy = -speed;
+//     } else if (event.key == 'ArrowDown') {
+//         dy = speed;
+//     }
 // }
 
 
-ctx.beginPath();
-ctx.arc(250, 250, 100, 0, Math.PI * 2, true);
-ctx.fillStyle = 'yellow';
-ctx.fill();
-ctx.stroke();
-ctx.closePath();
-
-ctx.beginPath();
-ctx.arc(210, 220, 10, 0, Math.PI * 2, true);  
-ctx.arc(290, 220, 10, 0, Math.PI * 2, true);  
-ctx.fillStyle = 'black';
-ctx.fill();
-ctx.closePath();
-
-ctx.beginPath();
-ctx.arc(250, 250, 60, 0, Math.PI, false); 
-ctx.stroke();
-ctx.closePath();
+// function keyUpHandler(event) {
+//     if (event.key == 'ArrowRight' || event.key == 'ArrowLeft') {
+//         dx = 0;
+//     } else if (event.key == 'ArrowUp' || event.key == 'ArrowDown') {
+//         dy = 0;
+//     }
+// }
 
 
+// document.addEventListener('keydown', keyDownHandler);
+// document.addEventListener('keyup', keyUpHandler);
 
 
-// ctx.fillStyle = 'green';
-// ctx.fillRect(10, 10, 100, 100);
-
-// ctx.strokeStyle = 'red';
-// ctx.strokeRect(150, 10, 100, 100);
-
-// ctx.clearRect(20, 20, 30, 30)
+// function animate() {
+//     requestAnimationFrame(animate);
+//     drawcursorImage();
+// }
 
 
-// ctx.beginPath();
-// ctx.moveTo(350, 10);
-// ctx.lineTo(450, 10);
-// ctx.lineTo(450, 160);
-// ctx.closePath();
-// ctx.stroke();
-
-// ctx.beginPath();
-// ctx.moveTo(650, 10);
-// ctx.lineTo(700, 160);
-// ctx.lineTo(800, 160);
-// ctx.closePath();
-// ctx.fillStyle = 'yellow';
-// ctx.fill();
-
-// ctx.fillStyle = 'red';
-// ctx.stroke();
-
-// ctx.beginPath();
-// ctx.arc(100, 200, 50, 0, Math.PI * 2, true);
-// ctx.strokeStyle = 'black';
-// ctx.stroke();
+// animate()
 
 
-// ctx.beginPath();
-// ctx.arc(250, 200, 50, 0, Math.PI, true);
-// ctx.stroke();
+
+
