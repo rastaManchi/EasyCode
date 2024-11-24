@@ -1,0 +1,38 @@
+div { 
+    background-color: black;
+    height: 100px;
+    width: 500px;
+    margin: 20px;
+}
+
+.block1 {
+    background-color: red;
+}
+
+.block2 {
+    background-color: yellow;
+}
+
+h2 {
+    text-align: center;
+    font-size: 36px;
+    color: green
+}
+
+#btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px
+}
+
+.about_us { 
+    background-color: gray;
+    color: white;
+}
+
+#about_us {
+    color: red;
+}
+
