@@ -1,40 +1,28 @@
-spisok = ['молоко', 'яблоки', 'сок', 'орехи', 10000]
-
-# spisok[0:3]
-# spisok[0] = 'газировка'
-
-# Методы добавления!
-# spisok.append(777)
-# spisok.insert(0, 777)
-
-# Методы удаления!
-# spisok.pop(1)
-# spisok.remove('орехи')
-
-# if 'молоко' in spisok:
-#     print('Молоко есть!')
-# else:
-#     print('Молока нет!')
-
-# if 5 < len(spisok):
-#     spisok.pop(5)
-# else:
-#     print('Элемента с индексом 5 в списке нет!')
+slides = {'Детская': 5, 'Закатное солнце': 20, 'Жираф': 31, 'Красный дракон': 53, 'Кантемир': 100}
 
 
-# films = []
-# for i in range(3):
-#     film_name = input('Введите название фильма: ')
-#     films.append(film_name)
-# print(films)
-# to_delete_film = input('Введите просмотренный фильм: ')
-# if to_delete_film in films:
-#     films.remove(to_delete_film)
-# else:
-#     print('Такой фильм не найден!')
-# print(films)
+for slide_name_key, slide_length_value in slides.items():
+    print(f'Горка {slide_name_key} -- {slide_length_value}')
 
-names = ['Булат', 'Артем', 'Илья']
 
-for name in names:
-    print(name)
+print(list(slides.items()))
+print(list(slides.keys()))
+print(list(slides.values()))
+# for key, value in slides.items():
+#     print(key, value)
+
+# del slides['Жираф']
+
+# name = input('Введите название новой горки: ')
+# метры = input('Введите длину горки: ')
+
+# slides[name] = метры
+
+
+# slide_name = input('Введите название горки, которую хотите посетить: ')
+# while slide_name != 'stop':
+#     if slide_name in slides:
+#         print(f'Протяженность горки {slide_name} составляет {slides[slide_name]} метр(а\ов)')
+#     else:
+#         print('Такой горки нет! ')
+#     slide_name = input('Пойдем на другую?: ')

@@ -1,38 +1,44 @@
-div { 
-    background-color: black;
-    height: 100px;
-    width: 500px;
-    margin: 20px;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.block1 {
-    background-color: red;
+html, body {
+    height: 100%;
 }
 
-.block2 {
-    background-color: yellow;
+body {
+    background: rgb(100,149,221);
+    background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
 }
 
-h2 {
+
+.section { 
+    background-color: rgba(255, 255, 255, 0.259);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#about-me {
+    background-color: rgba(0, 0, 0, 0.259);
+    color: white
+}
+
+.section-title {
     text-align: center;
-    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+#skills li {
     color: green
 }
 
-#btn {
-    background-color: gray;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 10px
+.section-content {
+    font-size: 25px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
-.about_us { 
-    background-color: gray;
-    color: white;
-}
-
-#about_us {
-    color: red;
-}
-
