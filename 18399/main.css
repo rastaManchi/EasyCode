@@ -1,81 +1,12 @@
-html, body {
-    height: 100%;
-    background-color: gray;
-    color:black;
+* {
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    color: red;
-    font-size: 50px;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    margin-bottom: 200px;
-    font-weight: 500;
-    font-style: italic;
-    text-align: center;
-    text-decoration: underline;
-    text-transform: uppercase;
-    line-height: 1.5;
-    letter-spacing: 20px;
-    word-spacing: 55px;
-    text-shadow: 0px 0px 20px rgb(0, 0, 0);
-}
-
-
-div {
-    background-color: black;
+html, body {
+    height: 100%;
     color: white;
-    margin: 10px;
-    padding: 15px;
-    border: 10px solid orange;
-    border-radius: 15px;
-    border-color: blueviolet;
-    border-width: 2px;
-    border-style:dashed;
-
-    
+    background: -webkit-linear-gradient(45deg, rgb(27, 25, 148), rgb(11, 11, 11));
+    background: -moz-linear-gradient(45deg, rgb(27, 25, 148), rgb(11, 11, 11));
+    background: linear-gradient(45deg, rgb(27, 25, 148), rgb(11, 11, 11));
 }
-
-form {
-    background: -webkit-linear-gradient(45deg, rgb(152, 207, 195), rgb(86, 181, 184));
-    background: -moz-linear-gradient(45deg, rgb(152, 207, 195), rgb(86, 181, 184));
-    background: linear-gradient(45deg, rgb(152, 207, 195), rgb(86, 181, 184));
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px
-}
-
-input[type="text"], input[type="password"] {
-    background-color: white;
-    transition: 0.15s;
-    padding: 5px;
-}
-
-
-input[type="text"]:focus, input[type="password"]:focus {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-}
-
-button {
-    border: none;
-    background-color: lightcyan;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-p {
-    position: absolute;
-    opacity: 0;
-    transition: 0.5s;
-}
-
-div:hover p {
-    position:relative;
-    display: flex;
-    opacity: 1;
-}
-

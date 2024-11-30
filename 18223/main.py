@@ -1,17 +1,17 @@
-spisok = ['Молоко', 'Яблоки', 'Сок', 'Вода']
+# spisok = ['Молоко', 'Яблоки', 'Сок', 'Вода']
 
-spisok.append("Туалетную бумагу")
+# spisok.append("Туалетную бумагу")
 
-spisok.pop(1)
-spisok.remove("Сок")
-del spisok[0]
-print(spisok)
+# spisok.pop(1)
+# spisok.remove("Сок")
+# del spisok[0]
+# print(spisok)
 
-for i in spisok:
-    print(i)
+# for i in spisok:
+#     print(i)
 
 
-print(len(spisok))
+# print(len(spisok))
 
 # films = []
 
@@ -29,3 +29,10 @@ print(len(spisok))
 #     print('Такого фильма в списе нет!')
 
 # print( films)
+
+list6 = [1, 2, 3, 'привет']
+
+print(type(list6))
+
+a = '10'
+print(type(a))

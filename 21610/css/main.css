@@ -4,55 +4,118 @@
 }
 
 html, body {
+    font-family: Arial, sans-serif;
     height: 100%;
-    background: rgb(100,149,221);
-    background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);  
 }
 
-.container {
-    min-width: 320px;
-    max-width: 1200px;
-    margin: auto;
-    min-height: 100vh;
-    height: auto;
+nav {
+    background: #0076d700;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu {
     display: flex;
-    flex-direction: column;
-}
-header {
-    background-color: rgb(231, 76, 60);
-    flex-basis: 10vh;
-}
-main {
-    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu > li {
+    position: relative;
+  }
+  
+
+  .menu > li > a {
     display: flex;
-}
-aside {
-    background-color: rgb(64, 224, 208);
-    flex-basis: 20%;
-}
-section {
-    background-color: rgb(243, 156, 18);
-    flex: 1 1 auto;
-}
-section+aside {
-    background-color: rgb(41, 128, 185);
-    flex-basis: 20%;
-}
-footer {
-    background-color: rgb(197, 17, 98);
-    flex-basis: 10vh;
-}
+    align-items: center;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .menu > li > a:hover {
+    background: #005bb5;
+  }
 
-@media (max-width: 1200px) { /* большие экраны */
-    /* ваши стили */
-}
+  .menu > li > a i {
+    margin-right: 8px;
+  }
+  
 
-@media (max-width: 768px) { /* средние экраны */
-/* ваши стили */
-}
+  /* Стили для подменю */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #005bb5;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    display: none;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .submenu li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .submenu li a:hover {
+    background-color: #004494;
+  }
+  
+  /* Показываем подменю при наведении */
+  .menu > li:hover .submenu {
+    display: block;
+  }
 
-@media (max-width: 480px) { /* малые экраны */
-/* ваши стили */
-}
-
+  /* Адаптивность */
+@media (max-width: 768px) {
+    nav {
+      position: static; /* Убираем фиксированное положение */
+      box-shadow: none; /* Убираем тень */
+    }
+  
+    .menu {
+      flex-direction: column; /* Меняем направление на вертикальное */
+      align-items: flex-start; /* Выравниваем элементы по левому краю */
+      padding-left: 10px; /* Добавляем отступы */
+    }
+  
+    .menu > li > a {
+      padding: 10px 15px; /* Уменьшаем отступы */
+      font-size: 14px; /* Уменьшаем шрифт */
+    }
+  
+    .submenu {
+      position: static; /* Убираем абсолютное позиционирование */
+      box-shadow: none; /* Убираем тень */
+      padding-left: 15px; /* Добавляем отступ */
+      background-color: transparent; /* Делаем фон прозрачным */
+    }
+  
+    .submenu li a {
+      font-size: 13px; /* Уменьшаем шрифт */
+      padding-left: 25px; /* Добавляем дополнительный отступ */
+      background-color: transparent; /* Убираем фон */
+      color: white; /* Оставляем белый текст */
+    }
+  }
+  
+  
+  
   

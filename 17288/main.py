@@ -1,24 +1,41 @@
-# spisok = ['Булат', 22, 'Казань', 'Учитель']
-# spisok[1] = 23
-
-# spisok.append('Закиров_в_конце')
-# spisok.insert(1, 'Закиров_в_начале')
-
-# print(spisok)
-
-# spisok.pop()
-# # del spisok[0]
-# spisok.remove('Казань')
-
-# print(spisok)
-
-# print(len(spisok))
-
-names = ['Булат', 'Максим', 'Павел', 'Артем', 'НОВОЕ', 21312381, 123123.123123]
-
-# for i in range(len(names)):
-#     print(names[i])
+character = ['Тревор', 50, 50, 100, 'джип']
 
 
-for name in names:
-    print(name)
+character_dict = {
+    'name': 'Тревор',
+    'age': 50,
+    'damage': 50,
+    'hp': 100,
+    'car': 'Джип'
+}
+
+character_dict['damage'] = 100
+
+character_dict['new_key'] = 'Новое значение'
+
+del character_dict['car']
+
+if 'car' in character_dict:
+    del character_dict['car']
+
+
+print(list(character_dict.items()))
+[
+ ('name', 'Тревор'), 
+ ('age', 50), 
+ ('damage', 100),
+ ('hp', 100), 
+ ('new_key', 'Новое значение')
+ ]
+
+for i in character_dict:
+    print(f'{i} -- {character_dict[i]}')
+
+for key, value in character_dict.items():
+    print(f'{key} -- {value}')
+
+
+
+character_dict.keys()
+character_dict.values()
+
