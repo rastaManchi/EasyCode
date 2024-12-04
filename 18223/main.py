@@ -1,38 +1,74 @@
-# spisok = ['Молоко', 'Яблоки', 'Сок', 'Вода']
+# products_name = ['Кастрюля', 'Ложка']
+# price = [500, 100]
 
-# spisok.append("Туалетную бумагу")
+# dict_1 = {
+#     'Кастрюля':500,
+#     'Ложка':100
+# }
 
-# spisok.pop(1)
-# spisok.remove("Сок")
-# del spisok[0]
-# print(spisok)
+# print(dict_1['Кастрюля'])
 
-# for i in spisok:
-#     print(i)
+# dict_1['Кастрюля'] = 200
+
+# dict_1['Утюг'] = 1000
+
+# del dict_1['Кастрюля']
+
+# dict_1['Пылесос'] = 99999999
+
+# if 'Пылесос' in dict_1:
+#     print(dict_1['Пылесос'])
+#     del dict_1['Пылесос']
+
+# print(dict_1)
+
+# dict_1 = {
+#     'Кастрюля':500,
+#     'Ложка':100
+# }
 
 
-# print(len(spisok))
+# for key, value in dict_1.items():
+#     print(f'{key} -- {value}')
 
-# films = []
 
-# for i in range(3):
-#     film_name = input('Введите название фильма: ')
-#     films.append(film_name)
+# print(list(dict_1.keys()))
+# print(list(dict_1.values()))
 
-# print(films)
+slides = {
+    'Детская': 5,
+    'Закатное солнце': 20,
+    'Жираф': 31,
+    'Красный дракон': 53,
+    'Каньемир': 100
+}
 
-# delete_name = input('Введите последний просмотренный фильм: ')
-# if delete_name in films:
-#     print('Фильм удален из списка')
-#     films.remove(delete_name)
-# else:
-#     print('Такого фильма в списе нет!')
 
-# print( films)
+# for i in slides:
+#     print(f'{i} -- {slides[i]}')
 
-list6 = [1, 2, 3, 'привет']
 
-print(type(list6))
+for name, length in slides.items():
+    print(f'{name} -- {length}')
 
-a = '10'
-print(type(a))
+
+del slides['Жираф']
+
+name = input('Введите название новой горки: ')
+length = int(input('Введите длину горки: '))
+
+slides[name] = length
+print(slides)
+
+
+name = input('Введите название горки: ')
+if name in slides:
+    print(f'Протяженность горки”{name}” составляет {slides[name]} метр(а/ов)')
+else:
+    print('Такой горки нет!')
+
+
+
+
+
+

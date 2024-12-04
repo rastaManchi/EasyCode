@@ -12,33 +12,106 @@ body {
     background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
 }
 
-
-.section { 
-    background-color: rgba(255, 255, 255, 0.259);
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-#about-me {
-    background-color: rgba(0, 0, 0, 0.259);
-    color: white
-}
-
-.section-title {
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid black;
+    
+  }
+  
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+nav li {
+    margin-right: 10px;
+    display: inline;
+  }
+  
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: 1s;
+  }
+nav a:hover{
+    border-bottom: 1px solid black;
+  }
+  
+main h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+figure {
+    margin: 0;
+    padding: 0;
     text-align: center;
     margin-bottom: 20px;
+    transition: 1s;
+  }
+figure:hover {
+    transform: scale(1.1);
+  }
+figure img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+figure figcaption {
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+section {
+    margin-bottom: 40px;
+  }
+article{
+    margin-bottom: 20px;
+  }
+  
+article h3 {
+    margin-top: 0;
+  }
+address {
+    margin-top: 10px;
+    font-style: normal;
+  }
+  
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+  }
+
+  
+.img_container {
+  margin-left: 50px;
+  font-size: 30px;
+  height: 200px;
+  width: 200px;
+  background-image: url("https://terminatori.ru/upload/iblock/d51/konstruktor_lego_mindstorms_ev3_51515_robot_izobretatel.jpeg");
+  background-size: cover;
 }
 
-ul {
-    list-style: none;
-}
-
-#skills li {
-    color: green
-}
-
-.section-content {
-    font-size: 25px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+h4 {
+  position:absolute;
+  left: 20px;
+  top: 20px;
+  color: red;
+  font-size: 45px;
 }
