@@ -4,59 +4,56 @@ body {
     padding: 0;
   }
   
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    gap: 10px;
   }
-  
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
   }
-  
-  nav ul li {
-    display: inline-block;
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
   }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
+  .item1 {
+    grid-row: 1 / 3;
+    grid-column: 1 / 3;
+  }
+  .item2 {
+    grid-row: 1 / 2; 
+    grid-column: 3 / 4;
+  }
+  .item3 {
+    grid-row: 2 / 4;
+    grid-column: 3 / 4;
+  }
+  .item4 {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+  }
+  .gallery-item .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
   }
-  
-  main {
-    padding: 20px;
+  .gallery-item:hover img {
+    transform: scale(1.1);
   }
-  
-  section {
-    margin-bottom: 30px;
+  .gallery-item:hover .overlay {
+    opacity: 1;
   }
-  
-  h1, h2, h3 {
-    color: #333;
-  }
-  
-  .articles-container {
-    display: flex;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
-  }
-  
-  .article {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
+
   
   
 
