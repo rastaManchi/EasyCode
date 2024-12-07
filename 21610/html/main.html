@@ -2,34 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Обеспечивает правильное масштабирование на мобильных устройствах -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Адаптивный сайт</title>
+    <!-- Подключает внешний CSS-файл -->
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Подключает FontAwesome для использования иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
 </head>
-
-    <nav>
-        <ul class="menu">
-            <li><a href="#">
-                <i class="fas fa-home"></i>
-                Главная</a>
-            </li>
-            <li><a href="#"><i class="fas fa-info-circle"></i> О нас</a></li>
-            <li>
-                <a href="#"><i class="fas fa-plane"></i> Туры и путешествия</a>
-                <ul class="submenu">
-                    <li><a href="#">Внутренние туры</a></li>
-                    <li><a href="#">Международные туры</a></li>
-                    <li><a href="#">Горящие путевки</a></li>
-                </ul>
-            </li>
-            <li><a href="#"><i class="fas fa-concierge-bell"></i> Услуги</a></li>
-            <li><a href="#"><i class="fas fa-newspaper"></i> Новости и акции</a></li>
-            <li><a href="#"><i class="fas fa-images"></i> Галерея</a></li>
-            <li><a href="#"><i class="fas fa-phone"></i> Контакты</a></li>
-        </ul>
-    </nav>
-
-      
+<body>
+    <!-- Контейнер для всего содержимого страницы -->
+    <div class="container">
+        <!-- Шапка сайта -->
+        <header>
+            <!-- Заголовок или логотип -->
+            <h1>название или лого</h1>
+            <!-- Навигационное меню -->
+            <nav>
+                <a class="active" href="">Меню</a>
+                <a href="">Меню</a>
+                <a href="">Меню</a>
+                <a href="">Меню</a>
+            </nav>
+        </header>
+        <!-- Основной контент страницы -->
+        <main>
+            <!-- Левая боковая панель -->
+            <aside>
+                <div>
+                    <h3>Новости</h3>
+                    <!-- Блок новости -->
+                    <article class="news">
+                        <strong>Категория новости</strong>
+                        <h2><a href="">Яркий заголовок</a></h2>
+                        <p>Небольшое, но цепляющее описание, которое будет отображено на  странице</p>
+                    </article>
+                    <!-- Блок новости -->
+                    <article class="news">
+                        <strong>Категория новости</strong>
+                        <h2><a href="">Яркий заголовок</a></h2>
+                        <p>Небольшое, но цепляющее описание, которое будет отображено на странице</p>
+                    </article>
+                    <!-- Блок новости -->
+                    <article class="news">
+                        <strong>Категория новости</strong>
+                        <h2><a href="">Яркий заголовок</a></h2>
+                        <p>Небольшое, но цепляющее описание, которое будет отображено на        странице</p>
+                    </article>        
+            </aside>
+            <!-- Основной контент -->
+            <section>
+                <article>
+                    <!-- Заголовок статьи -->
+                    <h2>Заголовок статьи главной страницы</h2>
+                    <!-- Авторство -->
+                    <em>Авторство</em>
+                    <!-- Изображение статьи -->
+                    <img src="здесь ссылка на ваше изображение" alt="">
+                    <!-- Текст статьи -->
+                    <p>Оформите интересное содержание вводной статьи. Расскажите о чем-то, делите текст на абзацы для удобства чтения, выделяйте главные мысли. Соблюдайте нормы языка, следите за речью и знаками препинания.</p>
+                    <p>Оформите интересное содержание вводной статьи. Расскажите о чем-то, делите текст на абзацы для удобства чтения, выделяйте главные мысли. Соблюдайте нормы языка, следите за речью и знаками препинания.</p>
+                    <p>Оформите интересное содержание вводной статьи. Расскажите о чем-то, делите текст на абзацы для удобства чтения, выделяйте главные мысли. Соблюдайте нормы языка, следите за речью и знаками препинания.</p>
+                    
+                    <!-- Ссылки на социальные сети -->
+                    <div class="social"> <a class="social-link" href="#" title="Facebook">
+                          <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a class="social-link" href="#" title="Twitter">
+                          <i class="fab fa-twitter"></i>
+                      </a>
+                      <a class="social-link" href="#" title="Instagram">
+                          <i class="fab fa-instagram"></i>
+                      </a>
+                  </div>
+                </article>
+            </section>
+            <!-- Правая боковая панель -->
+            <aside>
+                <div>
+                    <h3>Рубрикатор</h3>
+                    <!-- Блок рубрикатора -->
+                    <figure>
+                        <img src="здесь ссылка на вашу картинку" alt="">
+                        <figcaption>
+                            <p>Выделите главную мысль статьи</p>
+                            <em>рубрика</em>
+                        </figcaption>
+                    </figure>
+                    <!-- Блок рубрикатора -->
+                    <figure>
+                        <img src="здесь ссылка на вашу картинку" alt="">
+                        <figcaption>
+                            <p>Выделите главную мысль статьи</p>
+                            <em>рубрика</em>
+                        </figcaption>
+                    </figure>
+                </div>
+            </aside>
+        </main>
+    </div>
 </body>
 </html>

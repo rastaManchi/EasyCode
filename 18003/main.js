@@ -1,145 +1,123 @@
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
-const tankImage = new Image();
-tankImage.src = 'tank.png'; // Убедитесь, что путь к изображению правильный
+canvas.width = 400;
+canvas.height = 400;
 
-const bulletImage = new Image();
-bulletImage.src = 'bullet.png'; // Убедитесь, что путь к изображению правильный
+let levelindex = 0;
+let score = 0;
 
-const explosionImage = new Image();
-explosionImage.src = 'explosion.png'; // Убедитесь, что путь к изображению правильный
+const tileSize = 40;
 
-const enemyTankImage = new Image();
-enemyTankImage.src = 'enemy_tank.png'; // Убедитесь, что путь к изображению правильный
+const x = 'triger';
 
-const tank = {
-    x: 400,
-    y: 500,
-    width: 50,
-    height: 50
-};
-
-const bullets = [];
-let explosion = null;
-
-const enemyTank = {
-    x: 400,
-    y: 100,
-    width: 50,
-    height: 50,
-    lives: 3,
-    alive: true
-};
-
-document.addEventListener('click', (event) => {
-    shootBullet(event.clientX, event.clientY);
-});
-
-function shootBullet(targetX, targetY) {
-    const startX = tank.x + tank.width / 2;
-    const startY = tank.y + tank.height / 2;
-    const angle = Math.atan2(targetY - startY, targetX - startX);
-
-    bullets.push({
-        x: startX,
-        y: startY,
-        width: 10,
-        height: 10,
-        speed: 5,
-        dx: Math.cos(angle) * 5,
-        dy: Math.sin(angle) * 5
-    });
+let player = {
+    x: 1,
+    y: 1,
 }
 
-function updateBullets() {
-    bullets.forEach((bullet, index) => {
-        bullet.x += bullet.dx;
-        bullet.y += bullet.dy;
-        if (bullet.x + bullet.width < 0 || bullet.x > canvas.width ||
-            bullet.y + bullet.height < 0 || bullet.y > canvas.height) {
-            bullets.splice(index, 1);
-        }
-    });
-}
+let lvls = [
+    [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 1, 0, 1, 1, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+        [1, 0, 1, 0, 1, x, 1, 0, 0, 1 ],
+        [1, 0, 0, 0, 1, 0, 0, 0, 0, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ],
 
-function drawTank() {
-    ctx.drawImage(tankImage, tank.x, tank.y, tank.width, tank.height);
-}
+    [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 0, 0, 0, 0, 0, 0, 1 ],
+        [1, 0, x, 0, 1, 0, 0, 0, 0, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+    ]
+]
 
-function drawBullets() {
-    bullets.forEach(bullet => {
-        ctx.drawImage(bulletImage, bullet.x, bullet.y, bullet.width, bullet.height);
-    });
-}
 
-function drawEnemyTank() {
-    if (enemyTank.alive) {
-        ctx.drawImage(enemyTankImage, enemyTank.x, enemyTank.y, enemyTank.width, enemyTank.height);
-    }
-}
+function drawLevel() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const lvl_map = lvls[levelindex]
+    for (let y = 0; y < lvl_map.length; y++) {
+        for (let x = 0; x < lvl_map[y].length; x++) {
+            if (lvl_map[y][x] === 1) {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+            }
 
-function drawEnemyLives() {
-    ctx.font = '20px Arial';
-    ctx.fillStyle = 'red';
-    ctx.fillText(`Lives: ${enemyTank.lives}`, enemyTank.x, enemyTank.y - 10);
-}
-
-function checkBulletCollision() {
-    bullets.forEach((bullet, bulletIndex) => {
-        if (enemyTank.alive && bullet.x < enemyTank.x + enemyTank.width &&
-            bullet.x + bullet.width > enemyTank.x &&
-            bullet.y < enemyTank.y + enemyTank.height &&
-            bullet.y + bullet.height > enemyTank.y) {
-            // Пуля попала во вражеский танк
-            enemyTank.lives -= 1;
-            bullets.splice(bulletIndex, 1);
-
-            if (enemyTank.lives <= 0) {
-                enemyTank.alive = false;
-                // Создание взрыва
-                explosion = {
-                    x: enemyTank.x + enemyTank.width / 2 - 25,
-                    y: enemyTank.y + enemyTank.height / 2 - 25,
-                    size: 50,
-                    duration: 30
-                };
-                alert('Вы выиграли!');
+            else if (lvl_map[y][x] === 'triger') {
+                ctx.fillStyle = '#00F';
+                ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
             }
         }
-    })
-};
+    }
+
+    ctx.fillStyle = "#FFF";
+    ctx.font = '20px Arial';
+    ctx.fillText('Счет: ' + score, 150, 24);
+
+    ctx.fillStyle = "#F00";
+    ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
+}
 
 
-function drawExplosion() {
-    if (explosion) {
-        ctx.drawImage(explosionImage, explosion.x, explosion.y, explosion.size, explosion.size);
-        explosion.duration -= 1;
+function resetPlayerPosition() {
+    player.x = 1;
+    player.y = 1;
+}
 
-        if (explosion.duration <= 0) {
-            explosion = null;
-        }
+
+function CheeckGameOver() {
+    if (levelindex > 1) {
+        levelindex = 0;
     }
 }
 
-function update() {
-    updateBullets();
-    checkBulletCollision();
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function movePlayer(dx, dy) {
+    const newX = player.x + dx;
+    const newY = player.y + dy;
+    const level = lvls[levelindex];
 
-    drawTank();
-    drawBullets();
-    drawEnemyTank();
-    if (enemyTank.alive) {
-        drawEnemyLives();
+    if (newX < 0 || newX >= level[0].length || newY < 0 || newY >= level.length) {
+        return;
     }
-    drawExplosion();
 
-    requestAnimationFrame(update);
+    if (level[newY][newX] === 1) {
+        return;
+    }
+
+    player.x = newX;
+    player.y = newY;
+
+    if (level[newY][newX] === 'triger') {
+        levelindex++;
+        score += 10;
+        resetPlayerPosition();
+    }
+
+    CheeckGameOver();
+    drawLevel();
 }
 
-// Запуск игры после загрузки всех изображений
-window.onload = () => {
-    update();
-};
+
+movePlayer(0, 0)
+
+
+function keyDownHandler(event) {
+    if (event.key === "d" || event.key === "D" || event.key === 'в' || event.key === 'В' || event.key === 'ArrowRight') {
+        movePlayer(1, 0);
+    } else if (event.key === "a" || event.key === "A" || event.key === 'ф' || event.key === 'Ф' || event.key === 'ArrowLeft') {
+        movePlayer(-1, 0);
+    } else if (event.key === "w" || event.key === "W" || event.key === 'ц' || event.key === 'Ц' || event.key === 'ArrowUp') {
+        movePlayer(0, -1);
+    } else if (event.key === "s" || event.key === "S" || event.key === 'ы' || event.key === 'Ы' || event.key === 'ArrowDown') {
+        movePlayer(0, 1);
+    }
+}
+
+document.addEventListener('keydown', keyDownHandler);

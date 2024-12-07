@@ -1,18 +1,28 @@
-products_dict = {
-    'Кастрюля': 500,
-    'Тарелка': 300
+films = {
+   'Магия': [
+       ['Гарри Поттер и Философский Камень', 2001],
+       ['Фантастические твари и где они обитают', 2016],
+       ['Хроники Нарнии', 2005]
+       ],
+   'Фантастика': [
+       ['Матрица', 1999],
+       ['Господин Никто', 2000],
+       ['Я - начало', 2014]
+       ],
+   'Космос': [
+       ['Интерстеллар', 2014],
+       ['Марсианин', 2015],
+       ['Пассажиры', 2016]
+   ],
+   'Marvel': [
+       ['Мстители: Война бесконечности', 2018],
+       ['Дэдпул', 2016],
+       ['Стражи галактики', 2014]
+   ]
 }
 
-# print(products_dict['Кастрюля'])
-
-# products_dict['Тарелка'] = 600
-# products_dict['NEW'] = 3000
-
-# del products_dict['NEW']
-
-for key, value in products_dict.items():
-    print(f'Ключ: {key} -- Значение: {value}')
-
-products_dict.items()
-products_dict.keys()
-products_dict.values()
+for key in films:
+    print(key)
+    for film_info in films[key]:
+        #print('\t' + film_info[0] + ' -- ' + str(film_info[1]))
+        print(f'\t{film_info[0]} -- {film_info[1]}')
