@@ -4,14 +4,95 @@
 }
 
 html, body {
+    font-size: 20px;
     height: 100%;
-    color: rgb(0, 0, 0);
+    color: white;
     background: rgb(100,149,221);
     background: linear-gradient(113deg, rgba(100,149,221,1) 0%, rgba(226,60,133,1) 100%);
 }
 
-.register {
-  background-color: aqua;
-  height: 300px;
-  width: 300px;
+.parent {
+  display: flex;
+  width: 100%;
 }
+
+.block {
+  transition: width 0.3s;
+}
+
+.block1 {
+  width: 30%;
+  background-color: blue;
+}
+
+.block2 {
+  width: 50%;
+  background-color: red;
+}
+
+.block3 {
+  width: 20%;
+  background-color: black;
+}
+
+.block:hover {
+  width: calc(50% + 10%);
+}
+
+.block1:hover ~ .block2 {
+  width: calc(50%-5%);
+}
+
+.block1:hover ~ .block3 {
+  width: calc(20%-5%);
+}
+
+
+.block2:hover ~ .block1 {
+  width: calc(30%-5%);
+}
+
+.block2:hover ~ .block3 {
+  width: calc(20%-5%);
+}
+
+
+.block3:hover ~ .block1 {
+  width: calc(30%-5%);
+}
+
+.block3:hover ~ .block2 {
+  width: calc(50%-5%);
+}
+
+
+.menu {
+  font-size: 50px;
+  list-style: none;
+  display: flex;
+}
+
+.menu-item {
+  margin-right: 1.5em;
+}
+
+h1 {
+  font-size: 2rem;
+}
+p {
+  font-size: 1.2rem;
+}
+.box {
+  width: 10rem;
+  height: 10rem;
+  background: green;
+}
+
+.container {
+  width: 60vw;
+  height: 20vh;
+  margin: 0 auto;
+  background-color: lightgray;
+  padding: 20px;
+}
+

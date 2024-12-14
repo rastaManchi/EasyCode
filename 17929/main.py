@@ -1,28 +1,43 @@
-films = {
-   'Магия': [
-       ['Гарри Поттер и Философский Камень', 2001],
-       ['Фантастические твари и где они обитают', 2016],
-       ['Хроники Нарнии', 2005]
-       ],
-   'Фантастика': [
-       ['Матрица', 1999],
-       ['Господин Никто', 2000],
-       ['Я - начало', 2014]
-       ],
-   'Космос': [
-       ['Интерстеллар', 2014],
-       ['Марсианин', 2015],
-       ['Пассажиры', 2016]
-   ],
-   'Marvel': [
-       ['Мстители: Война бесконечности', 2018],
-       ['Дэдпул', 2016],
-       ['Стражи галактики', 2014]
-   ]
-}
+import random 
 
-for key in films:
-    print(key)
-    for film_info in films[key]:
-        #print('\t' + film_info[0] + ' -- ' + str(film_info[1]))
-        print(f'\t{film_info[0]} -- {film_info[1]}')
+
+def summa(a, b):
+    result = a + b
+    return result
+
+result = 0
+result = summa(10, 5)
+print(result)
+
+# def create_card():
+#     card_number = random.randint(1000000000000000, 9999999999999999)
+#     return card_number
+
+
+# def get_card_end(month, year):
+#     end_year = year + 4
+#     return f'{month}/{end_year}'
+
+
+# card_number = create_card()
+# card_end_date = get_card_end(12, 2024)
+# print(f'Номер карты: {card_number}\nДействует до {card_end_date}')
+
+
+# def buy(balance, price):
+#     if balance >= price:
+#         balance -= price
+#         return {'status': True, 'new_balance': balance}
+#     return {'status': False, 'Error': 'Недостаточно средств!'}
+
+
+# def check_buy_status(buy_status):
+#     if buy_status['status']:
+#         print(f'Покупка прошла успешно!\nВаш баланс -- {buy_status["new_balance"]}')
+#     else:
+#         print(buy_status['Error'])
+
+
+# buy_status = buy(500, 700)
+# check_buy_status(buy_status)
+
