@@ -1,11 +1,4 @@
-c = 0
+import config
 
 
-def summa():
-    global c
-    c += 1
-    print(f'локальная: {c}')
-
-
-summa()
-print(f'Глобальная: {c}')
+config.start()

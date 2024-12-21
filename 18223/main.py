@@ -1,39 +1,16 @@
-films = {
-   'Магия': [
-       ['Гарри Поттер и Философский Камень', 2001],
-       ['Фантастические твари и где они обитают', 2016],
-       ['Хроники Нарнии', 2005]
-       ],
-   'Фантастика': [
-        {
-            'name': 'Матрица',
-            'age': 1999
-        },
-        {
-            'name': 'Господин никто',
-            'age': 2000
-        },
-        {
-            'name': 'Я-начало',
-            'age': 2014
-        }
-       ],
-   'Космос': [
-       'Интерстеллар',
-       'Марсианин',
-       'Пассажиры'
-   ],
-   'Marvel': [
-       'Мстители: Война бесконечности',
-       'Дэдпул',
-       'Стражи галактики'
-   ]
-}
+import random
 
 
-for i in films['Магия']:
-    print(f'Название:{i[0]}\nгод выпуска:{i[1]}\n\n')
+def get_number():
+    number = random.randint(10, 30)
+    while number in numbers:
+        number = random.randint(10, 30)
+    numbers.append(number)
+    return number 
 
+numbers = []
+for i in range(15):
+    get_number()
 
-for i in films['Фантастика']:
-    print(f"{i['name']} -- {i['age']}")
+for card_number in numbers:
+    print(card_number, end='\n')

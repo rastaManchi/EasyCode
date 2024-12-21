@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import time
 
 pygame.init()
 
@@ -22,13 +23,13 @@ player_image = pygame.transform.scale(image, (player.width, player.height))
 direction = ''
 
 
-player2 = pygame.Rect(0, 0, 50, 61)
+player2 = pygame.Rect(200, 200, 50, 61)
 # player_image = pygame.image.load('player.png') # Если изначальный размер картинки нас устраивает
 image2 = pygame.image.load('player.png')
 player_image2 = pygame.transform.scale(image2, (player2.width, player2.height))
 
 direction2 = ''
-
+start_game = time.time()
 while True:
 
     for event in pygame.event.get():
@@ -51,17 +52,17 @@ while True:
                 direction2 = 'right'
             elif event.key == pygame.K_a:
                 direction2 = 'left'
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP or \
-                        event.key == pygame.K_DOWN or \
-                        event.key == pygame.K_RIGHT or \
-                        event.key == pygame.K_LEFT:
-                direction = ''
-            if event.key == pygame.K_w or \
-                        event.key == pygame.K_s or \
-                        event.key == pygame.K_d or \
-                        event.key == pygame.K_a:
-                direction2 = ''
+        # if event.type == pygame.KEYUP:
+        #     if event.key == pygame.K_UP or \
+        #                 event.key == pygame.K_DOWN or \
+        #                 event.key == pygame.K_RIGHT or \
+        #                 event.key == pygame.K_LEFT:
+        #         direction = ''
+        #     if event.key == pygame.K_w or \
+        #                 event.key == pygame.K_s or \
+        #                 event.key == pygame.K_d or \
+        #                 event.key == pygame.K_a:
+        #         direction2 = ''
 
     screen.fill(BG)
     if direction == 'up':
@@ -81,6 +82,40 @@ while True:
         player2.x += 5
     elif direction2 == 'left':
         player2.x -= 5
+
+    if player2.height * player2.width > 3050 and time.time() - start_game >= 1:
+        print('Уменьшается')
+        start_game = time.time()
+        player2.width -= 1
+        player2.height -= 1
+        player_image2 = pygame.transform.scale(image2, (player2.width, player2.height))
+
+
+
+    if player.colliderect(player2):
+        if player.width * player.height >= player2.width * player2.height:
+            player2.x = random.randint(0, 450)
+            player2.y = random.randint(0, 450)
+            player2.height = random.randint(61, 150)
+            player2.width = random.randint(50, 150)
+            player_image2 = pygame.transform.scale(image2, (player2.width, player2.height))
+            player.height += 20
+            player.width += 20
+            player_image = pygame.transform.scale(image, (player.width, player.height))
+        else:
+            player.x = 0
+            player.y = 0
+            player.width = 50
+            player.height = 61
+            player2.width = 50
+            player2.height = 61
+            player_image = pygame.transform.scale(image, (player.width, player.height))
+            player_image2 = pygame.transform.scale(image2, (player2.width, player2.height))
+
+
+
+
+
     # pygame.draw.rect(screen, TOMATO, player) Квадрат вместо игрока
     screen.blit(player_image, player)
     screen.blit(player_image2, player2)

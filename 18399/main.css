@@ -6,33 +6,57 @@
 html, body {
   background-color: gray;
   height: 100%;
+  font-size: 25px;
 }
 
 
-.container {
-  color: white;
-  background-color: black;
+.menu {
   display: flex;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 10px;
-  
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  justify-content: center;
+  background: #fff;
+  width: fit-content;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  position: relative;
+  padding: 0 1em;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  padding: 0.75em 1.5em;
+}
+
+.submenu {
+  left: 100%;
+  top: 0;
+  position: absolute;
+  padding-left: 100px;
+  display: none;
+}
+
+.submenu_list {
+  background-color: aqua;
+  list-style-type: none;
+}
+
+.menu-item:hover {
+  background-color: bisque;
+}
+
+.menu-item:hover .submenu {
+  display: block;
 }
 
 
-.item {
-  border: 1px solid white;
-  border-radius: 10px;
-  padding: 2px 10px;
-  transition: 0.5s;
-}
-
-.item:hover {
-  background-color: white;
-  color: black;
-  transform: scale(1.15);
-}

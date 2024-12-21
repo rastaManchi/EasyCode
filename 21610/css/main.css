@@ -8,43 +8,147 @@ html {
   font-size: 16px; /* 1em = 16px */
 }
 
-body {
-  /* Скроем контент, превышающий ширину окна браузера */
-  overflow-x: hidden;
-  /* Устанавливаем основной шрифт контента */
-  font-family: Helvetica, Tahoma, Verdana, sans-serif;
-  font-size: 1rem; /* 16px */
-  color: rgb(75, 75, 75);
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 16px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: show-hide-notification 8s infinite;
 }
 
-
-header {
-  background-color: gray;
-  text-align: center;
-  margin: 2px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-main {
-  background-color: rgba(0, 0, 0, 0.071);
-  margin: 2px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.features {
-  display: flex;
-  flex-direction: column;
-}
-
-
-@media (min-width: 700px)
-{
-  .features {
-    flex-direction: row;
+@keyframes show-hide-notification {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  12.5% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  62.5% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
   }
 }
+
+
+.help-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff6347;
+  color: #fff;
+  text-align: center;
+  line-height: 60px;
+  font-family: Impact;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 99, 71, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0);
+  }
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #000 transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.typewriter {
+  overflow: hidden; /* Скрывает текст, который выходит за пределы элемента */
+  white-space: nowrap; /* Не допускает перенос строк */
+  margin: 0 auto; /* Центрирует элемент по горизонтали */
+  animation: typing 3.5s steps(30, end);
+}
+
+
+@keyframes typing {
+  0% {width: 0;}
+  100% {width: 100%;}
+}
+
+
+.morph {
+  width: 200px;
+  height: 200px;
+  background-color: #ff6347;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: morph 6s infinite;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 50%;
+  }
+  16.67% {
+    border-radius: 0 0 50% 50%;
+  }
+  33.33% {
+    border-radius: 0 50% 50% 0;
+  }
+  50% {
+    border-radius: 50% 50% 0 0;
+  }
+  66.67% {
+    border-radius: 0;
+  }
+  83.33% {
+    border-radius: 50% 0 0 50%;
+  }
+  100% {
+    border-radius: 50%;
+  }
+}
+
+
+
 
 
 
