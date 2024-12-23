@@ -81,3 +81,17 @@ while True:
         else:
             print(f'Противник - {enemy["name"]}: {enemy["loss"]}')
         player['hp'] = 100
+    elif action == '2':
+        training_type = input('''1 - тренировать атаку
+2 - тренировать защиту
+''') 
+        for i in range(0, 101, 20):
+            print(f'Тренировка завершена на {i}%')
+            sleep(1.5)
+        if training_type == '1':
+            player['attack'] += 2
+            print(f'Тренировка окончена! Теперь ваша величина атаки равна {player["attack"]}')
+        elif training_type == '2':
+            player['armor'] += 100
+            print(f'Тренировка окончена! Теперь ваша величина защиты равна {player["armor"]}')
+        print()
