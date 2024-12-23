@@ -101,7 +101,7 @@ html {
   overflow: hidden; /* Скрывает текст, который выходит за пределы элемента */
   white-space: nowrap; /* Не допускает перенос строк */
   margin: 0 auto; /* Центрирует элемент по горизонтали */
-  animation: typing 3.5s steps(30, end);
+  animation: typing 3.5s steps(30, end) infinite;
 }
 
 
@@ -120,7 +120,7 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  animation: morph 6s infinite;
+  animation: morph 2s infinite;
 }
 
 @keyframes morph {
