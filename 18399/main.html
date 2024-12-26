@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- <style>
         body {
             background-color: rgb(161, 230, 220);
@@ -15,24 +16,108 @@
 <body>
    
   
-  <nav class="menu">
-    <ul class="menu-list">
-      <li class="menu-item"><a href="#">Главная</a></li>
-      <li class="menu-item">
-        <a href="#">Услуги</a>
-        <div class="submenu">
-          <ul class="submenu_list">
-            <li><a href="#">Веб-разработка</a></li>
-            <li><a href="#">Мобильная разработка</a></li>
-          </ul>
-        </div>
-          
-      </li>
-      <li class="menu-item"><a href="#">Проекты</a></li>
-      <li class="menu-item"><a href="#">Команда</a></li>
-      <li class="menu-item"><a href="#">Контакты</a></li>
-    </ul>
-  </nav>
+  <header>
+    <div class="logo">
+      <h1>Текстовое Лого</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Ссылка 1</a></li>
+        <li><a href="#">Ссылка 2</a></li>
+        <li><a href="#">Ссылка 3</a></li>
+      </ul>
+    </nav>
+    <form class="search-form" action="#">
+      <input type="text" placeholder="Поиск">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </header>
+
+
+  <div class="container">
+    <div class="main-content">
+      <h1>Заголовок основного контента</h1>
+      <p>Основное содержимое страницы здесь...</p>
+    </div>
+    <aside class="sidebar">
+      <div class="advertisement">
+        <img src="ad1.jpg" alt="Рекламное изображение">
+        <h3>Специальное предложение</h3>
+        <p>Получите скидку 20% на все товары!</p>
+      </div>
+      <div class="advertisement">
+        <img src="ad2.jpg" alt="Рекламное изображение">
+        <h3>Новая коллекция</h3>
+        <p>Узнайте о последних трендах в моде.</p>
+      </div>
+      <div class="highlighted-advertisement">
+        <h3>Эксклюзивное предложение</h3>
+        <p>Бесплатная доставка для заказов выше $50.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <div class="main-content">
+      <h1>Заголовок основного контента</h1>
+      <p>Основное содержимое страницы здесь...</p>
+    </div>
+    <aside class="sidebar">
+      <div class="advertisement">
+        <img src="ad1.jpg" alt="Рекламное изображение">
+        <h3>Специальное предложение</h3>
+        <p>Получите скидку 20% на все товары!</p>
+      </div>
+      <div class="advertisement">
+        <img src="ad2.jpg" alt="Рекламное изображение">
+        <h3>Новая коллекция</h3>
+        <p>Узнайте о последних трендах в моде.</p>
+      </div>
+      <div class="highlighted-advertisement">
+        <h3>Эксклюзивное предложение</h3>
+        <p>Бесплатная доставка для заказов выше $50.</p>
+      </div>
+    </aside>
+  </div>
+
+
+
+  <footer>
+    <div class="footer-column">
+      <h3>Контакты</h3>
+      <ul class="footer-links">
+        <li><a href="tel:123456789">Телефон: 123456789</a></li>
+        <li><a href="mailto:info@example.com">Email: info@example.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Политика конфиденциальности</h3>
+      <ul class="footer-links">
+        <li><a href="#">Условия использования</a></li>
+        <li><a href="#">Политика использования файлов Cookie</a></li>
+        <li><a href="#">Соглашение о конфиденциальности</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Социальные сети</h3>
+      <div class="footer-social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-column">
+      <p class="copyright">
+        &copy; 2022 Пример сайта. Все права защищены.
+      </p>
+    </div>
+  </footer>
+
+
   
 
 

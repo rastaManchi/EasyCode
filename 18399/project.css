@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+html, body {
+    background-color: rgb(71, 70, 70);
+    color: white
+}
+
+.container_ivan12 {
+    display: flex;
+    flex-direction: row;
+}
+
+.main_content {
+    flex-grow: 3
+}
+
+aside {
+    flex-grow: 1;
+}
+
+#artem { 
+    display: flex;
+    flex-direction: row;  
+}
+
+.item {
+    width: 150px;
+    background-color: black;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+#ivan form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#ivan {
+    background-color: black;
+    margin: 5px;
+    border-radius: 10px;
+}
