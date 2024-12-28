@@ -1,154 +1,44 @@
-* {
-  padding: 0;
-  margin: 0;
+.product-card {
+  width: 300px;
+  height: 400px;
+  perspective: 1000px; /* Определяет расстояние между плоскостью просмотра и объектом для создания 3D-эффекта */
 }
 
-html {
-  /* Зададим основной размер шрифта */
-  font-size: 16px; /* 1em = 16px */
-}
-
-.notification {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #333;
-  color: #fff;
-  padding: 16px;
-  border-radius: 4px;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: show-hide-notification 8s infinite;
-}
-
-@keyframes show-hide-notification {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  12.5% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  62.5% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  75% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-}
-
-
-.help-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #ff6347;
-  color: #fff;
-  text-align: center;
-  line-height: 60px;
-  font-family: Impact;
-  font-size: 24px;
-  cursor: pointer;
-  box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(255, 99, 71, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0);
-  }
-}
-
-.loader {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
+.card-inner {
   position: relative;
-  border: 3px solid;
-  border-color: #FFF #000 transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s; /* Определяет плавную анимацию поворота карточки */
+  transform-style: preserve-3d; /* Сохраняет 3D-трансформации дочерних элементов */
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.product-card:hover .card-inner {
+  transform: rotateY(180deg); /* Поворачивает внутренний контейнер на 180 градусов по оси Y при наведении */
 }
 
-
-.typewriter {
-  overflow: hidden; /* Скрывает текст, который выходит за пределы элемента */
-  white-space: nowrap; /* Не допускает перенос строк */
-  margin: 0 auto; /* Центрирует элемент по горизонтали */
-  animation: typing 3.5s steps(30, end) infinite;
-}
-
-
-@keyframes typing {
-  0% {width: 0;}
-  100% {width: 100%;}
-}
-
-
-.morph {
-  width: 200px;
-  height: 200px;
-  background-color: #ff6347;
+.card-front,
+.card-back {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  animation: morph 2s infinite;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Скрывает обратную сторону элемента при повороте */
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-@keyframes morph {
-  0% {
-    border-radius: 50%;
-  }
-  16.67% {
-    border-radius: 0 0 50% 50%;
-  }
-  33.33% {
-    border-radius: 0 50% 50% 0;
-  }
-  50% {
-    border-radius: 50% 50% 0 0;
-  }
-  66.67% {
-    border-radius: 0;
-  }
-  83.33% {
-    border-radius: 50% 0 0 50%;
-  }
-  100% {
-    border-radius: 50%;
-  }
+.card-front {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
+.card-back {
+  background-color: #f0f0f0;
+  transform: rotateY(180deg); /* Изначально поворачивает оборотную сторону на 180 градусов по оси Y */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
