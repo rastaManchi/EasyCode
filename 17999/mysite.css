@@ -4,165 +4,57 @@
 }
 
 html, body {
-  font-size: 20px;
   height: 100%;
-  
+  background-color: #F8E8E8;
+  font-family: "Anonymous Pro", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
+.container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
 }
 
-.footer-column {
-  flex: 1 0 300px;
-  margin-bottom: 20px;
+aside {
+  background-color: #EFC9C9;
+  margin: 10px;
+  padding: 15px;
 }
 
-.footer-column h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
+aside a {
+  color:#9A7272;
+  text-decoration: none;
+  font-size: 32px;
 }
 
-.footer-links {
+aside ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin-bottom: 2em;
 }
 
-.footer-links li {
-  margin-bottom: 5px;
+.header {
+  font-size: 32px;
+  color: #C37070;
 }
 
-.footer-links li a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
+#chats_frame {
+  background-color: #F4E2E2;
+  padding: 15px;
 }
 
-.footer-links li a:hover {
-  color: #ffca28;
-}
-
-.footer-social-links a {
-  color: #fff;
-  text-decoration: none;
-  margin-right: 10px;
-  transition: color 0.3s ease;
-}
-
-.footer-social-links a:hover {
-  color: #ffca28;
-}
-
-.copyright {
-  flex-basis: 100%;
-  text-align: center;
-  font-size: 14px;
-  margin-top: 20px;
-}
-
-
-
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo h1 {
-  font-size: 24px;
-  margin: 0;
-  font-weight: bold;
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-nav ul li {
-  margin-right: 20px;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #ffca28;
-}
-
-.search-form {
+.chat {
+  background-color: #E4B9B9;
   display: flex;
   align-items: center;
-  background-color: #fff;
-  padding: 3px;
-  border-radius: 3px;
+  margin-bottom: 15px;
+  padding: 1em 2em;
 }
 
-.search-form input {
-  border: none;
-  outline: none;
-  padding: 5px;
-  font-size: 14px;
-  color: #555;
-  border-right: 1px solid #ccc;
+.chat img {
+  border-radius: 97.5px;
 }
 
-.search-form button {
-  background-color: transparent;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
+#main {
+  flex-grow: 1;
 }
-
-.social-links {
-  display: flex;
-}
-
-.social-links a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 10px;
-  transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-  color: #ffca28;
-}
-
-#form {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.form_frame {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-}
-.form_frame form {
-  padding: 2em;
-  background-color: #0000002d;
-  border-radius: 10px;
-}
-.form_frame form textarea {
-  width: 60vw;
-}
-

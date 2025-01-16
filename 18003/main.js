@@ -1,30 +1,22 @@
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
+const btn = document.getElementById('btn');
+const btn2 = document.querySelector('#btn');
+const parent1 = document.getElementsByClassName('parent')[0];
+const parent2 = document.querySelector('.parent');
+const parent3 = document.querySelectorAll('.parent')[0];
 
+parent2.innerHTML = '<b>Привет</b>';
+btn.textContent = 'Не кнопка';
+let element = document.createElement('p');
+parent1.appendChild(element)
 
-const app = express();
-const server = http.createServer(app);
-const io = socketIo(server)
+btn2.remove()
 
+parent3.style.display = 'none';
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/main.html');
-})
+let attr = parent1.getAttribute('abc');
+console.log(attr);
 
-io.on('connection', (socket) => {
-    console.log('User connected!');
-    
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg)
-    });
+parent1.setAttribute('abcd', 'Привет Мир')
+parent1.removeAttribute('abc');
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected!')
-    })
-});
-
-server.listen(3000, () => {
-    console.log('Listening on *:3000');
-})
-
+parent2.classList.contains
