@@ -58,3 +58,11 @@ aside ul {
 #main {
   flex-grow: 1;
 }
+
+
+aside li:hover{
+  background-color: aliceblue;
+  .btn {
+    background-color: #9A7272;
+  }
+}
