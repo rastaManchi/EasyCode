@@ -1,0 +1,26 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 1fr 10fr 1fr;
+    grid-gap: 10px;
+    color: white
+}
+
+header, nav, footer {
+    grid-column: span 3;
+    background-color: gray;
+    text-align: center;
+}
+
+.left_menu {
+    background-color: rgb(54, 54, 54);
+}
+
+main {
+    background-color: rgb(192, 192, 192);
+}
+
+.right_menu {
+    background-color: rgb(54, 54, 54);
+}
+
