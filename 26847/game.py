@@ -1,4 +1,5 @@
-import pygame
+import pygame, sys
+
 pygame.init()
 
 
@@ -19,7 +20,15 @@ direction = 'right'
 
 while True:
     screen.fill(WHITE)
-    pygame.draw.rect(screen, RED, player)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.x = 450
+                player.y = 450
+
     if direction == 'right':
         if player.x <= 450:
             player.x += 2
@@ -32,6 +41,9 @@ while True:
             player.y -= 2
         else:
             direction = 'right'
+        
+    pygame.draw.rect(screen, RED, player)
+
     pygame.display.update()
     clock.tick(FPS)
 
