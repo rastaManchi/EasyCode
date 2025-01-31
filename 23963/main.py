@@ -6,7 +6,7 @@ pygame.init()
 
 WIDTH = 500
 HEIGHT = 500
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME)
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 
@@ -33,11 +33,14 @@ class Sprite:
 player = Sprite(225, 225, 50, 50, 'steve.png')
 enemy = Sprite(50, 50, 30, 30, 'SANS.png')
 button = Sprite(0, 0, 50, 50, 'close_btn.png')
+skin1 = Sprite(100, 225, 50, 50, 'steve.png')
+skin2 = Sprite(225, 225, 50, 50, 'knight.png')
+skin3 = Sprite(350, 225, 50, 50, 'SANS.png')
 
 game_state = 0
 
 font = pygame.font.SysFont('Arial', 30)
-start_text = font.render('Нажми на пробел!', False, (255, 0, 0))
+start_text = font.render('Выбери скин!', False, (255, 0, 0))
 end_text = font.render('Игра окончена', False, (0, 255, 0))
 restart_text_1 = font.render('Пробел, чтобы', False, (100, 150, 0))
 restart_text_2 = font.render('перезапустить игру!', False, (100, 150, 0))
@@ -50,10 +53,24 @@ while True:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 sys.exit()
-            if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_SPACE:
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                x, y = e.pos
+                if skin1.rect.x <= x <= skin1.rect.right and skin1.rect.y <= y <= skin1.rect.bottom:
+                    player.orig_img = pygame.image.load('steve.png')
+                    player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
                     game_state = 1
-        screen.blit(start_text, (20, 255))
+                if skin2.rect.x <= x <= skin2.rect.right and skin2.rect.y <= y <= skin2.rect.bottom:
+                    player.orig_img = pygame.image.load('knight.png')
+                    player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+                    game_state = 1
+                if skin3.rect.x <= x <= skin3.rect.right and skin3.rect.y <= y <= skin3.rect.bottom:
+                    player.orig_img = pygame.image.load('SANS.png')
+                    player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+                    game_state = 1
+        screen.blit(start_text, (20, 155))
+        skin1.draw()
+        skin2.draw()
+        skin3.draw()
     elif game_state == 1:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
@@ -102,7 +119,7 @@ while True:
                     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
                     enemy.rect.x = 50
                     enemy.rect.y = 50
-                    game_state = 1
+                    game_state = 0
         screen.blit(end_text, (20, 255))
         screen.blit(restart_text_1, (20, 300))
         screen.blit(restart_text_2, (20, 345))
