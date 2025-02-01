@@ -12,6 +12,10 @@ player = pygame.Rect(0, 0, 50, 50)
 player_orig_img = pygame.image.load('27278/steve.png')
 player_img = pygame.transform.scale(player_orig_img, (player.width, player.height))
 
+enemy = pygame.Rect(100, 100, 50, 50)
+enemy_orig_img = pygame.image.load('27278/steve.png')
+enemy_img = pygame.transform.scale(enemy_orig_img, (enemy.width, enemy.height))
+
 COLOR = (255, 0, 0)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -19,6 +23,9 @@ clock = pygame.time.Clock()
 
 direction_x = None
 direction_y = None
+
+direction2_x = None
+direction2_y = None
 
 while True:
 
@@ -42,11 +49,25 @@ while True:
                 direction_x = False
             elif event.key == pygame.K_RIGHT:
                 direction_x = True
+
+            if event.key == pygame.K_w:
+                direction2_y = False
+            elif event.key == pygame.K_s:
+                direction2_y = True
+            elif event.key == pygame.K_a:
+                direction2_x = False
+            elif event.key == pygame.K_d:
+                direction2_x = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 direction_y = None
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 direction_x = None
+
+            if event.key == pygame.K_w or event.key == pygame.K_s:
+                direction2_y = None
+            if event.key == pygame.K_a or event.key == pygame.K_d:
+                direction2_x = None
     
 
     if direction_x:
@@ -57,9 +78,19 @@ while True:
         player.y += 5
     elif not direction_y and direction_y != None:
         player.y -= 5
+
+    if direction2_x:
+        enemy.x += 5
+    elif not direction2_x and direction2_x != None:
+        enemy.x -= 5
+    if direction2_y:
+        enemy.y += 5
+    elif not direction2_y and direction2_y != None:
+        enemy.y -= 5
     
     
     screen.blit(player_img, player)
+    screen.blit(enemy_img, enemy)
 
     pygame.display.update()
     clock.tick(FPS)
