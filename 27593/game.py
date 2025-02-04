@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys, random
 
 
 pygame.init()
@@ -16,27 +16,49 @@ clock = pygame.time.Clock()
 
 
 player = pygame.Rect(0, 0, 50, 50)
+player_orig_img = pygame.image.load('27593/steve.png')
+player_img = pygame.transform.scale(player_orig_img, (player.width, player.height))
 
 
-direction = 'right'
+direction = 'none'
 
 
 while True:
 
     screen.fill(DONIR)
 
-    if direction == 'right':
-        player.x += 2
-        player.y += 2
-        if player.x >= 450:
-            direction = 'left'
-    elif direction == 'left':
-        player.x -= 2
-        player.y -= 2
-        if player.x <= 0:
-            direction = 'right'
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                COLOR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            if event.key == pygame.K_w:
+                direction = 'up'
+            elif event.key == pygame.K_s:
+                direction = 'down'
+            elif event.key == pygame.K_a:
+                direction = 'left'
+            elif event.key == pygame.K_d:
+                direction = 'right'
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_w or \
+            event.key == pygame.K_s or \
+            event.key == pygame.K_a or \
+            event.key == pygame.K_d:
+                direction = 'none'
 
-    pygame.draw.rect(screen, COLOR, player)
+    if direction == 'left':
+        player.x -= 5
+    elif direction == 'right':
+        player.x += 5
+    elif direction == 'up':
+        player.y -= 5
+    elif direction == 'down':
+        player.y += 5
+
+    screen.blit(player_img, player)
 
     pygame.display.update()
     clock.tick(FPS)

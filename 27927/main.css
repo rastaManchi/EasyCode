@@ -1,0 +1,20 @@
+#btn {
+    padding: 12px;
+    background-color: gray;
+    color: white;
+    font-size: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: 1s ease-in-out;
+}
+
+#btn:hover {
+    background-color: rgb(77, 77, 77);
+}
+
+
+@media (max-width: 700px) {
+    .mobile_none {
+        display: none;
+    }
+}
