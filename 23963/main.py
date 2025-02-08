@@ -1,6 +1,15 @@
 import pygame # подключаем библиотеку
 import sys # подключаем модуль для 
 from random import *
+import os
+
+score = 0 
+if os.path.exists('23963/nickname.txt'):
+    file = open('23963/nickname.txt', 'r')
+    best_score = int(file.read())
+    file.close()
+else:
+    print('Файла нет')
 
 pygame.init()
 
@@ -30,18 +39,24 @@ class Sprite:
     def draw(self):
         screen.blit(self.img, self.rect)
 
-player = Sprite(225, 225, 50, 50, 'steve.png')
-enemy = Sprite(50, 50, 30, 30, 'SANS.png')
-button = Sprite(0, 0, 50, 50, 'close_btn.png')
-skin1 = Sprite(100, 225, 50, 50, 'steve.png')
-skin2 = Sprite(225, 225, 50, 50, 'knight.png')
-skin3 = Sprite(350, 225, 50, 50, 'SANS.png')
+player = Sprite(225, 225, 50, 50, '23963/steve.png')
+enemy = Sprite(50, 50, 30, 30, '23963/SANS.png')
+button = Sprite(0, 0, 50, 50, '23963/close_btn.png')
+skin1 = Sprite(100, 225, 50, 50, '23963/steve.png')
+skin2 = Sprite(225, 225, 50, 50, '23963/knight.png')
+skin3 = Sprite(350, 225, 50, 50, '23963/SANS.png')
 
 game_state = 0
 
 font = pygame.font.SysFont('Arial', 30)
+score_font = pygame.font.SysFont('Arial', 15)
+
 start_text = font.render('Выбери скин!', False, (255, 0, 0))
 end_text = font.render('Игра окончена', False, (0, 255, 0))
+
+score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
+best_score_text = score_font.render(f'Рекорд {best_score}', False, (255, 0, 0))
+
 restart_text_1 = font.render('Пробел, чтобы', False, (100, 150, 0))
 restart_text_2 = font.render('перезапустить игру!', False, (100, 150, 0))
 
@@ -56,15 +71,15 @@ while True:
             if e.type == pygame.MOUSEBUTTONDOWN:
                 x, y = e.pos
                 if skin1.rect.x <= x <= skin1.rect.right and skin1.rect.y <= y <= skin1.rect.bottom:
-                    player.orig_img = pygame.image.load('steve.png')
+                    player.orig_img = pygame.image.load('23963/steve.png')
                     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
                     game_state = 1
                 if skin2.rect.x <= x <= skin2.rect.right and skin2.rect.y <= y <= skin2.rect.bottom:
-                    player.orig_img = pygame.image.load('knight.png')
+                    player.orig_img = pygame.image.load('23963/knight.png')
                     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
                     game_state = 1
                 if skin3.rect.x <= x <= skin3.rect.right and skin3.rect.y <= y <= skin3.rect.bottom:
-                    player.orig_img = pygame.image.load('SANS.png')
+                    player.orig_img = pygame.image.load('23963/SANS.png')
                     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
                     game_state = 1
         screen.blit(start_text, (20, 155))
@@ -99,13 +114,22 @@ while True:
             player.rect.width += 100
             player.rect.height += 100
             player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+            score += randint(1, 10)
+            score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
+            
 
         if player.rect.width >= 500:
+            if best_score < score:
+                file = open('23963/nickname.txt', 'w', encoding='UTF-8')
+                file.write(str(score))
+                file.close()
             game_state = 2
 
         player.draw()
         enemy.draw()
         button.draw()
+        screen.blit(score_text, (100, 0))
+        screen.blit(best_score_text, (300, 0))
     elif game_state == 2:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:

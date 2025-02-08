@@ -9,10 +9,12 @@ HEIGHT = 500
 FPS = 30
 
 player = pygame.Rect(0, 0, 50, 50)
-player_orig_img = pygame.image.load('27278/steve.png')
+player_orig_img = pygame.image.load('27278/SANS.png')
 player_img = pygame.transform.scale(player_orig_img, (player.width, player.height))
 
-enemy = pygame.Rect(100, 100, 50, 50)
+food = pygame.Rect(480, 480, 20, 20)
+
+enemy = pygame.Rect(100, 100, 200, 200)
 enemy_orig_img = pygame.image.load('27278/steve.png')
 enemy_img = pygame.transform.scale(enemy_orig_img, (enemy.width, enemy.height))
 
@@ -87,10 +89,26 @@ while True:
         enemy.y += 5
     elif not direction2_y and direction2_y != None:
         enemy.y -= 5
+
+    if player.colliderect(enemy):
+        if player.width >= enemy.width:
+            enemy.x = random.randint(0, 450)
+            enemy.y = random.randint(0, 450)
+            player.width += 20
+            player.height += 20
+            player_img = pygame.transform.scale(player_orig_img, (player.width, player.height))
+
+    if player.colliderect(food):
+        food.x = random.randint(0, 480)
+        food.y = random.randint(0, 480)
+        player.width += 10
+        player.height += 10
+        player_img = pygame.transform.scale(player_orig_img, (player.width, player.height))
     
     
     screen.blit(player_img, player)
     screen.blit(enemy_img, enemy)
+    pygame.draw.rect(screen, COLOR, food)
 
     pygame.display.update()
     clock.tick(FPS)
