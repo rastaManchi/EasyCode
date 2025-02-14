@@ -11,6 +11,23 @@ if os.path.exists('23963/nickname.txt'):
 else:
     print('Файла нет')
 
+walls = []
+
+if os.path.exists('23963/map.txt'):
+    row = 0
+    col = 0
+    file = open('23963/map.txt', 'r')
+    map_lines = file.readlines()
+    for line in map_lines:
+        x = list(line)
+        col = 0
+        for i in x:
+            if i == '1':
+                walls.append(pygame.Rect(col*20, row*20, 20, 20))
+                print(col, row)
+            col += 1
+        row += 1
+
 pygame.init()
 
 WIDTH = 500
@@ -24,20 +41,19 @@ class Sprite:
         self.rect = pygame.Rect(x, y, w, h)
         self.orig_img = pygame.image.load(img_path)
         self.img = pygame.transform.scale(self.orig_img, (w, h))
-        self.direction = 'none'
+        self.x_speed = 0
+        self.y_speed = 0
 
     def move(self):
-        if self.direction == 'right':
-            self.rect.x += 5
-        elif self.direction == 'left':
-            self.rect.x -= 5
-        elif self.direction == 'up':
-            self.rect.y -= 5
-        elif self.direction == 'down':
-            self.rect.y += 5
+        self.rect.x += self.x_speed
+        self.rect.y += self.y_speed
+        
 
     def draw(self):
         screen.blit(self.img, self.rect)
+
+    def collide(self, obj):
+        return self.rect.colliderect(obj)
 
 player = Sprite(225, 225, 50, 50, '23963/steve.png')
 enemy = Sprite(50, 50, 30, 30, '23963/SANS.png')
@@ -92,15 +108,18 @@ while True:
                 sys.exit()
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_RIGHT:
-                    player.direction = 'right'
+                    player.x_speed = 5
                 elif e.key == pygame.K_LEFT:
-                    player.direction = 'left'
+                    player.x_speed = -5
                 elif e.key == pygame.K_UP:
-                    player.direction = 'up'
+                    player.y_speed = -5
                 elif e.key == pygame.K_DOWN:
-                    player.direction = 'down'
+                    player.y_speed = 5
             if e.type == pygame.KEYUP:
-                player.direction = 'none'
+                if e.key == pygame.K_UP or e.key == pygame.K_DOWN:
+                    player.y_speed = 0
+                elif e.key == pygame.K_LEFT or e.key == pygame.K_RIGHT:
+                    player.x_speed = 0
             if e.type == pygame.MOUSEBUTTONDOWN:
                 x, y = e.pos
                 if 0 < x < 50 and 0 < y < 50:
@@ -111,19 +130,27 @@ while True:
         if player.rect.colliderect(enemy.rect):
             enemy.rect.x = randint(0, 470)
             enemy.rect.y = randint(0, 470)
-            player.rect.width += 100
-            player.rect.height += 100
+            player.rect.width += 10
+            player.rect.height += 10
             player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
             score += randint(1, 10)
             score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
             
 
-        if player.rect.width >= 500:
+        if player.rect.width >= 300:
             if best_score < score:
                 file = open('23963/nickname.txt', 'w', encoding='UTF-8')
                 file.write(str(score))
                 file.close()
             game_state = 2
+
+        for wall in walls:
+            if player.collide(wall):
+                player.rect.x -= player.x_speed
+                player.rect.y -= player.y_speed
+
+        for wall in walls:
+            pygame.draw.rect(screen, (255, 0, 0), wall)
 
         player.draw()
         enemy.draw()
@@ -141,6 +168,8 @@ while True:
                     player.rect.width = 50
                     player.rect.height = 50
                     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+                    player.x_speed = 0
+                    player.y_speed = 0
                     enemy.rect.x = 50
                     enemy.rect.y = 50
                     game_state = 0
