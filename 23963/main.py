@@ -61,6 +61,7 @@ button = Sprite(0, 0, 50, 50, '23963/close_btn.png')
 skin1 = Sprite(100, 225, 50, 50, '23963/steve.png')
 skin2 = Sprite(225, 225, 50, 50, '23963/knight.png')
 skin3 = Sprite(350, 225, 50, 50, '23963/SANS.png')
+bg = Sprite(0, 0 , 500, 500, '23963/steve.png')
 
 game_state = 0
 
@@ -79,7 +80,8 @@ restart_text_2 = font.render('перезапустить игру!', False, (100
  
 
 while True:
-    screen.fill((0, 0, 0))
+    screen.blit(bg.img, bg.rect)
+    # screen.fill((0, 0, 0))
     if game_state == 0:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
@@ -155,8 +157,8 @@ while True:
         player.draw()
         enemy.draw()
         button.draw()
-        screen.blit(score_text, (100, 0))
-        screen.blit(best_score_text, (300, 0))
+        screen.blit(score_text, (100, 50))
+        screen.blit(best_score_text, (300, 50))
     elif game_state == 2:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
