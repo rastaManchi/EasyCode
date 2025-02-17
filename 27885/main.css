@@ -1,29 +1,55 @@
-html, body {
-    background-color: black;
-}
+* {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    min-width: 320px;
+    max-width: 1200px;
+    margin: auto;
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background-color: rgb(231, 76, 60);
+    flex-basis: 10vh;
+  }
+  main {
+    flex: 1 1 auto;
+    display: flex;
+  }
+  aside {
+    background-color: rgb(64, 224, 208);
+    flex-basis: 20%;
+  }
+  section {
+    background-color: rgb(243, 156, 18);
+    flex: 1 1 auto;
+  }
+  section+aside {
+    background-color: rgb(41, 128, 185);
+    flex-basis: 20%;
+  }
+  footer {
+    background-color: rgb(197, 17, 98);
+    flex-basis: 10vh;
+  }
 
-.container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 150px repeat(2, 1fr) 50px;
-    grid-gap: 10px
-}
+  @media (max-width: 1200px) { /* большие экраны */
+    #right_id {
+        display: none;
+    }
+  }
 
-.item {
-    padding: 20px;
-    background-color: gray;
-    text-align: center;
-}
+  @media (max-width: 768px) { /* средние экраны */
+    main {
+        flex-direction: column;
+    }
+  }
 
-.nested_container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    border: 1px solid red;
-    padding: 5px;
-}
-
-.nested_item {
-    padding: 5px;
-    background-color: rgb(79, 79, 79);
-}
+  @media (max-width: 480px) { /* малые экраны */
+    aside {
+        display: none;
+    }
+  }
