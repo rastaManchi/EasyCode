@@ -58,6 +58,7 @@ class Enemy:
     def draw(self):
         screen.blit(self.img, (self.rect.x, self.rect.y))
 
+
 class Bullet:
     def __init__(self, x, y, w, h, img_path, mouse):
         self.rect = pygame.Rect(x, y, w, h)
@@ -106,8 +107,7 @@ class Bullet:
 
     def collide(self, obj):
         return self.rect.colliderect(obj.rect)
-
-    
+  
 
 class Sprite:
     def __init__(self, x, y, w, h, img_path):
@@ -253,16 +253,15 @@ while True:
         #     score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
             
 
-        if player.rect.width >= 300:
-            if best_score < score:
-                file = open('23963/nickname.txt', 'w', encoding='UTF-8')
-                file.write(str(score))
-                file.close()
-            game_state = 2
+        # if player.rect.width >= 300:
+        #     if best_score < score:
+        #         file = open('23963/nickname.txt', 'w', encoding='UTF-8')
+        #         file.write(str(score))
+        #         file.close()
+        #     game_state = 2
 
 
         player.draw()
-        button.draw()
         screen.blit(score_text, (100, 50))
         screen.blit(best_score_text, (300, 50))
     elif game_state == 2:
