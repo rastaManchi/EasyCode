@@ -11,19 +11,19 @@ if os.path.exists('23963/nickname.txt'):
 else:
     print('Файла нет')
 
-walls = []
+lvl1walls = []
 
-if os.path.exists('23963/map.txt'):
+if os.path.exists('23963/lvl1.txt'):
     row = 0
     col = 0
-    file = open('23963/map.txt', 'r')
+    file = open('23963/lvl1.txt', 'r')
     map_lines = file.readlines()
     for line in map_lines:
         x = list(line)
         col = 0
         for i in x:
             if i == '1':
-                walls.append(pygame.Rect(col*20, row*20, 20, 20))
+                lvl1walls.append(pygame.Rect(col*20, row*20, 20, 20))
                 print(col, row)
             col += 1
         row += 1
@@ -90,7 +90,7 @@ class Bullet:
     def rotate_to_point(self, mouse):
         dx, dy = mouse[0] - self.rect.centerx, mouse[1] - self.rect.centery
         angle = math.degrees(math.atan2(-dy, dx)) - 90
-        self.img = pygame.transform.rotate(self.img_orig, angle)
+        self.img = pygame.transform.rotate(self.img, angle)
         self.rect = self.img.get_rect(center=self.rect.center)
         self.float_x = self.rect.x
         self.float_y = self.rect.y
@@ -129,7 +129,10 @@ class Sprite:
         return self.rect.colliderect(obj)
 
 player = Sprite(225, 225, 50, 50, '23963/steve.png')
-enemy = Enemy(30, 80, 25, 25, '23963/SANS.png', 3, 30, 200, 'h')
+lvl1enemies = [
+    Enemy(30, 80, 25, 25, '23963/SANS.png', 3, 30, 200, 'h'),
+    Enemy(420, 50, 25, 25, '23963/SANS.png', 5, 50, 400, 'v')
+]
 button = Sprite(0, 0, 50, 50, '23963/close_btn.png')
 skin1 = Sprite(100, 225, 50, 50, '23963/steve.png')
 skin2 = Sprite(225, 225, 50, 50, '23963/knight.png')
@@ -150,6 +153,9 @@ best_score_text = score_font.render(f'Рекорд {best_score}', False, (255, 0
 restart_text_1 = font.render('Пробел, чтобы', False, (100, 150, 0))
 restart_text_2 = font.render('перезапустить игру!', False, (100, 150, 0))
 
+
+bullets = []
+level = 1
  
 
 while True:
@@ -199,9 +205,43 @@ while True:
                 x, y = e.pos
                 if 0 < x < 50 and 0 < y < 50:
                     sys.exit()
+                else:
+                    bullet = Bullet(player.rect.centerx, player.rect.centery, 15, 15, '23963/steve.png', e.pos)
+                    bullets.append(bullet)
+
+        for bullet in bullets:
+            if bullet.rect.x > 500 or bullet.rect.x <= -bullet.rect.width or bullet.rect.y >= 500 or bullet.rect.y <= -bullet.rect.height:
+                bullets.remove(bullet)
+            bullet.draw()
+            bullet.move()
 
         player.move()
-        enemy.move()
+
+        if level == 1:
+            for enemy in lvl1enemies:
+                enemy.move()
+
+            for enemy in lvl1enemies:
+                enemy.draw()
+
+            for enemy in lvl1enemies:
+                flag = False
+                for bullet in bullets:
+                    if bullet.collide(enemy):
+                        bullets.remove(bullet)
+                        flag = True
+                        break
+                if flag:
+                    lvl1enemies.remove(enemy)
+                    break
+            
+            for wall in lvl1walls:
+                if player.collide(wall):
+                    player.rect.x -= player.x_speed
+                    player.rect.y -= player.y_speed
+
+            for wall in lvl1walls:
+                pygame.draw.rect(screen, (255, 0, 0), wall)
 
         # if player.rect.colliderect(enemy.rect):
         #     enemy.rect.x = randint(0, 470)
@@ -220,16 +260,8 @@ while True:
                 file.close()
             game_state = 2
 
-        for wall in walls:
-            if player.collide(wall):
-                player.rect.x -= player.x_speed
-                player.rect.y -= player.y_speed
-
-        for wall in walls:
-            pygame.draw.rect(screen, (255, 0, 0), wall)
 
         player.draw()
-        enemy.draw()
         button.draw()
         screen.blit(score_text, (100, 50))
         screen.blit(best_score_text, (300, 50))
