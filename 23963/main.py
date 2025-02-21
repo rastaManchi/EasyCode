@@ -1,7 +1,7 @@
 import pygame # подключаем библиотеку
 import sys # подключаем модуль для 
 from random import *
-import os
+import os, math
 
 score = 0 
 if os.path.exists('23963/nickname.txt'):
@@ -36,6 +36,79 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 
+class Enemy:
+    def __init__(self, x, y, w, h, img_path, speed, p1, p2, orient):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.img = pygame.transform.scale(pygame.image.load(img_path), (w, h))
+        self.speed = speed
+        self.p1 = p1
+        self.p2 = p2
+        self.orient = orient
+
+    def move(self):
+        if self.orient == 'h':
+            self.rect.x += self.speed
+            if self.rect.x >= self.p2 or self.rect.x <= self.p1:
+                self.speed *= -1
+        else:
+            self.rect.y += self.speed
+            if self.rect.y >= self.p2 or self.rect.y <= self.p1:
+                self.speed *= -1
+
+    def draw(self):
+        screen.blit(self.img, (self.rect.x, self.rect.y))
+
+class Bullet:
+    def __init__(self, x, y, w, h, img_path, mouse):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.img_orig = pygame.image.load(img_path)
+        self.img = pygame.transform.scale(self.img_orig, (w, h))
+        self.x_speed = 0
+        self.y_speed = 0
+        self.default_speed = 3
+        self.mouse = mouse
+        self.float_x = x
+        self.float_y = y
+        self.set_speed(mouse)
+    
+    def set_speed(self, to_point):
+        x_from, y_from = self.rect.centerx, self.rect.centery
+        x_to , y_to = to_point
+        dx = x_to - x_from
+        dy = y_to - y_from
+        x_speed = round(abs((self.default_speed * dx) / math.sqrt(dx**2 + dy**2)), 3)
+        y_speed = round(abs((x_speed * dy) / dx), 3)
+        if x_to < x_from:
+            x_speed *= -1
+        if y_to < y_from:
+            y_speed *= -1
+
+        self.x_speed = x_speed
+        self.y_speed = y_speed
+        self.rotate_to_point(self.mouse)
+
+    def rotate_to_point(self, mouse):
+        dx, dy = mouse[0] - self.rect.centerx, mouse[1] - self.rect.centery
+        angle = math.degrees(math.atan2(-dy, dx)) - 90
+        self.img = pygame.transform.rotate(self.img_orig, angle)
+        self.rect = self.img.get_rect(center=self.rect.center)
+        self.float_x = self.rect.x
+        self.float_y = self.rect.y
+
+    def move(self):
+        self.float_x += self.x_speed
+        self.float_y += self.y_speed
+        self.rect.x = round(self.float_x)
+        self.rect.y = round(self.float_y)
+
+    def draw(self):
+        screen.blit(self.img, self.rect)
+
+    def collide(self, obj):
+        return self.rect.colliderect(obj.rect)
+
+    
+
 class Sprite:
     def __init__(self, x, y, w, h, img_path):
         self.rect = pygame.Rect(x, y, w, h)
@@ -56,7 +129,7 @@ class Sprite:
         return self.rect.colliderect(obj)
 
 player = Sprite(225, 225, 50, 50, '23963/steve.png')
-enemy = Sprite(50, 50, 30, 30, '23963/SANS.png')
+enemy = Enemy(30, 80, 25, 25, '23963/SANS.png', 3, 30, 200, 'h')
 button = Sprite(0, 0, 50, 50, '23963/close_btn.png')
 skin1 = Sprite(100, 225, 50, 50, '23963/steve.png')
 skin2 = Sprite(225, 225, 50, 50, '23963/knight.png')
@@ -128,15 +201,16 @@ while True:
                     sys.exit()
 
         player.move()
+        enemy.move()
 
-        if player.rect.colliderect(enemy.rect):
-            enemy.rect.x = randint(0, 470)
-            enemy.rect.y = randint(0, 470)
-            player.rect.width += 10
-            player.rect.height += 10
-            player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
-            score += randint(1, 10)
-            score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
+        # if player.rect.colliderect(enemy.rect):
+        #     enemy.rect.x = randint(0, 470)
+        #     enemy.rect.y = randint(0, 470)
+        #     player.rect.width += 10
+        #     player.rect.height += 10
+        #     player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+        #     score += randint(1, 10)
+        #     score_text = score_font.render(f'Кол-во очков: {score}', False, (255, 0, 0))
             
 
         if player.rect.width >= 300:
