@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" src="../image.png" alt="">
+
+    <script>
+        const image_block = document.getElementById('img')
+        image_block.addEventListener('click', function () {
+            image_block.setAttribute('src', 'new_image.png')
+        })
+    </script>
+</body>
+</html>
