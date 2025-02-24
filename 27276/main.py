@@ -4,6 +4,7 @@ from aiogram.utils import executor
 import random
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher import FSMContext
 
 
 bot = Bot(token='7688359670:AAEf_gRt00OOD0Zil38X3LALoYE-F5ZupOA',parse_mode='HTML')
@@ -18,8 +19,9 @@ class A7(StatesGroup):
     adress = State()
 
 @dp.message_handler(commands="start")
-async def welcome(message):
+async def welcome(message: types.Message):
     await message.answer('сыграем в русскую рулетку..',reply_markup=gameboard)
+    await message.from_user.id
 
 @dp.message_handler(commands="roll")
 async def roll(message):

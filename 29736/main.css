@@ -1,0 +1,36 @@
+.container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 200px;
+  }
+  
+.highlight {
+    color: blue;
+    font-weight: bold;
+  }
+  
+header {
+    background-color: lightgray;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: blue;
+}
+
+header h1 {
+    cursor: pointer;
+}

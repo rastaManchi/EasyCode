@@ -1,16 +1,61 @@
-.container {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    grid-template-rows: 1fr 1fr;
-}
-
-.container_flex {
+main {
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-row: span 2
+    height: 100vh;
 }
 
-header {
-    position: fixed;
+button {
+    background-color: gray;
+    border: 0;
+    transition: all 0.1s linear 2s;
+    /* animation: fjgvdjgv 3s ease-in-out 2; */
+}
+
+button:active {
+    background-color: black;
+    color: white;
+    transform: scale(0.9);
+}
+
+h2 {
+    text-shadow: 100px 2px 1px rgba(0, 0, 0, 0.624);
+}
+
+.rect {
+    width: 10rem;
+    height: 10rem;
+    transition: 1s;
+    background: yellow;
+    border: 10px dotted black;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: rgb(63,94,251);
+background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(150,83,185,1) 46%, rgba(77,252,70,1) 100%);
+    background-size:100% 100%;
+    margin-left: -50%;
+    margin-top: -50%;
+    animation: fjgvdjgv 20s ease-in-out infinite;
+    /* box-shadow: 2px 2px 50px 2px black; */
+}
+
+.con {
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+  
+    
+}
+
+@keyframes fjgvdjgv {
+    0% {
+        transform: rotateZ(0deg);
+        background-position: 10% 0%;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        background-position: 100% 100%;
+}
+
 }
