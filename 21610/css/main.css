@@ -1,3 +1,7 @@
-html, body {
-  background-color: gray;
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

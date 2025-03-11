@@ -1,77 +1,70 @@
 from aiogram import types, Dispatcher, Bot
-import aiogram.dispatcher.filters as filters
 from aiogram.utils import executor
-import random
+
+from random import randint, choice
+import os
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.dispatcher import FSMContext
 
 
-bot = Bot(token='7688359670:AAEf_gRt00OOD0Zil38X3LALoYE-F5ZupOA',parse_mode='HTML')
+bot = Bot(token="token", parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
-gameboard=types.ReplyKeyboardMarkup(one_time_keyboard=True)
-gameboard.add("как выличить задницу")
-gameboard.add("заказать воду")
 
-class A7(StatesGroup):
-    volume = State()
-    gus = State()
-    adress = State()
+slides_file = open('slides.txt', 'r')
+slides = slides_file.read().split('\n')
+for i in range(len(slides)):
+    slides[i] = slides[i].split(':')
+slides_dict = {}
+for slide in slides:
+    slides_dict[slide[0]] = slide[1:]
 
-@dp.message_handler(commands="start")
-async def welcome(message: types.Message):
-    await message.answer('сыграем в русскую рулетку..',reply_markup=gameboard)
-    await message.from_user.id
 
-@dp.message_handler(commands="roll")
-async def roll(message):
-    text=message.text
-    number1=text.split(" ")[1]
-    number2=text.split(" ")[2]
-    dice=random.randint(int(number1),int(number2))
-    await message.answer('крутится барабан')
-    await message.answer(f'выпало:{dice}')
+class HandleClient(StatesGroup):
+   waiting_for_slide = State()
+   waiting_for_name = State()
+   waiting_for_number = State()
 
-@dp.message_handler(commands="shoot")
-async def shoot(message):
-    await message.answer('выстрел')
-    bullet = random.randint(1, 6)
-    userluck = random.randint(1, 6)
-    if bullet == userluck:
-        await message.answer('вы здохли')
-    else:
-        await message.answer('вы выжили радуйтесь пока можете...')
 
-async def nthn4trtghj4(message,state):
-    if message.text == "заказать воду":
-        await message.answer("точно воду a то вам все 30")
-        await message.answer("сколько литров")
-
-        await A7.volume.set()
-
-async def volume(message,state):
-    text = message.text
-    await state.update_data(volume=message.text)
-    await message.answer("газированая?")
-    await A7.gus.set()
-async def gus(message,state):
-    gas = message.text
-    await message.answer("кула доставить")
-    await A7.adress.set()
-async def adress(message,state):
-    address = message.text
-    await message.answer("кула доставить")
-    await state.finish()
+async def start(message: types.Message):
+    print(slides_dict)
+    keyboard = types.ReplyKeyboardMarkup()
+    keyboard.add('КУПИТЬ БИЛЕТ')
+    for slide in slides_dict:
+        keyboard.add(slide)
+    await message.answer('Добро пожаловать в аквапарк! Нажмите на название горки, чтобы получить больше информации, или на кнопку "купить билет", чтобы купить билет.', reply_markup=keyboard)
+    await HandleClient.waiting_for_slide.set()
     
-@dp.message_handler(filters.Text(equals="как выличить задницу",ignore_case=True))
-async def gvghnchvg(message):
-    await message.answer('<b>💩боярешне форте эвалар надёжный дуг вашей задницы усилиный каллий и магний он надолго сохранит здоровье вашей задницы, боярешне эвалар от компании СЕРЬёЗНОГО ПОНОСА💩 </b>')
 
-def water(dp: Dispatcher):
-    dp.register_message_handler(nthn4trtghj4)
-    dp.register_message_handler(volume,state = A7.volume)
-    dp.register_message_handler(gus,state = A7.gus)
-    dp.register_message_handler(adress,state = A7.adress)
-water(dp)
+async def on_slide(message: types.Message):
+    if message.text == 'КУПИТЬ БИЛЕТ':
+        await message.answer('Стоимость билета - 2000 рублей на весь день. Чтобы купить билет, отправьте в чат своё имя:')
+        await HandleClient.waiting_for_name.set()
+    else:
+        await message.answer(f'{message.text} - {slides_dict[message.text][1]}.\nПротяжённость горки - {slides_dict[message.text][0]} метров.')
+        await message.answer_photo(types.InputFile(slides_dict[message.text][2]))
+
+
+async def on_name(message: types.Message, state):
+    await state.update_data(name=message.text)
+    await message.answer('И номер телефона:')
+    await HandleClient.waiting_for_number.set()
+
+
+async def on_number(message: types.Message, state):
+    await message.answer('Спасибо! Менеджер свяжется с вами для оплаты заказа.')
+    data = await state.get_data()
+    requests = open('requests.txt', 'a')
+    requests.write(f'{data.get("name")} - {data.get("number")}')
+    requests.close()
+    await HandleClient.waiting_for_slide.set()
+
+
+def register_handlers(dp: Dispatcher):
+   dp.register_message_handler(start, commands="start")
+   dp.register_message_handler(on_slide, state=HandleClient.waiting_for_slide)
+   dp.register_message_handler(on_name, state=HandleClient.waiting_for_name)
+   dp.register_message_handler(on_number, state=HandleClient.waiting_for_number)
+
+register_handlers(dp)
 
 executor.start_polling(dp, skip_updates=True)

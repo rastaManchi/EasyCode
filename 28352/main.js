@@ -1,20 +1,44 @@
-let task1 = 'Изучить JS'
-let task2 = 'Сделать домашку '
-let task3 = 'Прочитать 100 страниц'
+class Book {
+    constructor(title, author, year, genre) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.genre = genre;
+    }
 
-let massiv = ['Изучить JS', 'Сделать домашку', 'Прочитать 100 страниц']
-console.log(massiv[1])
+    getInfo() {
+        return `${this.title} by ${this.author}, published in ${this.year}`;
+    }
 
-massiv.push("Проверить ссылку на урок")
+    changeTitle(newTitle) {
+        this.title = newTitle;
+    }
 
-console.log(massiv)
+    changeAuthor(newAuthor) {
+        this.author = newAuthor;
+    }
 
-// massiv.splice(0, 2)
-massiv.pop()
-
-console.log(massiv)
-
-alert(massiv.length)
+}
 
 
-let new_massiv = []
+class EBook extends Book {
+    constructor(title, author, year, genre, fileSize) {
+        super(title, author, year, genre);
+        this.fileSize = fileSize;
+    }
+
+    getFileSize() {
+        return this.fileSize;
+    }
+}
+
+class AudioBook extends Book {
+    constructor(title, author, year, genre, duration) {
+        super(title, author, year, genre);
+        this.duration = duration;
+    }
+
+    getDuration() {
+        return this.duration;
+    }
+}
