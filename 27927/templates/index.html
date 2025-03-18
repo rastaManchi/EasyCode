@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ data.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ data.title }}</h1>
+    <p><a href="/">На главную</a></p>
+    <p>{{ data.description }}</p>
+    <h2>Фотографии</h2>
+    <p><img src="{{ data.img1 }}" width="400"><p>
+    <p><img src="{{ data.img2 }}" width="400"><p>
+{% endblock %}

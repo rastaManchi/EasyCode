@@ -1,72 +1,64 @@
-class Item:
-    def __init__(self, id, name, description, price):
-        self.id = id 
-        self.name = name
-        self.description = description
-        self.price = price
+import pygame
+import sys
+import os
+from random import randint
 
-    def __str__(self):
-        return self.name
+pygame.init()
 
+WIDTH = 500
+HEIGHT = 500
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+clock = pygame.time.Clock()
 
-# Создайте класс Cart для интернет-магазина с полями:
-# Список товаров
-# Общая стоимость покупки
-# И методом addToCart, который примет на выход объект Item, добавит его в список товаров и увеличит итоговую стоимость.
+click = pygame.Rect(225, 225, 50, 50)
+score = 0
+seconds_left = 10
+iterations = 0
 
-class Cart:
-    def __init__(self):
-        self.items = []
-        self.total = 1000
-   
-    def addToCart(self, item):
-        self.items.append(item)
-        self.total += item.price
+font = pygame.font.SysFont('Arial', 20)
+left_seconds_text = font.render(str(seconds_left), False, (255, 0, 0))
+score_text = font.render(str(score), False, (255, 0, 0))
 
-    def show_items(self):
-        items = ''
-        for item in self.items:
-            items += f'{item.name}\n'
-        return items
+nickname = input('Введите ваш никнейм: ').lower()
+prev_record = -1
+if os.path.exists(f'{nickname}.txt'):
+    file = open(f'{nickname}.txt', 'r')
+    prev_record = file.read()
+    file.close()
 
-
-# Создайте класс User для интернет-магазина с полями:
-# id
-# Имя
-# Баланс
-# Корзина
-# И методом buy. Метод должен:
-# Вычитать из баланса сумму покупки при условии, что денег у пользователя достаточно
-# Возвращать True, если баланса для покупки хватило и False, если не хватило
+record_text = font.render(f'Прошлый рекорд: {prev_record}', False, (255, 0, 0))
 
 
-class User:
-    def __init__(self, id, name, balance, cart: Cart):
-        self.id = id
-        self.name = name
-        self.balance = balance
-        self.cart = cart
-
-    def buy(self):
-        if self.balance >= self.cart.total:
-            self.balance -= self.cart.total
-            self.cart.items = []
-            return True
-        return False
-    
-    def __str__(self):
-        return f'{self.name} -- {self.balance} -- {self.cart.show_items()}'
-    
-u1 = User(1, 'Булат', 1500, Cart())
-u2 = User(2, 'Андрей', 19, Cart())
-banana = Item(1, 'Банан', 'вкусный', 200)
-u1.cart.addToCart(banana)
-u1.cart.addToCart(banana)
-u1.cart.addToCart(banana)
-u2.cart.addToCart(banana)
-print(u1.buy())
-print(u1)
-print(u2)
+while True:
+    screen.fill((255, 255, 255))
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            sys.exit()
+        if e.type == pygame.MOUSEBUTTONDOWN:
+            if click.collidepoint(e.pos[0], e.pos[1]):
+                score += 1
+                score_text = font.render(str(score), False, (255, 0, 0))
+                click.x = randint(0, 450)
+                click.y = randint(0, 450)
 
 
+    pygame.draw.rect(screen, (0, 0, 0), click)
+    screen.blit(left_seconds_text, (10, 10))
+    screen.blit(score_text, (480, 10))
+    if prev_record != -1:
+        screen.blit(record_text, (10, 480))
 
+    iterations += 1
+    if iterations == 60:
+        seconds_left -= 1
+        iterations = 0
+        left_seconds_text = font.render(str(seconds_left), False, (255, 0, 0))
+
+    if seconds_left == -1:
+        file = open(f'{nickname}.txt', 'w')
+        file.write(str(score))
+        file.close()
+        sys.exit()
+
+    pygame.display.update()
+    clock.tick(60)

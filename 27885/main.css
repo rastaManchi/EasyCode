@@ -1,45 +1,177 @@
-/* Базовые стили для мобильных устройств */
-.gallery {
-  padding: 20px;
+body {
+  background: linear-gradient(to right, #ff6ec7, #7873f5);
+  background-size: 200% 200%;
+  animation: gradient 10s ease-in-out infinite;
 }
 
-.gallery h2 {
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.loader {
+  width: 200px;
+  height: 200px;
+  background-color: transparent;
+  border: 10px solid red;
+  border-color: transparent black transparent black;
+  border-radius: 50%;
+  animation: myAnimation 2s steps(10, end) infinite alternate;
+}
+
+@keyframes myAnimation {
+  0% {
+    transform: rotate(-45deg);
+  }
+
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+.help_button {
+  width: 60px;
+  height: 60px;
+  background-color: orange;
   text-align: center;
-  margin-bottom: 20px;
+  line-height: 60px;
+  border-radius: 50%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 24px;
+  box-shadow: 0 0 0 0 rgb(253, 192, 79);
+  animation: pulse 1s ease-in-out infinite alternate;
 }
 
-.filters {
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgb(253, 192, 79);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 5px rgb(253, 192, 79);
+  }
+}
+
+
+.sss {
+  max-width: fit-content;
+  overflow: hidden;
+  animation: typing 5s steps(30, end);
+  white-space: nowrap;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
+.morf {
+  height: 200px;
+  width: 200px;
+  background-color: red;
+  border-radius: 0 0 0 0;
+  animation: morf_anim 5s ease-in-out infinite alternate;
+}
+
+@keyframes morf_anim {
+  0% {
+    border-radius: 50% 0 0 0;
+    transform: scale(0.8);
+    background-color: red;
+  }
+
+  12.5% {
+    border-radius: 0 50% 0 0;
+    background-color: yellow;
+  }
+
+  25% {
+    border-radius: 0 0 50% 0;
+    background-color: blue;
+  }
+
+  50% {
+    border-radius: 0 0 0 50%;
+    transform: scale(1);
+    background-color: green;
+  }
+
+  75.1% {
+    border-radius: 50%;
+    background-color: orange;
+  }
+
+  100% {
+    border-radius: 0;
+    transform: scale(0.8);
+    background-color: purple;
+  }
+}
+
+.notification {
+  font-family:'Courier New', Courier, monospace;
   text-align: center;
-  margin-bottom: 20px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgb(77, 77, 77);
+  color: white;
+  padding: 1rem;
+  animation: show 10s ease-in-out infinite;
 }
 
-.filters input {
-  display: none;
-}
+@keyframes show {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 
-.filters label {
-  margin: 0 10px;
-  cursor: pointer;
-}
+  20% {
+    transform: translateY(0);
+    opacity: 1;
+    
+  }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 20px;
-}
+  25% {
+    transform: translateY(0) rotateZ(-360deg);
+    opacity: 1;
+  }
 
-.gallery-item img {
-  width: 100%;
-}
+  30% {
+    transform: translateY(0) rotateZ(360deg);
+    opacity: 1;
+  }
 
-/* Фильтрация */
-.gallery-item {
-  display: none;
-}
+  35% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-#all:checked ~ .gallery-grid .gallery-item,
-#nature:checked ~ .gallery-grid .nature,
-#cities:checked ~ .gallery-grid .cities,
-#people:checked ~ .gallery-grid .people {
-  display: block;
+  80% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 }
