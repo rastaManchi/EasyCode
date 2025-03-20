@@ -1,226 +1,46 @@
-.test {
-  font-size: 40px;
-  animation: test_anim 10s ease-in-out infinite;
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
   background-color: black;
-  color: white;
-  width: fit-content;
+  color: rgb(255, 0, 0);
+  font-size: 2em;
+  font-weight: bold;
+
+  margin: 0;
+  padding: 0;
+  perspective: 1px;
+  transform-style: preserve-3d;
+  overflow-y: scroll;
 }
 
-@keyframes test_anim {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-
-  20% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  80% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-}
-
-
-
-.block {
-    height: 200px;
-    width: 200px;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 10px solid black;
-    border-color: transparent black transparent black;
-    animation: myAnimation 2s ease-in-out infinite;
-
-}
-
-@keyframes myAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.help-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #ff6347;
-  color: #fff;
+header {
+  min-height: 100vh;
   text-align: center;
-  line-height: 60px;
-  font-family: Impact;
-  font-size: 24px;
-  cursor: pointer;
-  box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
-  animation: pulse 2s ease-in-out infinite;
+  padding-top: 20%;
+  transform-style: inherit;
+  width: 100vw;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
-  }
-
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(255, 99, 71, 0.7);
-  }
-
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
-  }
-}
-
-.complex-morph {
-  width: 100px;
-  height: 100px;
-  background-color: #ff6347;
+header::after {
+  content: "";
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  animation: complexMorph 8s infinite alternate;
-}
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 
-@keyframes complexMorph {
-  0% {
-    width: 100px;
-    height: 100px;
-    background-color: #ff6347;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  25% {
-    width: 150px;
-    height: 150px;
-    background-color: #4682b4;
-    border-radius: 30% 70% 70% 30%;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-  50% {
-    width: 200px;
-    height: 200px;
-    background-color: #32cd32;
-    border-radius: 0;
-    transform: translate(-50%, -50%) scale(1.5);
-  }
-  75% {
-    width: 150px;
-    height: 150px;
-    background-color: #ff4500;
-    border-radius: 70% 30% 30% 70%;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-  100% {
-    width: 100px;
-    height: 100px;
-    background-color: #ff6347;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
+  transform-origin: center;
+  min-height: 100vh;
+  background-image: url("marek-piwnicki-zV2zh23STCk-unsplash.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  transition: 60s;
+  z-index: -1;
 
-
-
-.notification {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #333;
-  color: #fff;
-  padding: 16px;
-  border-radius: 4px;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: show-hide-notification 8s infinite;
-}
-
-@keyframes show-hide-notification {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  12.5% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  62.5% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  75% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-}
-
-
-.typewriter {
-  overflow: hidden; 
-  white-space: nowrap; /* Не допускает перенос строк */
-  margin: 0 auto; /* Центрирует элемент по горизонтали */
-  animation: typing 3.5s steps(60, end);
-  max-width: fit-content;
-}
-
-@keyframes typing {
-  0% {
-    width: 0
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-
-.morph {
-  width: 200px;
-  height: 200px;
-  background-color: #ff6347;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  animation: morph 6s infinite;
-}
-
-@keyframes morph {
-  0% {
-    border-radius: 50%;
-  }
-  16.67% {
-    border-radius: 0 0 50% 50%;
-  }
-  33.33% {
-    border-radius: 0 50% 50% 0;
-  }
-  50% {
-    border-radius: 50% 50% 0 0;
-  }
-  66.67% {
-    border-radius: 0;
-  }
-  83.33% {
-    border-radius: 50% 0 0 50%;
-  }
-  100% {
-    border-radius: 50%;
-  }
+  transform: translateZ(-1px) scale(2);
 }
