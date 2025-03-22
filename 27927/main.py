@@ -3,6 +3,13 @@ from flask import request
 
 app = Flask(__name__)
 
+course = {
+   'EUR': 77,
+   'USD': 63,
+   'UZS': 0.00692,
+   'GBP': 98,
+}
+
 @app.route('/frogs/')
 def frogs():
     return render_template('index.html', data={
@@ -54,11 +61,13 @@ def login():
 def calc():
     status = False
     result = ''
+    exchange = ''
     form_data = dict(request.args)
     if len(form_data) > 0:
         status = True
-        result = form_data['rub']
-    return render_template('calc.html', data={'status': status, 'result': result})
+        exchange = form_data['exchange']
+        result = float(form_data['rub']) * course[exchange]
+    return render_template('calc.html', data={'status': status, 'result': f'{result} {exchange}'})
 
 
 app.run()
