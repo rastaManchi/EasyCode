@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask import request
 
 app = Flask(__name__)
 
@@ -39,9 +40,25 @@ def test():
 def home():
     return render_template('home.html')
 
+@app.route('/login/')
+def login():
+    form_data = dict(request.args)
+    print(form_data)
+    if len(form_data) > 0:
+        print(form_data['login'])
+        print(form_data['password'])
+    msg = f'Добро пожаловать, {form_data["login"]}'
+    return render_template('home.html', data={'msg': msg})
 
-@app.route('/stanislav')
-def stanislav():
-    return render_template('stanislav_home.html')
+@app.route('/calc')
+def calc():
+    status = False
+    result = ''
+    form_data = dict(request.args)
+    if len(form_data) > 0:
+        status = True
+        result = form_data['rub']
+    return render_template('calc.html', data={'status': status, 'result': result})
+
+
 app.run()
-
