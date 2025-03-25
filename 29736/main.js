@@ -1,14 +1,36 @@
-let names = ['Булат', 'Денис', 'Павел', 1,2,5, true , []]
-console.log(names[0])
-names.push('Новый элемент')
-console.log(names)
-names.splice(0, 1)
-names.pop() // удаляет последний элемент списка
-console.log(names.length)
+let lessons = {}
 
+function addLesson(id, name) {
+    if (!lessons[id]) {
+        lessons[id] = name
+        console.log('Урок добавлен')
+    }
+    else {
+        console.log('Такой урок существует!')
+    }
+}
 
+function delLesson(id) {
+    if (lessons[id]) {
+        delete lessons[id]
+        console.log(`Курс с ID ${id} удален`)
+    }
+    else {
+        console.log(`Курс с ID ${id} не найден!`)
+    }
+}
 
-let books = ["Гарри Поттер и философский камень", "Гарри Поттер и тайная комната ", "Гарри Поттер и Узник Азкабана"];
-books.splice(1, 1, "Хроники Нарнии");
-console.log(books);
-books.splice(3, 0, "Новая книга")
+function listLessons() {
+    console.log('Список всех уроков')
+    for (let lessonID in lessons) {
+        console.log(`ID: ${lessonID}, Название: ${lessons[lessonID]}`)
+    }
+}
+
+addLesson(1, 'JS')
+addLesson(101, 'Python')
+addLesson(103, 'CSS')
+addLesson(1, "C++")
+listLessons()
+delLesson(103)
+listLessons()
