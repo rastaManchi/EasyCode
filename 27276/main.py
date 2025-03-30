@@ -1,70 +1,32 @@
 from aiogram import types, Dispatcher, Bot
 from aiogram.utils import executor
-
 from random import randint, choice
 import os
-from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+import sqlite3
 
 
-bot = Bot(token="token", parse_mode="HTML")
-dp = Dispatcher(bot, storage=MemoryStorage())
+conn = sqlite3.connect('27276/sql.db')
+cur = conn.cursor()
 
-slides_file = open('slides.txt', 'r')
-slides = slides_file.read().split('\n')
-for i in range(len(slides)):
-    slides[i] = slides[i].split(':')
-slides_dict = {}
-for slide in slides:
-    slides_dict[slide[0]] = slide[1:]
+bot = Bot(token='7688359670:AAEf_gRt00OOD0Zil38X3LALoYE-F5ZupOA', parse_mode="HTML")
+dp = Dispatcher(bot)
 
 
-class HandleClient(StatesGroup):
-   waiting_for_slide = State()
-   waiting_for_name = State()
-   waiting_for_number = State()
 
-
-async def start(message: types.Message):
-    print(slides_dict)
+@dp.message_handler(commands='start')
+async def meme(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup()
-    keyboard.add('КУПИТЬ БИЛЕТ')
-    for slide in slides_dict:
-        keyboard.add(slide)
-    await message.answer('Добро пожаловать в аквапарк! Нажмите на название горки, чтобы получить больше информации, или на кнопку "купить билет", чтобы купить билет.', reply_markup=keyboard)
-    await HandleClient.waiting_for_slide.set()
-    
-
-async def on_slide(message: types.Message):
-    if message.text == 'КУПИТЬ БИЛЕТ':
-        await message.answer('Стоимость билета - 2000 рублей на весь день. Чтобы купить билет, отправьте в чат своё имя:')
-        await HandleClient.waiting_for_name.set()
-    else:
-        await message.answer(f'{message.text} - {slides_dict[message.text][1]}.\nПротяжённость горки - {slides_dict[message.text][0]} метров.')
-        await message.answer_photo(types.InputFile(slides_dict[message.text][2]))
+    cur.execute('SELECT name FROM products')
+    result = cur.fetchall()
+    for item in result:
+        keyboard.add(item[0])
+    await message.answer('Добро пожаловать в магазин музыкальных товаров! Выберите товар ниже, чтобы узнать подробную информацию.', reply_markup=keyboard)
 
 
-async def on_name(message: types.Message, state):
-    await state.update_data(name=message.text)
-    await message.answer('И номер телефона:')
-    await HandleClient.waiting_for_number.set()
+@dp.message_handler()
+async def on_item(message: types.Message):
+   cur.execute('SELECT name, price, description FROM products WHERE name = ?', [message.text])
+   
 
-
-async def on_number(message: types.Message, state):
-    await message.answer('Спасибо! Менеджер свяжется с вами для оплаты заказа.')
-    data = await state.get_data()
-    requests = open('requests.txt', 'a')
-    requests.write(f'{data.get("name")} - {data.get("number")}')
-    requests.close()
-    await HandleClient.waiting_for_slide.set()
-
-
-def register_handlers(dp: Dispatcher):
-   dp.register_message_handler(start, commands="start")
-   dp.register_message_handler(on_slide, state=HandleClient.waiting_for_slide)
-   dp.register_message_handler(on_name, state=HandleClient.waiting_for_name)
-   dp.register_message_handler(on_number, state=HandleClient.waiting_for_number)
-
-register_handlers(dp)
 
 executor.start_polling(dp, skip_updates=True)
