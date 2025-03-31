@@ -10,6 +10,37 @@ WIDTH, HEIGHT = 500, 500
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
+lvl = 1
+
+
+class Enemy:
+    def __init__(self, x, y, w, h, img, p1, p2, direction):
+        self.rect =  pygame.Rect(x, y, w, h)
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        self.p1 = p1
+        self.p2 = p2
+        self.speed = 5
+        self.direction = direction
+
+    def move(self):
+        if self.p1 > self.p2:
+            self.p1, self.p2 = self.p2, self.p1
+        if self.direction == 'x':
+            self.rect.x += self.speed
+            if self.rect.x >= self.p2 or self.rect.x <= self.p1:
+                self.speed = -self.speed
+        else:
+            self.rect.y += self.speed
+            if self.rect.y >= self.p2 or self.rect.y <= self.p1:
+                self.speed = -self.speed
+
+    def draw(self):
+        screen.blit(self.img, self.rect)
+            
+
+
+
 class Wall:
     def __init__(self, x, y, w, h, img_path):
         self.rect = pygame.Rect(x, y, w, h)
@@ -28,6 +59,16 @@ class Player:
         self.x_speed = 0
         self.y_speed = 0
 
+    def ischangelvl(self):
+        if self.rect.x >= WIDTH:
+            self.rect.x = 30
+            self.rect.y = 30
+            return 2
+        elif self.rect.x <= -self.rect.width:
+            self.rect.x = 30
+            self.rect.y = 30
+            return 1
+        return False
 
     def move(self):
         self.rect.x += self.x_speed
@@ -41,20 +82,33 @@ class Player:
     def draw(self):
         screen.blit(self.img, (self.rect.x, self.rect.y))
 
-walls = []
-with open('26847/map.txt', 'r') as map:
+lvl1walls = []
+with open('26847/lvl1map.txt', 'r') as map:
     row, col = 0, 0
     for line in map.read().split('\n'):
         x = list(line)
         col = 0
         for i in x:
             if i == '1':
-                walls.append(Wall(col * 20, row * 20, 20, 20, '26847/SANS.png'))
+                lvl1walls.append(Wall(col * 20, row * 20, 20, 20, '26847/SANS.png'))
+            col += 1
+        row += 1
+
+lvl2walls = []
+with open('26847/lvl2map.txt', 'r') as map:
+    row, col = 0, 0
+    for line in map.read().split('\n'):
+        x = list(line)
+        col = 0
+        for i in x:
+            if i == '1':
+                lvl2walls.append(Wall(col * 20, row * 20, 20, 20, '26847/SANS.png'))
             col += 1
         row += 1
 
 
 player = Player(30, 30, 50, 50, '26847/steve.png')
+enemy = Enemy(40, 40, 20, 20, '26847/close_btn.png', 40, 200, 'x')
 
 
 while True:
@@ -78,16 +132,29 @@ while True:
                 player.y_speed = 0
 
     player.move()
-    
-    for wall in walls:
-        if player.collide(wall):
-            player.rect.x -= player.x_speed
-            player.rect.y -= player.y_speed
+    enemy.move()
 
-    for wall in walls:
-        wall.draw()
+    if lvl == 1:
+        for wall in lvl1walls:
+            if player.collide(wall):
+                player.rect.x -= player.x_speed
+                player.rect.y -= player.y_speed
+        for wall in lvl1walls:
+            wall.draw()
+    elif lvl == 2:
+        for wall in lvl2walls:
+            if player.collide(wall):
+                player.rect.x -= player.x_speed
+                player.rect.y -= player.y_speed
+        for wall in lvl2walls:
+            wall.draw()
+
+    check_lvl = player.ischangelvl()
+    if check_lvl:
+        lvl = check_lvl
 
     player.draw()
+    enemy.draw()
     
     pygame.display.update()
     clock.tick(60)
