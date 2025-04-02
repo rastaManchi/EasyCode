@@ -1,44 +1,30 @@
-class Book {
-    constructor(title, author, year, genre) {
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.genre = genre;
-    }
+const btn = document.getElementById('btn')
+const btn2 = document.querySelector('#btn')
 
-    getInfo() {
-        return `${this.title} by ${this.author}, published in ${this.year}`;
-    }
+const items = document.querySelectorAll('.item')
+console.log(items[1])
 
-    changeTitle(newTitle) {
-        this.title = newTitle;
-    }
+btn.addEventListener('click', function () {
+    alert('Hi')
+})
 
-    changeAuthor(newAuthor) {
-        this.author = newAuthor;
-    }
+btn.textContent = 'Что-то там'
+items[1].innerHTML = '<h1>Привет</h1>'
 
-}
+btn.style.backgroundColor = 'red'
+
+const new_element = document.createElement('button')
+new_element.textContent = 'Купить'
+items[0].appendChild(new_element)
 
 
-class EBook extends Book {
-    constructor(title, author, year, genre, fileSize) {
-        super(title, author, year, genre);
-        this.fileSize = fileSize;
-    }
+alert(btn2.getAttribute('id'))
+items[2].setAttribute('is_new', '100')
+items[3].removeAttribute('class')
 
-    getFileSize() {
-        return this.fileSize;
-    }
-}
+btn.remove()
 
-class AudioBook extends Book {
-    constructor(title, author, year, genre, duration) {
-        super(title, author, year, genre);
-        this.duration = duration;
-    }
-
-    getDuration() {
-        return this.duration;
-    }
-}
+items[4].classList.add('new_class')
+items[4].classList.remove('old_class')
+items[4].classList.toggle('class')
+console.log(items[4].classList.contains('new_class'))
