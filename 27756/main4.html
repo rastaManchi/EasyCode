@@ -9,91 +9,51 @@
 </head>
 <body>
 
-    <!-- <div class="container">
-        <form>
-            <div class="form-group">
-                <label for="name">Имя</label>
-                <input type="text" id="name" class="form-control" placeholder="Имя" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" class="form-control" placeholder="email" required>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                    <label for="female" class="form-check-label">Женский</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
-                    <label for="male" class="form-check-label">Мужской</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="interests">Интересы:</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="coding" value="coding">
-                  <label class="form-check-label" for="coding">
-                    Программирование
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="reading" value="reading">
-                  <label class="form-check-label" for="reading">
-                    Чтение
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="sports" value="sports">
-                  <label class="form-check-label" for="sports">
-                    Спорт
-                  </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="country">Страна:</label>
-                <select class="form-control" id="country">
-                    <option value="">Выберите страну</option>
-                    <option value="ru">Россия</option>
-                    <option value="uk">Великобритания</option>
-                </select>
-            </div>
-            <button class="btn btn-primary mt-3">Зарегистрироваться</button>
-        </form>
-    </div> -->
-
-    <div class="container d-flex justify-content-center">
-        <div class="card m-2 p-2 bg-dark" style="max-width: 300px;">
-            <img src="" alt="">
-            <h2 class="text-center text-primary">Lorem, ipsum dolor.</h2>
-            <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, iure minima! Minima ipsam ex commodi.</p>
-            <div class="stars">
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-            </div>
-            <button class="btn btn-success">Купить</button>
-        </div>
-
-        <div class="card m-2 p-2 bg-dark" style="max-width: 300px;">
-            <img src="" alt="">
-            <h2 class="text-center text-primary">Lorem, ipsum dolor.</h2>
-            <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, iure minima! Minima ipsam ex commodi.</p>
-            <div class="stars">
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-                <i class="fa fa-star text-warning" aria-hidden="true"></i>
-            </div>
-            <button class="btn btn-success">Купить</button>
+    <div class="container">
+        <div class="row">
+            <div class="bg-warning col-lg-4 col-md-6 col-sm-12 col-xxl-2">Привет</div>
+            <div class="bg-danger col-lg-4 col-md-6 col-sm-12 col-xxl-2">Как дела</div>
+            <div class="bg-primary col-lg-4 col-md-6 col-sm-12 col-xxl-2">Как дела</div>
+            <div class="bg-warning col-lg-4 col-md-6 col-sm-12 col-xxl-2">Привет</div>
+            <div class="bg-danger col-lg-4 col-md-6 col-sm-12 col-xxl-2">Как дела</div>
+            <div class="bg-primary col-lg-4 col-md-6 col-sm-12 col-xxl-2">Как дела</div>
         </div>
     </div>
-    
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-6 mx-auto bg-success">Элемент, отцентрированный по горизонтали</div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="w-25 bg-warning mb-2">Элемент с шириной 25%</div>
+        <div class="w-50 bg-dark text-light">Элемент с шириной 50%</div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row d-flex flex-row justify-content-center align-items-center bg-light">
+          <div class="col-6 bg-white">Элемент, выровненный по центру</div>
+        </div>
+        <div class="row d-flex flex-column justify-content-between bg-light">
+          <div class="col-4 bg-danger">Верхний элемент</div>
+          <div class="col-4 bg-primary">Средний элемент</div>
+          <div class="col-4 bg-secondary">Нижний элемент</div>
+        </div>
+    </div>
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-6 invisible bg-light">Невидимый элемент</div>
+          <div class="col-6 visible bg-light">Видимый элемент</div>
+          
+        </div>
+        <div class="row">
+          <div class="col-12 d-none bg-light">Скрытый элемент</div>
+        </div>
+    </div>
+      
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
