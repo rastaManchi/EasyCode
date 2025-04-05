@@ -11,6 +11,35 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 
+class Enemy:
+    def __init__(self, x, y, w, h, color, img, p1, p2, orientation):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.color = color
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        if p1 > p2:
+            p1, p2 = p2, p1
+        self.p1 = p1
+        self.p2 = p2
+        self.orientation = orientation
+        self.speed = 5
+    
+    def texture_draw(self):
+        screen.blit(self.img, self.rect)
+
+    def draw(self):
+        pygame.draw.rect(screen, (255, 0, 0), self.rect)
+
+    def move(self):
+        if self.orientation == 'x':
+            self.rect.x += self.speed
+            if self.rect.x >= self.p2 or self.rect.x <= self.p1:
+                self.speed = -self.speed
+        if self.orientation == 'y':
+            self.rect.y += self.speed
+            if self.rect.y >= self.p2 or self.rect.y <= self.p1:
+                self.speed = -self.speed
+
 class Wall():
     def __init__(self, x, y, w, h, color):
         self.rect = pygame.Rect(x, y, w, h)
@@ -54,6 +83,8 @@ if os.path.exists('27278/map.txt'):
 else:
     print('Файл уровня не найден!')
 
+enemy = Enemy(30, 30, 20, 20, (255, 0, 0), '27278/steve.png', 30, 120, 'x')
+
 
 while True:
     screen.fill((255, 255, 255))
@@ -80,6 +111,7 @@ while True:
         wall.draw()
 
     player.move()
+    enemy.move()
 
     for wall in walls:
         if player.rect.colliderect(wall.rect):
@@ -87,6 +119,7 @@ while True:
             player.rect.y -= player.y_speed
 
     player.draw()
+    enemy.draw()
 
     pygame.display.update()
     clock.tick(FPS)

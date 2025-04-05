@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+    <img src="logo.png" alt="">
+    <nav>
+        <div class="nav-item"><a href="#search">Поиск</a></div>
+        <div class="nav-item"><a href="#tours">Рекомендации</a></div>
+        <div class="nav-item">Контакты</div>
+    </nav>
+</header>
+<div class="header-bg"></div>
+<div class="header-fake"></div>
+<main>
+    <form class="search-group" method="GET" action="/" id="search">
+        <input class="input-keywords" name="keyword" type="text" placeholder="Ключевые слова">
+        <input class="input-min-price" type="number" placeholder="Стоимость от">
+        <input class="input-max-price" type="number" placeholder="Стоимость до">
+        <button type="submit">Найти</button>
+    </form>
+    <div class="search-suggestions">
+        <div class="search-suggestion">Турция</div>
+        <div class="search-suggestion">Все включено</div>
+        <div class="search-suggestion">Египет</div>
+        <div class="search-suggestion">Семейный</div>
+        <div class="search-suggestion">Активный отдых</div>
+    </div>
+    <h1 id="tours">Категории</h1>
+    <div class="categories">
+        <div class="category"><img src="icon-sea.png" alt="">Море</div>
+        <div class="category"><img src="icon-mountains.png" alt="">Горы</div>
+        <div class="category"><img src="icon-safari.png" alt="">Сафари</div>
+        <div class="category"><img src="icon-active.png" alt="">Активно</div>
+        <div class="category"><img src="icon-sun.png" alt="">Позагарать</div>
+    </div>
+    <h1>Лучшие туры</h1>
+    <div class="tours">
+        {% for tour in data.tours %}
+        <div class="tour">
+            <img src="temp_tour.webp" alt="">
+            <div class="tour-overlay"></div>
+            <p>{{ tour[1] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+<footer>
+    <img src="logo.png" alt="">
+    <p>Designed at <a href="https://easycode.tech" target="_blank">EasyCode <img src="link.png" alt=""></a></p>
+    <div class="contacts">
+        <p>77777777777</p>
+        <p>skdjnjv@kfejnv.dfvkjn</p>
+    </div>
+</footer>
+<script>
+let searches = document.querySelectorAll('.search-suggestion')
+let search_field = document.querySelector('.input-keywords')
+searches.forEach((e) => {
+    e.addEventListener('click', function() {
+        search_field.value = e.innerHTML
+    })
+})
+</script>
+</main>
+</body>
+</html>
