@@ -1,0 +1,13 @@
+h2 {
+    width: fit-content;
+    /* text-shadow: 10px 20px 0px black; */
+    box-shadow: 1px 1px 10px 2px black;
+    opacity: 0;
+    transition: 1s ease-in-out;
+    transform: translateY(-100%);
+}
+
+h2:hover {
+    opacity: 1;
+    transform: translateY(0);
+}
