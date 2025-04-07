@@ -108,7 +108,16 @@ with open('26847/lvl2map.txt', 'r') as map:
 
 
 player = Player(30, 30, 50, 50, '26847/steve.png')
-enemy = Enemy(40, 40, 20, 20, '26847/close_btn.png', 40, 200, 'x')
+
+lvl1enemies = [
+    Enemy(40, 40, 20, 20, '26847/close_btn.png', 40, 200, 'x'),
+    Enemy(200, 200, 20, 20, '26847/close_btn.png', 200, 500, 'y'),
+    Enemy(350, 100, 20, 20, '26847/close_btn.png', 350, 500, 'x')
+]
+lvl2enemies = [
+    Enemy(200, 200, 20, 20, '26847/close_btn.png', 200, 500, 'y'),
+]
+
 
 
 while True:
@@ -132,7 +141,6 @@ while True:
                 player.y_speed = 0
 
     player.move()
-    enemy.move()
 
     if lvl == 1:
         for wall in lvl1walls:
@@ -141,6 +149,11 @@ while True:
                 player.rect.y -= player.y_speed
         for wall in lvl1walls:
             wall.draw()
+        
+        for enemy in lvl1enemies:
+            enemy.move()
+            enemy.draw()
+
     elif lvl == 2:
         for wall in lvl2walls:
             if player.collide(wall):
@@ -149,12 +162,15 @@ while True:
         for wall in lvl2walls:
             wall.draw()
 
+        for enemy in lvl2enemies:
+            enemy.move()
+            enemy.draw()
+
     check_lvl = player.ischangelvl()
     if check_lvl:
         lvl = check_lvl
 
     player.draw()
-    enemy.draw()
     
     pygame.display.update()
     clock.tick(60)
