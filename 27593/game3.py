@@ -31,6 +31,36 @@ class Skin:
     def draw(self):
         screen.blit(self.img, self.rect)
 
+class Enemy:
+    def __init__(self, x, y, w, h, color, img, p1, p2, orientation):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.color = color
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        if p1 > p2:
+            p1, p2 = p2, p1
+        self.p1 = p1
+        self.p2 = p2
+        self.orientation = orientation
+        self.speed = 5
+
+    def draw_with_img(self):
+        screen.blit(self.img, self.rect)
+
+    def draw_without_img(self):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def move(self):
+        if self.orientation == 'x':
+            if self.p1 > self.rect.x or self.p2 < self.rect.x:
+                self.speed = -self.speed
+            self.rect.x += self.speed
+        elif self.orientation == 'y':
+            if self.p1 > self.rect.y or self.p2 < self.rect.x:
+                self.speed = -self.speed
+            self.rect.y += self.speed
+
+
 class Player:
     def __init__(self, x, y, w, h, img):
         self.rect = pygame.Rect(x, y, w, h)
@@ -70,6 +100,7 @@ for line in lines:
 player = Player(40, 40,50, 50, '27593/steve.png')
 skin1 = Skin(125, 225, 50, 50, "27593/steve.png")
 skin2 = Skin(250, 225, 50, 50, "27593/SANS.png" )
+enemy = Enemy(100, 100, 50, 50, (255, 0, 0), '27593/steve.png', 100, 300, 'x')
 
 while True:
     screen.fill((255, 255, 255))
@@ -115,6 +146,8 @@ while True:
 
         player.move()
 
+        enemy.move()
+
         for wall in walls:
             wall.draw()
 
@@ -122,7 +155,7 @@ while True:
             if player.iscollide(wall):
                 player.rect.x -= player.x_speed
                 player.rect.y -= player.y_speed
-
+        enemy.draw_with_img()
         player.draw()
 
     pygame.display.update()
