@@ -7,6 +7,7 @@ pygame.init()
 WIDTH = 500
 HEIGHT = 500
 gamestate = 0
+lvl = 1
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
@@ -22,6 +23,13 @@ class Player:
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
 
+    def ischangelevel(self):
+        if self.rect.x > WIDTH:
+            return lvl+1
+        elif self.rect.x + self.rect.width < 0:
+            return lvl-1
+        return False
+
     def iscollide(self, obj):
         if self.rect.colliderect(obj):
             return True
@@ -30,6 +38,35 @@ class Player:
 
     def draw(self):
         screen.blit(self.transform, self.rect)
+
+class Enemy:
+    def __init__(self, x, y, w, h, color, img, p1, p2, orientation):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        self.color = color
+        if p1 > p2:
+            p1, p2 = p2, p1
+        self.p1 = p1
+        self.p2 = p2
+        self.orientation = orientation
+        self.speed = 5
+
+    def draw(self):
+        screen.blit(self.img, self.rect)
+
+    def draw_without_img(self):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def move(self):
+        if self.orientation == 'x':
+            if self.rect.x > self.p2 or self.rect.x < self.p1:
+                self.speed = -self.speed
+            self.rect.x += self.speed
+        else:
+            if self.rect.y > self.p2 or self.rect.y < self.p1:
+                self.speed = -self.speed
+            self.rect.y += self.speed
 
 class Wall:
     def __init__(self, x, y, w, h, img):
@@ -49,8 +86,8 @@ class Skin:
         screen.blit(self.transform, self.rect)
 
 
-walls = []
-file = open('27129/game.txt', 'r', encoding='utf-8')
+lvl1walls = []
+file = open('27129/lvl1map.txt', 'r', encoding='utf-8')
 lines = file.read().split('\n')
 r = 0
 for line in lines:
@@ -58,16 +95,38 @@ for line in lines:
     c = 0
     for x in row:
         if x == '1':
-            walls.append(Wall(c*20, r*20, 20, 20, '27129/SANS.png'))
+            lvl1walls.append(Wall(c*20, r*20, 20, 20, '27129/SANS.png'))
         c += 1
     r += 1
 
+
+lvl2walls = []
+file = open('27129/lvl2map.txt', 'r', encoding='utf-8')
+lines = file.read().split('\n')
+r = 0
+for line in lines:
+    row = list(line)
+    c = 0
+    for x in row:
+        if x == '1':
+            lvl2walls.append(Wall(c*20, r*20, 20, 20, '27129/SANS.png'))
+        c += 1
+    r += 1
 
 
 
 skin1 = Skin(125,255, 50,50, '27129/SANS.png')
 skin2 = Skin(255,255, 50,50, '27129/steve.png' )
 player = Player(255,255, 50,50, '27129/SANS.png')
+lvl1enemies = [
+    Enemy(30, 40, 50, 50, (255, 0, 0), '27129/SANS.png', 30, 150, 'y'),
+    Enemy(100, 200, 50, 50, (255, 0, 0), '27129/SANS.png', 30, 150, 'x')
+]
+
+lvl2enemies = [
+    Enemy(30, 40, 50, 50, (255, 0, 0), '27129/SANS.png', 30, 150, 'x'),
+    Enemy(100, 200, 50, 50, (255, 0, 0), '27129/SANS.png', 30, 150, 'y')
+]
 
 # player = pygame.Rect(225, 225, 50, 50)
 # player_img_orig = pygame.image.load('player.png')
@@ -116,16 +175,40 @@ while True:
                 print(e.pos)
             
         player.move()
+        is_change = player.ischangelevel()
+        if is_change:
+            lvl = is_change
+            player.rect.x = 30
+            player.rect.y = 30
 
-        for wall in walls:
-            wall.draw()
-        
-        for wall in walls:
-            if player.iscollide(wall):
-                player.rect.x -= player.x_speed
-                player.rect.y -= player.y_speed
+        if lvl == 1:
+            for wall in lvl1walls:
+                wall.draw()
+            
+            for wall in lvl1walls:
+                if player.iscollide(wall):
+                    player.rect.x -= player.x_speed
+                    player.rect.y -= player.y_speed
 
+            for enemy in lvl1enemies:
+                enemy.move()
+                enemy.draw_without_img()
+
+        elif lvl == 2:
+            for wall in lvl2walls:
+                wall.draw()
+            
+            for wall in lvl2walls:
+                if player.iscollide(wall):
+                    player.rect.x -= player.x_speed
+                    player.rect.y -= player.y_speed
+
+            for enemy in lvl2enemies:
+                enemy.move()
+                enemy.draw_without_img()
+                
         player.draw()
+        
     
     pygame.display.update()
     clock.tick(60)
