@@ -1,27 +1,31 @@
-// for (let i = 1; i<=20; i++) {
-//     if (i % 2 == '0') {
-//         console.log(i)
-//     }
+
+
+// let password = prompt('Введите пароль: ')
+
+// while (password != 'qwerty') {
+//     alert('Вы ввели данные неправильно!')
+//     password = prompt('Введите пароль: ')
 // }
 
 
-// for (let i = 1; i <= 10; i++) {
-//     let row = '';
-//     for (let j = 1; j <= 10; j++) {
-//         row += (i*j) + '\t'
-//     }
-//     console.log(row)
+
+// let start_summa = parseFloat(prompt('Введите начальную сумму вклада: '))
+// let rate = parseFloat(prompt('Введите годовую процентную ставку: '))
+// let years = parseInt(prompt('Введите количество лет: '))
+
+
+// let currentYear = 0
+
+// while (currentYear < years) {
+//     start_summa += start_summa * rate
+//     currentYear++
 // }
 
 
-let width = 10
-let height = 5
+// alert(start_summa)
 
 
-for (let i = 1; i <= height; i++) {
-    let row = ''
-    for (let j = 1; j <= width; j++) {
-        row += '*'
-    }
-    console.log(row)
+for (let i = 0; i < 5; i++) {
+    console.log(i)
 }
+console.log(i)

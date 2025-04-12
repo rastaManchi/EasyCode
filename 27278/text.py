@@ -1,6 +1,8 @@
 import pygame
 import os
 import sys
+import time
+
 
 pygame.init()
 
@@ -22,7 +24,7 @@ class Enemy:
         self.p1 = p1
         self.p2 = p2
         self.orientation = orientation
-        self.speed = 5
+        self.speed = 2
     
     def texture_draw(self):
         screen.blit(self.img, self.rect)
@@ -54,10 +56,19 @@ class Player:
         self.color = color
         self.x_speed = 0
         self.y_speed = 0
+        self.hp = 100
+        self.hp_minus_time = 0
+        self.iscollidenow = False
 
     def move(self):
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
+
+    def iscollide(self, obj):
+        if self.rect.colliderect(obj):
+            return True
+        else:
+            return False
 
     def draw(self):
         pygame.draw.rect(screen, self.color, self.rect)
@@ -84,6 +95,12 @@ else:
     print('Файл уровня не найден!')
 
 enemy = Enemy(30, 30, 20, 20, (255, 0, 0), '27278/steve.png', 30, 120, 'x')
+
+# enemies = [
+#     Enemy(30, 30, 20, 20, (255, 0, 0), '27278/steve.png', 30, 120, 'x'),
+#     Enemy(30, 30, 20, 20, (255, 0, 0), '27278/steve.png', 30, 120, 'x'),
+#     Enemy(30, 30, 20, 20, (255, 0, 0), '27278/steve.png', 30, 120, 'x')
+# ]
 
 
 while True:
@@ -114,12 +131,32 @@ while True:
     enemy.move()
 
     for wall in walls:
-        if player.rect.colliderect(wall.rect):
+        if player.iscollide(wall):
             player.rect.x -= player.x_speed
             player.rect.y -= player.y_speed
 
     player.draw()
     enemy.draw()
+
+    # if player.iscollide(enemy):
+    #     if time.time() - player.hp_minus_time > 1:
+    #         print(player.hp)
+    #         player.hp_minus_time = time.time()
+    #         player.hp -= 10
+    #         if player.hp <= 0:
+    #             pygame.quit()
+    #             sys.exit()
+
+    if player.iscollide(enemy):
+        if not player.iscollidenow:
+            player.iscollidenow = True
+            player.hp -= 10
+            print(player.hp)
+            if player.hp <= 0:
+                pygame.quit()
+                sys.exit()
+    else:
+        player.iscollidenow = False
 
     pygame.display.update()
     clock.tick(FPS)
