@@ -4,35 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 </head>
-<body>
-
-    <div class="container">
-        <div class="row">
-            <div class="bg-success col-sm-4">Привет</div>
-            <div class="bg-danger col-sm-4">Как дела</div>
-            <div class="bg-dark text-light col-sm-4">Что делаешь?</div>
+<body class="d-flex flex-column">
+    <div id="carouselExampleAutoplaying" class="carousel slide p-5" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="..." class="d-block w-100" alt="...">
         </div>
+        <div class="carousel-item">
+          <img src="..." class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="..." class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-
-
-    <div class="container">
-        <!-- <input type="text" class="form-control h-100 w-50"> -->
-         <div class="row d-flex flex-row justify-content-center align-items-center">
-            <div class="col-6 bg-white">Элемент, выровненный по центру</div>
-         </div>
-
-        <div class="row d-flex flex-column justify-content-between bg-light">
-            <div class="col-4 bg-white">Верхний элемент</div>
-            <div class="col-4 bg-white">Средний элемент</div>
-            <div class="col-4 bg-white">Нижний элемент</div>
-        </div>
     
+    <nav class="navbar navbar-expand-lg bg-body-tertiary m-1">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Панель навигации</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Основаня страница</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Особенности</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">что-то ещё</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="card d-flex" style="width: 18rem; font-family: 'Courier New', Courier, monospace;">
+      <div class="card-body justify-content-center">
+        <h5 class="card-title">Карточка</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Краткое описание</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
     </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

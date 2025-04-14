@@ -20,8 +20,8 @@
 <main>
     <form class="search-group" method="GET" action="/" id="search">
         <input class="input-keywords" name="keyword" type="text" placeholder="Ключевые слова">
-        <input class="input-min-price" type="number" placeholder="Стоимость от">
-        <input class="input-max-price" type="number" placeholder="Стоимость до">
+        <input class="input-min-price" type="number" name="minprice" placeholder="Стоимость от">
+        <input class="input-max-price" type="number" name="maxprice" placeholder="Стоимость до">
         <button type="submit">Найти</button>
     </form>
     <div class="search-suggestions">
@@ -39,7 +39,7 @@
         <div class="category"><img src="/statc/icon-active.png" alt="">Активно</div>
         <div class="category"><img src="/statc/icon-sun.png" alt="">Позагарать</div>
     </div>
-    <h1>Лучшие туры</h1>
+    <h1>{{data.tour_heading}}</h1>
     <div class="tours">
         {% for tour in data.tours %}
         <div class="tour">

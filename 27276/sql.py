@@ -3,6 +3,11 @@ import sqlite3
 conn = sqlite3.connect('27276/sql.db')
 cur = conn.cursor()
 
+def get_all_products():
+    cur.execute('SELECT * FROM products')
+    result = cur.fetchall()
+    return result
+
 # Создать таблицу
 # cur.execute('''CREATE TABLE products(
 #             id INTEGER PRIMARY KEY AUTOINCREMENT,
