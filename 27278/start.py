@@ -8,6 +8,11 @@ WIDTH = 500
 HEIGHT = 500
 FPS = 60
 
+#классы
+
+
+#создание экземпляров
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
@@ -18,6 +23,12 @@ while True:
         if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        # обработка нажатий
+
+    # движение обьектов
+
+
+    #отрисовка объектов
 
     pygame.display.update()
     clock.tick(FPS)
