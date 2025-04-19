@@ -1,31 +1,13 @@
+let books = ["Гарри Поттер и философский камень", "Гарри Поттер и тайная комната ", "Гарри Поттер и Узник Азкабана"]
+// console.log(books[1])
 
+// books.push("Кубок Огня")
+// console.log(books)
 
-// let password = prompt('Введите пароль: ')
+// books.pop()
+// console.log(books)
 
-// while (password != 'qwerty') {
-//     alert('Вы ввели данные неправильно!')
-//     password = prompt('Введите пароль: ')
-// }
+// console.log(books.length)
 
-
-
-// let start_summa = parseFloat(prompt('Введите начальную сумму вклада: '))
-// let rate = parseFloat(prompt('Введите годовую процентную ставку: '))
-// let years = parseInt(prompt('Введите количество лет: '))
-
-
-// let currentYear = 0
-
-// while (currentYear < years) {
-//     start_summa += start_summa * rate
-//     currentYear++
-// }
-
-
-// alert(start_summa)
-
-
-for (let i = 0; i < 5; i++) {
-    console.log(i)
-}
-console.log(i)
+// books.splice(1, 0, "Гарри Поттер и кубок огня", "Гарри Поттер и Орден Феникса")
+// console.log(books)
