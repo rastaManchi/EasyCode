@@ -8,7 +8,7 @@
 </head>
 <body>
 <header>
-    <img src="logo.png" alt="">
+    <img onclick="window.location.href = '/'" src="/static/img/logo.png" alt="">
     <nav>
         <div class="nav-item"><a href="#search">Поиск</a></div>
         <div class="nav-item"><a href="#tours">Рекомендации</a></div>
@@ -18,10 +18,10 @@
 <div class="header-bg"></div>
 <div class="header-fake"></div>
 <main>
-    <form class="search-group" method="GET" action="/" id="search">
-        <input class="input-keywords" name="keyword" type="text" placeholder="Ключевые слова">
-        <input class="input-min-price" type="number" name="minprice" placeholder="Стоимость от">
-        <input class="input-max-price" type="number" name="maxprice" placeholder="Стоимость до">
+    <form class="search-group" target="_blank" method="GET" action="/" id="search">
+        <input class="input-keywords" name="keyword" type="text" placeholder="Ключевые слова" required>
+        <input class="input-min-price" type="number" name="minprice" placeholder="Стоимость от" required>
+        <input class="input-max-price" type="number" name="maxprice" placeholder="Стоимость до" required>
         <button type="submit">Найти</button>
     </form>
     <div class="search-suggestions">
@@ -33,26 +33,32 @@
     </div>
     <h1 id="tours">Категории</h1>
     <div class="categories">
-        <div class="category"><img src="/statc/icon-sea.png" alt="">Море</div>
-        <div class="category"><img src="/statc/icon-mountains.png" alt="">Горы</div>
-        <div class="category"><img src="/statc/icon-safari.png" alt="">Сафари</div>
-        <div class="category"><img src="/statc/icon-active.png" alt="">Активно</div>
-        <div class="category"><img src="/statc/icon-sun.png" alt="">Позагарать</div>
+        <div class="category"><img src="/static/img/icon-sea.png" alt="">Море</div>
+        <div class="category"><img src="/static/img/icon-mountains.png" alt="">Горы</div>
+        <div class="category"><img src="/static/img/icon-safari.png" alt="">Сафари</div>
+        <div class="category"><img src="/static/img/icon-active.png" alt="">Активно</div>
+        <div class="category"><img src="/static/img/icon-sun.png" alt="">Позагарать</div>
     </div>
-    <h1>{{data.tour_heading}}</h1>
-    <div class="tours">
-        {% for tour in data.tours %}
-        <div class="tour">
-            <img src="temp_tour.webp" alt="">
-            <div class="tour-overlay"></div>
-            <p>{{ tour[1] }}</p>
+    {% if data.tours|length > 0 %}
+        <h1>{{data.tour_heading}}</h1>
+        <div class="tours">
+            
+                {% for tour in data.tours %}
+                <div class="tour">
+                    <img src="/static/img/tour{{tour[0]}}/main.webp" alt="">
+                    <div class="tour-overlay"></div>
+                    <p>{{ tour[1] }}</p>
+                </div>
+                {% endfor %}
+                
         </div>
-        {% endfor %}
-    </div>
+    {% else %}
+        <h1>Не найдено</h1>
+    {% endif %}
 </main>
 <footer>
-    <img src="logo.png" alt="">
-    <p>Designed at <a href="https://easycode.tech" target="_blank">EasyCode <img src="link.png" alt=""></a></p>
+    <img src="/static/img/logo.png" alt="">
+    <p>Designed at <a href="https://easycode.tech" target="_blank">EasyCode <img src="/static/img/link.png" alt=""></a></p>
     <div class="contacts">
         <p>77777777777</p>
         <p>skdjnjv@kfejnv.dfvkjn</p>
