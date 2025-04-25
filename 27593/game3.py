@@ -4,6 +4,7 @@ from random import *
 
 pygame.init()
 
+
 WIDTH = 500
 HEIGHT = 500
 game_state = 0
