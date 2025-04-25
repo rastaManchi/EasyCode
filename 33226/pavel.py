@@ -17,32 +17,29 @@ class HandleClient(StatesGroup):
 
 
 async def start(message, state):
-   await message.answer('Привет! Здесь можно заказать воду. Сколько литров привезти?')
+   keyboard = types.ReplyKeyboardMarkup()
+   keyboard.add('С кунжутом', 'Без кунжута')
+   await message.answer('Привет! Я помогу тебе собрать бургер. Булочка с кунжутом или без кунжута?', reply_markup=keyboard)
    await HandleClient.waiting_for_volume.set()
 
 
 async def on_volume(message, state):
    volume = message.text
-   await state.update_data(volume=volume)
    keyboard = types.ReplyKeyboardMarkup()
-   keyboard.add('Газированная', 'Негазированная')
-   await message.answer('Окей. Вода должна бать газированной или негазированной?', reply_markup=keyboard)
+   keyboard.add('С луком', 'Без лука')
+   await message.answer('Окей. С луком или без лука?', reply_markup=keyboard)
    await HandleClient.waiting_for_gaz.set()
 
 
 async def on_gaz(message, state):
    gaz = message.text
-   await state.update_data(gaz=gaz)
    await message.answer('Отличный выбор! Куда доставить?')
    await HandleClient.waiting_for_address.set()
 
 
 async def on_address(message, state):
    address = message.text
-   await state.update_data(address=address)
-   await message.answer('Спасибо за заказ, обращайтесь! Привезём через пол часа.')
-   data = await state.get_data()
-   await message.answer(f'{data.get("volume")} | {data.get("gaz")} | {data.get("address")}')
+   await message.answer('Спасибо за заказ, обращайтесь! Привезём в течении часа.')
    await state.finish()
 
 
