@@ -1,13 +1,39 @@
-let books = ["Гарри Поттер и философский камень", "Гарри Поттер и тайная комната ", "Гарри Поттер и Узник Азкабана"]
-// console.log(books[1])
+// let knight = ['Sir Lancelot', 100, 50, ['sword', 'shield']];
+// let mage = ['Gandalf', 80, 120, ['staff', 'spell book']];
 
-// books.push("Кубок Огня")
-// console.log(books)
 
-// books.pop()
-// console.log(books)
+// let knight = {
+//     name: 'Sir Lancelot',
+//     health: 100,
+//     strength: 50,
+//     inventory: ['sword', 'shield']
+// };
 
-// console.log(books.length)
+// let mage = {
+//     name: 'Gandalf',
+//     health: 80,
+//     mana: 120,
+//     inventory: ['staff', 'spell book']
+// };
 
-// books.splice(1, 0, "Гарри Поттер и кубок огня", "Гарри Поттер и Орден Феникса")
-// console.log(books)
+
+let developerCard = {}
+
+developerCard.name = "Bulat";
+developerCard.age = 23;
+developerCard.position = "Frontend Developer";
+developerCard.department = "Web Development";
+developerCard.email = "alice.johnson@company.com";
+developerCard.phone = "+1-555-1234";
+
+developerCard.skills = ["Kali", "Python", "Django", "JS"]
+developerCard.experience = [
+    { company: "Tech Solutions", role: "Junior Developer", years: 2 },
+    { company: "Web Innovators", role: "Developer", years: 3 }
+];
+
+developerCard.skills.push("C#")
+
+for (let i in developerCard) {
+    console.log(`${i} - ${developerCard[i]}`)
+}
