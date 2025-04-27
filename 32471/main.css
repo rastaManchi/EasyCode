@@ -1,4 +1,4 @@
-body {
+/* body {
     background-color: gray;
 }
 
@@ -16,4 +16,16 @@ h1 {
     letter-spacing: 10px;
     word-spacing: 50px;
     text-shadow: 0px 1px 10px rgba(255, 255, 255, 0.309);
+} */
+
+div {
+    background-color: black;
+    color: white;
+    margin: 10px;
+    padding: 50px;
+    border: 10px solid red;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    text-align: center;
 }

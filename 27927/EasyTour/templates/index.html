@@ -33,11 +33,36 @@
     </div>
     <h1 id="tours">Категории</h1>
     <div class="categories">
-        <div class="category"><img src="/static/img/icon-sea.png" alt="">Море</div>
-        <div class="category"><img src="/static/img/icon-mountains.png" alt="">Горы</div>
-        <div class="category"><img src="/static/img/icon-safari.png" alt="">Сафари</div>
-        <div class="category"><img src="/static/img/icon-active.png" alt="">Активно</div>
-        <div class="category"><img src="/static/img/icon-sun.png" alt="">Позагарать</div>
+        <a href="/?category=море">
+            <div class="category">
+                <img src="/static/img/icon-sea.png" alt="">
+                Море
+            </div>
+        </a>
+        <a href="/?category=горы">
+            <div class="category">
+                <img src="/static/img/icon-mountains.png" alt="">
+                Горы
+            </div>
+        </a>
+        <a href="/?category=сафари">
+            <div class="category">
+                <img src="/static/img/icon-safari.png" alt="">
+                Сафари
+            </div>
+        </a>
+        <a href="/?category=активный отдых">
+            <div class="category">
+                <img src="/static/img/icon-active.png" alt="">
+                Активный отдых
+            </div>
+        </a>
+        <a href="/?category=позагорать">
+            <div class="category">
+                <img src="/static/img/icon-sun.png" alt="">
+                Позагорать
+            </div>
+        </a>
     </div>
     {% if data.tours|length > 0 %}
         <h1>{{data.tour_heading}}</h1>
