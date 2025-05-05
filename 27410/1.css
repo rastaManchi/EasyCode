@@ -1,13 +1,89 @@
-h2 {
-    width: fit-content;
-    /* text-shadow: 10px 20px 0px black; */
-    box-shadow: 1px 1px 10px 2px black;
-    opacity: 0;
-    transition: 1s ease-in-out;
-    transform: translateY(-100%);
+body {
+    background-size: cover;
+    background-image:  url('jeremy-perkins-FsK54FVNRfM-unsplash.jpg');
+    color: white;
+    font-family: "Anonymous Pro", monospace;
+    font-weight: 400;
+    font-style: normal;
+    margin: 1em;
 }
 
-h2:hover {
-    opacity: 1;
-    transform: translateY(0);
+button {
+    font-family: "Anonymous Pro", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #14202E;
+    padding: 1em;
+
+    img {
+        max-height: 60px;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+
+aside {
+    height: 100%;
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    background-color: rgba(20, 32, 46, 0.56);
+    border: 1px solid white;
+    border-radius: 10px;
+
+    button {
+        border: 0;
+        background-color: #4A4A4A;
+        color: white;
+        padding: 0.5em 2em;
+        border-radius: 10px;
+    }
+}
+
+.active {
+    background-color: black;
+}
+
+.grid {
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    justify-items: center;
+    align-items: center;
+    h4 {
+        grid-column: span 3;
+        background-color: rgba(20, 32, 46, 0.56);
+        padding: 0.2em;
+        border: 1px solid white;
+        border-radius: 10px;
+        font-size: 1.4em;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    p {
+        background-color: rgba(20, 32, 46, 0.56);
+        padding: 0.2em;
+        height: 100%;
+        font-size: 1.4em;
+        border: 1px solid white;
+        border-radius: 10px;
+        margin: 0
+    }
 }

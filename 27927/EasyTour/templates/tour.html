@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{ data.tour }}
+
+    <button id="like">Лайк</button>
+
+    <script>
+        const like_btn = document.getElementById('like')
+        like_btn.addEventListener('click', () => {
+            fetch('/tour/{{ data.tour[0] }}', {
+                method: 'POST'
+            })
+        })
+    </script>
+</body>
+</html>

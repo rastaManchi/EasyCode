@@ -25,6 +25,7 @@ async def start(message, state):
 
 async def on_volume(message, state):
    volume = message.text
+   await state.update_data(need_volume=volume)
    keyboard = types.ReplyKeyboardMarkup()
    keyboard.add('С луком', 'Без лука')
    await message.answer('Окей. С луком или без лука?', reply_markup=keyboard)
@@ -33,13 +34,17 @@ async def on_volume(message, state):
 
 async def on_gaz(message, state):
    gaz = message.text
+   await state.update_data(need_gaz = gaz)
    await message.answer('Отличный выбор! Куда доставить?')
    await HandleClient.waiting_for_address.set()
 
 
 async def on_address(message, state):
    address = message.text
+   await state.update_data(need_address = address)
    await message.answer('Спасибо за заказ, обращайтесь! Привезём в течении часа.')
+   data = await state.get_data()
+   
    await state.finish()
 
 

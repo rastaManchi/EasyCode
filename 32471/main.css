@@ -1,31 +1,32 @@
-/* body {
-    background-color: gray;
+body {
+    text-align: center;
+    background-color: rgb(35, 35, 35);
+    color: white
 }
 
-h1 {
-    color: red;
-    background-color: black;
-    font-size: 100px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    line-height: 120px;
-    letter-spacing: 10px;
-    word-spacing: 50px;
-    text-shadow: 0px 1px 10px rgba(255, 255, 255, 0.309);
-} */
-
-div {
-    background-color: black;
-    color: white;
-    margin: 10px;
-    padding: 50px;
-    border: 10px solid red;
-    border-radius: 50%;
-    width: 500px;
-    height: 500px;
-    text-align: center;
+.container {
+    display: flex;
 }
+
+.item1 {
+    /* flex-grow: 2; */
+    /* flex-shrink: 3; */
+    /* flex-basis: 100px; */
+    flex: 2 3 100px;
+    background: red;
+}
+.item2 {
+    /* flex-grow: 1; */
+    /* flex-shrink: 0; */
+    /* flex-basis: 150px; */
+    flex: 1 0 150px;
+    background: green;
+}
+.item3 {
+    /* flex-grow: 1; */
+    /* flex-shrink: 2; */
+    /* flex-basis: 200px; */
+    flex: 1 2 200px;
+    background: red;
+}
+  

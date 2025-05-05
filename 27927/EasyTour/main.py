@@ -28,6 +28,23 @@ def main():
     return render_template('index.html', data={'tours': random.sample(tours, 8), 'tour_heading': f'Результаты по запросу: {keyword}'})
 
 
+# http://127.0.0.1:port/tour/?id=2
+@app.route('/tour/', methods=['POST'])
+def tour():
+    tour_id = int(request.args.get('id'))
+    tour = get_tour_by_id(tour_id)
+    return render_template('tour.html', data={'tour': tour}) 
+
+
+# http://127.0.0.1:port/tour/2
+@app.route('/tour/<int:tour_id>', methods=['GET', 'POST'])
+def tour2(tour_id):
+    if request.method == 'GET':
+        tour = get_tour_by_id(tour_id)
+        return render_template('tour.html', data={'tour': tour}) 
+    add_like(tour_id)
+    return redirect(f'/tour/{tour_id}')
+
 app.run(debug=True)
 
 
