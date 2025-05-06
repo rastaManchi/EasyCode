@@ -80,6 +80,7 @@ class Player:
         self.x_speed = 0
         self.y_speed = 0
         self.speed = speed
+        self.inverse = False
         # self.frace = 1
         # self.max_frace = 3
     
@@ -154,9 +155,15 @@ while True:
                 sys.exit()
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_a:
-                    player.x_speed = -5
+                    if player.inverse:
+                        player.x_speed = 5
+                    else:
+                        player.x_speed = -5
                 elif e.key == pygame.K_d:
-                    player.x_speed = 5
+                    if player.inverse:
+                        player.x_speed = -5
+                    else:
+                        player.x_speed = 5
                 if e.key == pygame.K_w:
                     player.y_speed = -5
                 elif e.key == pygame.K_s:
@@ -176,6 +183,7 @@ while True:
                 if player.iscollide(wall):
                     player.rect.x -= player.x_speed
                     player.rect.y -= player.y_speed
+                    player.inverse = not player.inverse
           
 
         player.draw()
