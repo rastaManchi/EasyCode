@@ -126,6 +126,10 @@ player = Player(40, 40, 50, 50, 'gg.png')
 skin1 = Skin(100, 100, 400, 300, "ava.png")
 skin2 = Skin(205, 300, 300, 300, "start.png" )
 
+bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
+bg_orig_pic = pygame.image.load('steve.png')
+bg_pic = pygame.transform.scale(bg_orig_pic, (WIDTH, HEIGHT))
+
 enemies = [
     Enemy(100, 100, 50, 50, (255, 0, 0), 'vrag.png', 100, 300, 'x'),
     Enemy(200, 200, 50, 50, (255, 0, 0), 'vrag.png', 200, 400, 'y')
@@ -138,7 +142,7 @@ clock = pygame.time.Clock()
 
 while True:
     screen.fill((255, 255, 255))
-
+    screen.blit(bg_pic, bg)
     if game_state == 0:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
@@ -207,6 +211,7 @@ while True:
                     player.rect.y -= player.y_speed
                     player.is_jump = False
                     player.jump_time = 0
+                    player.y_speed = 2
                 if player.iscollide(wall):
                     player.rect.x -= player.x_speed
 
