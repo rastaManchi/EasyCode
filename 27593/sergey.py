@@ -204,10 +204,11 @@ while True:
 
             for wall in lvl1walls:
                 if player.iscollide(wall):
-                    player.rect.x -= player.x_speed
                     player.rect.y -= player.y_speed
                     player.is_jump = False
                     player.jump_time = 0
+                if player.iscollide(wall):
+                    player.rect.x -= player.x_speed
 
         player.draw()
 
