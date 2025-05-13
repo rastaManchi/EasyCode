@@ -10,6 +10,17 @@
 
     <button id="like">Лайк</button>
 
+    <div>
+        <h1>История</h1>
+        <ul>
+            {% for tour in data.history %}
+                <li>
+                    {{tour}}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <script>
         const like_btn = document.getElementById('like')
         like_btn.addEventListener('click', () => {

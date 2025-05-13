@@ -7,6 +7,8 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 import random
+import requests
+import json
 
 bot = Bot(token="7642230007:AAHSxCKstV2WJVzsygPsoTINbpMj7eyYmJw")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -61,8 +63,32 @@ async def on_address(message: types.Message, state: FSMContext):
    await state.finish()
 
 
+async def get_photo(message: types.Message):
+   # media = types.MediaGroup()
+   # media.attach_photo(types.InputFile("33226/41-run-head.png"))
+   # media.attach_photo(types.InputFile("33226/41-run-head.png"))
+   # media.attach_photo(types.InputFile("33226/41-run-head.png"))
+   # await bot.send_media_group(message.chat.id, media=media) # только для bot.send_media_group
+   r = requests.get('https://dog.ceo/api/breeds/image/random')
+   data = json.loads(r.content)
+   url = data["message"]
+   print(url)
+   await message.answer(url)
+
+   # await message.answer_photo(types.InputFile("33226/41-run-head.png"))
+
+
+
+async def sent_photo(message: types.Message):
+   print(message.photo[-1])
+   await message.photo[-1].download()
+   
+
+
 def register_handlers(dp: Dispatcher):
    dp.register_message_handler(start, commands="start")
+   dp.register_message_handler(get_photo, commands="get_photo")
+   dp.register_message_handler(sent_photo, content_types=['photo'])
    dp.register_message_handler(on_volume, state=HandleClient.waiting_for_volume)
    dp.register_message_handler(on_gaz, state=HandleClient.waiting_for_gaz)
    dp.register_message_handler(on_address, state=HandleClient.waiting_for_address)

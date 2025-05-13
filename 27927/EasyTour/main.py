@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 import sqlite3
 from helpers import *
 import random
@@ -40,10 +40,38 @@ def tour():
 @app.route('/tour/<int:tour_id>', methods=['GET', 'POST'])
 def tour2(tour_id):
     if request.method == 'GET':
+        history = []
         tour = get_tour_by_id(tour_id)
-        return render_template('tour.html', data={'tour': tour}) 
+        if request.cookies.get('id') is not None:
+            old_cookies = request.cookies.get('id')
+            print(old_cookies)
+            cookies_massive = old_cookies.split(';')
+            if str(tour_id) not in cookies_massive:
+                cookies_massive.append(str(tour_id))
+            for id in cookies_massive:
+                history_tour = get_tour_by_id(int(id))
+                history.append(history_tour)
+            response = make_response(render_template('tour.html', data={'tour': tour, 'history': history}))
+            response.set_cookie('id', ';'.join(cookies_massive), max_age=40)
+            return response
+        else:
+            response = make_response(render_template('tour.html', data={'tour': tour, 'history': history}))
+            response.set_cookie('id', str(tour_id), max_age=40)
+            return response
     add_like(tour_id)
     return redirect(f'/tour/{tour_id}')
+
+
+@app.route('/check_cookies/')
+def check_cookies():
+
+    if request.cookies.get('a') is not None:
+        return render_template('cookies.html')
+    else:
+        response = make_response(render_template('cookies.html'))
+        response.set_cookie('a', 'b', max_age=40)
+        return response
+
 
 app.run(debug=True)
 
