@@ -21,6 +21,7 @@ class HandleClient(StatesGroup):
    waiting_for_address = State()
 
 
+
 async def start(message: types.Message, state: FSMContext):
    print(message.chat.id)
    if not message.from_user.first_name and not message.from_user.last_name:
