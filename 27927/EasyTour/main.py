@@ -5,6 +5,7 @@ import random
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def main():
     if len(request.args) == 0:
@@ -25,7 +26,7 @@ def main():
     if len(result) <= 8:
         return render_template('index.html', data={'tours': result, 'tour_heading': f'Результаты по запросу: {keyword}'})
         
-    return render_template('index.html', data={'tours': random.sample(tours, 8), 'tour_heading': f'Результаты по запросу: {keyword}'})
+    return render_template('index.html', data={'tours': random.sample(result, 8), 'tour_heading': f'Результаты по запросу: {keyword}'})
 
 
 # http://127.0.0.1:port/tour/?id=2
@@ -42,6 +43,8 @@ def tour2(tour_id):
     if request.method == 'GET':
         history = []
         tour = get_tour_by_id(tour_id)
+        if not tour:
+            return render_template('error.html')
         if request.cookies.get('id') is not None:
             old_cookies = request.cookies.get('id')
             print(old_cookies)
