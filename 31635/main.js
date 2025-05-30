@@ -1,89 +1,90 @@
 const canvas = document.getElementById("game")
 const ctx = canvas.getContext('2d')
 
-let x = canvas.width / 2;
-let y = canvas.height / 2;
-const speed = 5;
-let dx = 0;
-let dy = 0;
+const tankImage = new Image();
+tankImage.src = 'wall.jpg';  
 
-// Враг
-let enemyX = canvas.width / 4;
-let enemyY = 50;
-const enemyWidth = 80;
-const enemyHeight = 50;
-let enemySpeed = 2;
-let enemyDx = enemySpeed;
+const bulletImage = new Image();
+bulletImage.src = 'wall.jpg';  
 
-// Функция для рисования квадрата
-function drawSquare() {
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(x, y, 50, 50);
+const tank = {
+    x: 400,
+    y: 500,
+    width: 50,
+    height: 50
+};
+
+const Enemy_tank = {
+    x: 400,
+    y: 100,
+    width: 50,
+    height: 50,
+    alive: true
+};
+
+
+const bullets = [];
+
+document.addEventListener('click', (event) => {
+    shootBullet(event.clientX, event.clientY);
+});
+
+function shootBullet(targetX, targetY) {
+    const startX = tank.x + tank.width / 2 
+    const startY = tank.y + tank.height / 2 
+    const angle = Math.atan2(targetY-startY, targetX-startX)
+    bullets.push({
+        x: tank.x + tank.width / 2 - 5,
+        y: tank.y,
+        width: 10,
+        height: 10,
+        speed: 5,
+        dx: Math.cos(angle) * 5,
+        dy: Math.sin(angle) * 5
+    });
 }
 
-// Функция для рисования врага
-function drawEnemy() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(enemyX, enemyY, enemyWidth, enemyHeight);
+function updateBullets() {
+    bullets.forEach((bullet, index) => {
+        bullet.x += bullet.dx;
+        bullet.y += bullet.dy;
+        if (bullet.x + bullet.width < 0 || bullet.x > canvas.width ||
+            bullet.y + bullet.height < 0 || bullet.y > canvas.height) {
+            bullets.splice(index, 1);
+        }
+    });
 }
 
-// Обработка нажатия клавиш
-function keyDownHandler(event) {
-    if (event.key === 'ArrowRight') {
-        dx = speed;
-    } else if (event.key === 'ArrowLeft') {
-        dx = -speed;
-    } else if (event.key === 'ArrowUp') {
-        dy = -speed;
-    } else if (event.key === 'ArrowDown') {
-        dy = speed;
+function drawTank() {
+    ctx.drawImage(tankImage, tank.x, tank.y, tank.width, tank.height);
+}
+
+function drawEnemyTank() {
+    if (Enemy_tank.alive) {
+        ctx.drawImage(tankImage, Enemy_tank.x, Enemy_tank.y, Enemy_tank.width, Enemy_tank.height);
     }
 }
 
-// Обработка отпускания клавиш
-function keyUpHandler(event) {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-        dx = 0;
-    }
-    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-        dy = 0;
-    }
+
+function drawBullets() {
+    bullets.forEach(bullet => {
+        ctx.drawImage(bulletImage, bullet.x, bullet.y, bullet.width, bullet.height);
+    });
 }
 
-// Подписка на события клавиатуры
-document.addEventListener('keydown', keyDownHandler);
-document.addEventListener('keyup', keyUpHandler);
+function update() {
+    updateBullets();
+    // проверка столкновения пули с врагом, например checkCollision()
 
-// Проверка столкновений
-function checkCollision() {
-    if (x < enemyX + enemyWidth && x + 50 > enemyX && y < enemyY + enemyHeight && y + 50 > enemyY) {
-        stopGame()
-    }
-}
-
-// Остановка игры при столкновении
-function stopGame() {
-    dx = 0
-    dy = 0
-    enemyDx = 0
-}
-
-// Запуск анимации
-function animate() {
-    requestAnimationFrame(animate);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawSquare();
-    drawEnemy();
-    checkCollision();
 
-    x += dx;
-    y += dy;
+    drawTank();
+    drawEnemyTank();
+    drawBullets();
 
-    // Обновление позиции врага
-    enemyX += enemyDx;
-    if (enemyX + enemyWidth > canvas.width || enemyX < 0) {
-        enemyDx = -enemyDx;
-    }
+    requestAnimationFrame(update);
 }
 
-animate();
+window.onload = () => {
+    update();
+};
