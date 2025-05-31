@@ -1,18 +1,36 @@
-import requests
-from bs4 import BeautifulSoup as bs
+import sqlite3
 
-domen = 'https://platform-easycode.ru'
-url = 'https://platform-easycode.ru/login'
-headers = {
-    'cookie': 'XSRF-TOKEN=eyJpdiI6IkdJcnhGTGJ4Rmp3cDVQMnR6d251c1E9PSIsInZhbHVlIjoiTG1WTkJLNng2RHNvWDRhOGlRVE10dDMwai8vdXFkMEtMRE4reTZWcU42YXVZYnJ3dFgyWkNibms0VHlWQmdlVmpZVWZGdlF6eWNPUkk4cnBBNDVTUTkzcXdwWFlGQ1hNSnpGc1hVSU5RclhjbnNPYlRPYjJ0dDZ0b2lianRNZzUiLCJtYWMiOiJkNjM4NTNjYTczZmMzZGRjMWVhZTU2NTY2OGI4ODM4ODY5MzgzNzM1NjNmNWUwMmM1YmEzNjhiY2Y4OTNmMTIzIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6Iml4eVZRaDdKTDZsdHIzQ05iRWJ4cVE9PSIsInZhbHVlIjoiUE0wQ3RyRkxTK3k3OHh2aVRIdml0Q2ZYMXdOVzdkcWNObi80OXhvU1hMd3FsY2U1QlBOS0tFdGhtUGlrSUJDU1pJRDMzSW5raVdpUzE3V1QxNlVFMGdkVDBUbXBud0ZNT2FURFFzRFYrNzRxT1I3ME1ueDc4WG04WlB5anVYNkgiLCJtYWMiOiJlOTAwMWI5NWE3Njk1MWM1YjhmZTFmNGU2NWNiMTE1ZWIzNzIyZTNjY2MxNjcwMDVhNzcxYWMwNDA0ODE1MjI1IiwidGFnIjoiIn0%3D; _ym_uid=1746293333214766909; _ym_d=1746293333; _ym_isad=2; _ym_visorc=w',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0'
-}
 
-r = requests.get(url, headers=headers)
+conn = sqlite3.connect('new.db')
+cur = conn.cursor()
 
-data = bs(r.content, 'lxml')
+# SELECT, INSERT, UPDATE, DELETE
 
-style = data.find('body').find('div').get('style')
-style = style.split('(')[1].split(')')[0]
-print(f'{domen}{style}')
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        price REAL,
+        url TEXT
+            )
+''')
 
+conn.commit()
+
+
+def add_product():
+    cur.execute('INSERT INTO products (name, price, url) VALUES (?, ?, ?)', ['RTX6090', 10010.50, 'https://buy.ru/1'])
+    conn.commit()
+
+def select_product():
+    cur.execute('SELECT * FROM products')
+    result = cur.fetchall()
+    print(result)
+
+def update_product():
+    cur.execute('UPDATE products SET price = 100 WHERE id = 1')
+    conn.commit()
+
+def delete_product():
+    cur.execute('DELETE FROM products WHERE id = 1')
+    conn.commit()

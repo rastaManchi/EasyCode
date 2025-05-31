@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, make_response
 from db import *
+from test import *
 
 app = Flask(__name__)
 
@@ -10,6 +11,17 @@ def welcome():
         return render_template('account.html')
     else:
         return render_template('index.html')
+    
+@app.route('/verified/')
+def verify():
+    email = request.args.get('email')
+    verify_account(email)
+    user = get_user_by_email(email)
+    response = make_response(redirect('/'))
+    response.set_cookie('id', str(user[0]), max_age=40)
+    return response
+    
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -19,6 +31,7 @@ def login():
     already = get_user_by_email(email)
     if not already:
         new_account(name, email, password)
+        check_email(email, f'Перейди по ссылке: http://127.0.0.1:5000/verified/?email={email}')
     else:
         user_pass = already[3]
         if user_pass == password:
