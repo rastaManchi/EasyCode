@@ -12,12 +12,27 @@ cur.execute('''CREATE TABLE IF NOT EXISTS products (
 conn.commit()
 
 
-# cur.execute('INSERT INTO products (name, price, description) VALUES (?, ?, ?)', ['Кларнет', 5000000, 'зычковый деревянный духовой музыкальный инструмент с одинарной тростью. Был изобретён примерно в 1700-х в Нюрнберге, в музыке активно используется со второй половины XVIII века.'])
+# cur.execute('INSERT INTO products (name, price, description) VALUES (?, ?, ?)', ['Гитара', 1000, '...'])
 # conn.commit()
 
 
-cur.execute('SELECT * FROM products')
-result = cur.fetchall()
+# def delete_item_by_name(name):
+#     cur.execute('DELETE FROM products WHERE name=? ', [name])
+#     conn.commit()
 
-print(result)
 
+# cur.execute('SELECT * FROM products WHERE price<?', [10001])
+# result = cur.fetchall()
+
+
+def second():
+    cur.execute('SELECT price FROM products')
+    result = cur.fetchall()
+    price_count = 0
+    total = 0
+    for i in result:
+        total += i[0]
+        price_count += 1
+    print(total/price_count)
+
+second()

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100vw;
+        }
+
+        .modal {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <form action="" method="post">
+            <input type="number" id="id" value="" name="edit_id" style="display: none;">
+            <input type="text" name="name" placeholder="Имя">
+            <input type="email" name="email" placeholder="email">
+            <input type="password" name="password" placeholder="пароль">
+            <input type="number" min="0" max="1" name="isadmin" placeholder="Админ">
+            <input type="number" min="0" max="1" name="verified" placeholder="Подтверждение">
+            <button type="submit">Изиенить</button>
+        </form>
+    </div>
+    <h3>Админ панель</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>email</th>
+            <th>password</th>
+            <th>isadmin</th>
+            <th>verified</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in data.users %}
+            <tr>
+                <td>
+                    {{ user[0] }}
+                </td>
+                <td>
+                    <input type="text" value="{{ user[1] }}">
+                </td>
+                <td>
+                    <input type="text" value="{{ user[2] }}">
+                </td>
+                <td>
+                    <input type="text" value="{{ user[3] }}">
+                </td>
+                <td>
+                    <input type="text" value="{{ user[4] }}">
+                </td>
+                <td>
+                    <input type="text" value="{{ user[5] }}">
+                </td>
+                <td>
+                    <form action="" method="post">
+                        <input type="number" value="{{ user[0] }}" name="delete_id" style="display: none;">
+                        <button type="submit">Удалить</button>
+                    </form>
+                    <button onclick="change('{{ user[0] }}')">Изменить</button>
+                </td>
+            </tr>
+        {% endfor %}    
+    </table>
+
+    <script>
+        const modal = document.querySelector('.modal')
+
+        function change(id) {
+            modal.style.opacity = '1'
+            modal.style.zIndex = '1'
+            modal.getElementById('id').value = `${id}`
+        }
+    </script>
+</body>
+</html>

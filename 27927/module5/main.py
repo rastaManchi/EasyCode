@@ -36,8 +36,29 @@ def login():
         user_pass = already[3]
         if user_pass == password:
             response = make_response(redirect('/'))
-            response.set_cookie('id', str(already[0]), max_age=40)
+            response.set_cookie('id', str(already[0]), max_age=5400)
             return response
     return redirect('/')
+
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    if request.method == 'GET':
+        id = int(request.cookies.get('id'))
+        user = get_user_by_id(id)
+        if user[4] == 1:
+            users = get_all_users()
+            return render_template('admin.html', data={'users': users})
+        else:
+            return redirect('/')
+    else:
+        delete_id = request.form.get('delete_id')
+        edit_id = request.form.get('edit_id')
+        if delete_id:
+            delete_user_by_id(delete_id)
+        elif edit_id:
+            pass
+        return redirect('/admin')
+
 
 app.run()
