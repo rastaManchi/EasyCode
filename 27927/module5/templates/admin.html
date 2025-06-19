@@ -23,15 +23,13 @@
 </head>
 <body>
     <div class="modal">
-        <form action="" method="post">
             <input type="number" id="id" value="" name="edit_id" style="display: none;">
             <input type="text" name="name" placeholder="Имя">
             <input type="email" name="email" placeholder="email">
             <input type="password" name="password" placeholder="пароль">
             <input type="number" min="0" max="1" name="isadmin" placeholder="Админ">
             <input type="number" min="0" max="1" name="verified" placeholder="Подтверждение">
-            <button type="submit">Изиенить</button>
-        </form>
+            <button class="edit_btn" user_id="">Изиенить</button>
     </div>
     <h3>Админ панель</h3>
     <table>
@@ -45,7 +43,7 @@
             <th>Actions</th>
         </tr>
         {% for user in data.users %}
-            <tr>
+            <tr class="tr_{{ user[0] }}">
                 <td>
                     {{ user[0] }}
                 </td>
@@ -65,15 +63,15 @@
                     <input type="text" value="{{ user[5] }}">
                 </td>
                 <td>
-                    <form action="" method="post">
-                        <input type="number" value="{{ user[0] }}" name="delete_id" style="display: none;">
-                        <button type="submit">Удалить</button>
-                    </form>
+                    <button class="delete_btn" user_id="{{ user[0] }}">Удалить</button>
                     <button onclick="change('{{ user[0] }}')">Изменить</button>
                 </td>
             </tr>
         {% endfor %}    
     </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/static/js/ajax.js"></script>
 
     <script>
         const modal = document.querySelector('.modal')
@@ -81,7 +79,7 @@
         function change(id) {
             modal.style.opacity = '1'
             modal.style.zIndex = '1'
-            modal.getElementById('id').value = `${id}`
+            modal.querySelector('button').setAttribute('user_id', id)
         }
     </script>
 </body>

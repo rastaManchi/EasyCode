@@ -10,10 +10,22 @@ import random
 import requests
 import json
 
+import sqlite3
+
 
 bot = Bot(token="7642230007:AAHSxCKstV2WJVzsygPsoTINbpMj7eyYmJw")
 dp = Dispatcher(bot, storage=MemoryStorage())
 
+conn = sqlite3.connect('33226/slides.db')
+cur = conn.cursor()
+
+cur.execute('''CREATE TABLE IF NOT EXISTS slides(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            length INTEGER,
+            description TEXT
+            )''')
+conn.commit()
 
 class BuyTicket(StatesGroup):
     name = State()

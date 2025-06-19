@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, request, make_response
+from flask import Flask, render_template, redirect, request, make_response, jsonify
 from db import *
 from test import *
+import json
 
 app = Flask(__name__)
 
@@ -31,7 +32,7 @@ def login():
     already = get_user_by_email(email)
     if not already:
         new_account(name, email, password)
-        check_email(email, f'Перейди по ссылке: http://127.0.0.1:5000/verified/?email={email}')
+        # check_email(email, f'Перейди по ссылке: http://127.0.0.1:5000/verified/?email={email}')
     else:
         user_pass = already[3]
         if user_pass == password:
@@ -52,13 +53,29 @@ def admin():
         else:
             return redirect('/')
     else:
-        delete_id = request.form.get('delete_id')
-        edit_id = request.form.get('edit_id')
-        if delete_id:
-            delete_user_by_id(delete_id)
-        elif edit_id:
+        data = request.get_json()
+        event = data.get('event')
+        user_id = data.get('user_id')
+        if event == 'delete':
+            delete_user_by_id(user_id)
+        elif event == 'edit':
             pass
-        return redirect('/admin')
+        return jsonify({"success": True})
+
+
+@app.route('/ajax', methods=['POST', 'GET'])
+def ajax():
+    if request.method == 'GET':
+        return render_template('ajax.html')
+    else:
+        data = request.get_json()
+        print(data.get('name'))
+        result = {
+            "Ключ1": 'Значение1',
+            "Ключ2": 'Значение2',
+            "Ключ3": 'Значение3'
+        }
+        return jsonify(result)
 
 
 app.run()

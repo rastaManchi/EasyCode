@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Угадай число</h1>
+        <p>Компьютер задумал число от 1 до 100. У вас есть 10 попыток, чтобы угадать</p>
+        <div class="input-container">
+            <input type="number" id="guessField" class="guess-field" min="1" max="100" placeholder="Ваше число">
+            <button id="guessSubmit" class="guess-submit">Угадать</button>
+        </div>
+        <div class="result">
+            <p id="resultMessage" class="result-message"></p>
+            <p id="attemptsRemaining" class="attempts-remaining">Осталось попыток: 10</p>
+        </div>
+        <div id="resetContainer" class="reset-container"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

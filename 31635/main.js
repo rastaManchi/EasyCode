@@ -1,85 +1,58 @@
-const canvas = document.getElementById("game")
-const ctx = canvas.getContext('2d')
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
 
-canvas.width = 400
-canvas.height = 400
-const tilesize = 40
+let stars = [];
+const numStars = 100;
 
-
-const player = {
-    x: 1,
-    x: 1
+function init() {
+    resizeCanvas();
+    for (let i = 0; i < numStars; i++) {
+        stars.push(
+            {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5,
+                speed: Math.random() * 0.5 + 0.2,
+                color: getRandomColor()
+            }
+        );
+    }
+    animate();
 }
 
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 
-const levels = [
-    [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 1, 1, 0, 1, 1, 0, 0, 1],
-        [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 0, 1, 0, 0, 0, 'E', 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
-    ],
-    [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 1, 1, 0, 1, 1, 0, 0, 1],
-        [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 0, 1, 0, 0, 0, 'E', 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
-    ]
-]
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
 
-let indexLevel = 0
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function drawLevel() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const level = levels[indexLevel]
-    for (let y = 0; y < level.length; y++) {
-        for (let x = 0; x<level[y].length; x++) {
-            if (level[y][x] == 1) {
-                ctx.fillStyle = 'black'
-                ctx.fillRect(x * tilesize, y * tilesize, tilesize, tilesize)
-            }
-            if (level[y][x] == 'E') {
-                ctx.fillStyle = 'green'
-                ctx.fillRect(x * tilesize + tilesize/4, y * tilesize + tilesize / 4, tilesize / 2, tilesize / 2)
+    stars.forEach(
+        star => {
+            ctx.fillStyle = star.color;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            star.y += star.speed;
+            if (star.y > canvas.height) {
+                star.y = 0;
+                star.x = Math.random() * canvas.width;
+                star.color = getRandomColor(); // Новый цвет при появлении сверху
             }
         }
-    }
+    );
+
+    requestAnimationFrame(animate);
 }
 
-// function drawPlayer() {}
-
-function movePlayer(dx, dy) {
-    const newX = player.x + dx
-    const newY = player.y + dy
-    const level = levels[indexLevel]
-
-    if (newX < 0 || newX >= level[0].length || newY < 0 || newY >= level.length) {
-        return
-    }
-
-    if (level[newY][newX] == 1) {
-        return
-    }
-
-    player.x = newX
-    player.y = newY
-
-    if (level[newY][newX] == 'E') {
-        indexLevel++
-        // resetPlayerPosition()
-    }
-
-    // checkGameOver()
-
-    // drawPlayer()
-    drawLevel()
-}
-
-
-// function animate() {}
+window.addEventListener('resize', resizeCanvas);
+init();
