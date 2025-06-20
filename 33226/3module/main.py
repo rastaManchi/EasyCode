@@ -25,14 +25,24 @@ conn.commit()
 # result = cur.fetchall()
 
 
-def second():
-    cur.execute('SELECT price FROM products')
-    result = cur.fetchall()
-    price_count = 0
-    total = 0
-    for i in result:
-        total += i[0]
-        price_count += 1
-    print(total/price_count)
+# def second():
+#     cur.execute('SELECT price FROM products')
+#     result = cur.fetchall()
+#     price_count = 0
+#     total = 0
+#     for i in result:
+#         total += i[0]
+#         price_count += 1
+#     print(total/price_count)
 
-second()
+# second()
+
+name = input('Введите название товара: ')
+
+def delete_item_by_name(name):
+    cur.execute('DELETE FROM products WHERE name = ?', [name])
+    conn.commit()       
+
+
+
+delete_item_by_name(name)
