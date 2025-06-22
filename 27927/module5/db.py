@@ -14,6 +14,24 @@ cur.execute('''CREATE TABLE IF NOT EXISTS users(
             )''')
 conn.commit()
 
+cur.execute('''CREATE TABLE IF NOT EXISTS posts(
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            title TEXT, 
+            content TEXT
+            )''')
+conn.commit()
+
+
+def add_new_post(title, content):
+    cur.execute('INSERT INTO posts(title, content) VALUES (?,?)', [title, content])
+    conn.commit()
+
+
+def get_all_posts():
+    cur.execute('SELECT * FROM posts')
+    result = cur.fetchall()
+    return result
+
 
 def get_user_by_id(id):
     cur.execute('SELECT * FROM users WHERE id=?', [id])

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить пост</title>
+</head>
+<body>
+    <h1>Добавить новый пост</h1>
+    <a href="{{ url_for('admin') }}">Панель админа</a>
+    <form action="/add_post" method="POST">
+        <label for="title">Заголовок:</label><br>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="content">Содержимое:</label><br>
+        <textarea id="content" name="content" required></textarea><br>
+
+        <input type="submit" value="Добавить пост">
+    </form>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post[1] }}</h2>
+                <p>{{ post[2] }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

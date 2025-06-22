@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('slides.db')
+conn = sqlite3.connect('slides.db', check_same_thread=False)
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS slides(

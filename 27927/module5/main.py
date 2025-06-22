@@ -9,10 +9,12 @@ app = Flask(__name__)
 def welcome():
     id = request.cookies.get('id')
     if id:
-        return render_template('account.html')
+        posts = get_all_posts()
+        return render_template('account.html', posts=posts)
     else:
         return render_template('index.html')
     
+
 @app.route('/verified/')
 def verify():
     email = request.args.get('email')
@@ -76,6 +78,15 @@ def ajax():
             "Ключ3": 'Значение3'
         }
         return jsonify(result)
+
+
+@app.route('/add_post', methods=['POST', 'GET'])
+def add_post():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+        add_new_post(title, content)
+    return redirect('/')
 
 
 app.run()
