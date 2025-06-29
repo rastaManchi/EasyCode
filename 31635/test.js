@@ -1,6 +1,11 @@
-ctx.beginPath();
-ctx.arc(250, 250, 100, 0, Math.PI, false);
-ctx.fillStyle = 'purple';
-ctx.fill();
-ctx.stroke();
+const button = document.getElementById('btn')
+
+
+button.addEventListener('mouseenter', () => {
+    button.style.backgroundColor = 'red'
+    button.textContent = '<img src="x" onerror="alert(1)">'
+})
+button.addEventListener('mouseleave', () => {
+    button.style.backgroundColor = 'white'
+})
 

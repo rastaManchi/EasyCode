@@ -61,3 +61,11 @@ def delete_user_by_id(id):
     cur.execute(f'DELETE FROM users WHERE id = {id}')
     conn.commit()
 
+def user_change(event, data, id):
+    if event == 'change_login':
+        cur.execute(f'UPDATE users SET name = ? WHERE id=?', [data, id])
+    elif event == 'change_email':
+        cur.execute(f'UPDATE users SET email = ? WHERE id=?', [data, id])
+    elif event == 'change_password':
+        cur.execute(f'UPDATE users SET password = ? WHERE id=?', [data, id])
+    conn.commit()

@@ -10,7 +10,8 @@ def welcome():
     id = request.cookies.get('id')
     if id:
         posts = get_all_posts()
-        return render_template('account.html', posts=posts)
+        user = get_user_by_id(id)
+        return render_template('account.html', posts=posts, user=user)
     else:
         return render_template('index.html')
     
@@ -78,6 +79,16 @@ def ajax():
             "Ключ3": 'Значение3'
         }
         return jsonify(result)
+    
+
+@app.route('/change', methods=['UPDATE'])
+def change():
+    id = request.cookies.get('id')
+    rdata = request.get_json()
+    event = rdata.get('event')
+    data = rdata.get('new_data')
+    user_change(event, data, id)
+    return jsonify({'Success': True})
 
 
 @app.route('/add_post', methods=['POST', 'GET'])

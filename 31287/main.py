@@ -13,5 +13,8 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                pass
     pygame.display.update()
     clock.tick(FPS)
