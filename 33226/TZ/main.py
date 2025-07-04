@@ -29,6 +29,15 @@ async def welcome(message: types.Message):
     await message.answer('И тебе не хворать')
 
 
+async def admin(message: types.Message):
+    text = message.text
+    l = len(text.split())
+    if l > 1:
+        password = text.split()[1]
+        if password == 'qwerty':
+            set_admin(message.from_user.id)
+
+
 async def game(message: types.Message):
     await message.answer('Привет')
     question = get_all_questions()[0]
@@ -74,6 +83,7 @@ async def q5(message: types.Message, state: FSMContext):
 def register_handlers(dp: Dispatcher):
     dp.register_message_handler(welcome, commands='start')
     dp.register_message_handler(game, commands='game')
+    dp.register_message_handler(admin, commands='admin')
     dp.register_message_handler(q1, state=Question.ans1)
     dp.register_message_handler(q2, state=Question.ans2)
     dp.register_message_handler(q3, state=Question.ans3)

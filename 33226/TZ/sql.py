@@ -32,6 +32,9 @@ def add_user(user_id):
     cur.execute('INSERT INTO users(user_id) VALUES (?)', [user_id])
     conn.commit()
 
+def set_admin(user_id):
+    cur.execute('UPDATE users SET isadmin=1 WHERE user_id=?', [user_id])
+    conn.commit()
 
 # questions
 def get_all_questions():
