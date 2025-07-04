@@ -21,6 +21,14 @@ class Question(StatesGroup):
     ans5 = State()
 
 
+async def welcome(message: types.Message):
+    user_id = message.from_user.id
+    user_from_db = get_user(user_id)
+    if not user_from_db:
+        add_user(user_id)
+    await message.answer('И тебе не хворать')
+
+
 async def game(message: types.Message):
     await message.answer('Привет')
     question = get_all_questions()[0]
@@ -64,6 +72,7 @@ async def q5(message: types.Message, state: FSMContext):
     await state.finish()
 
 def register_handlers(dp: Dispatcher):
+    dp.register_message_handler(welcome, commands='start')
     dp.register_message_handler(game, commands='game')
     dp.register_message_handler(q1, state=Question.ans1)
     dp.register_message_handler(q2, state=Question.ans2)

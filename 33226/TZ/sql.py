@@ -15,7 +15,25 @@ cur.execute('''CREATE TABLE IF NOT EXISTS questions(
     )''')
 conn.commit()
 
+cur.execute('''CREATE TABLE IF NOT EXISTS users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT,
+    isadmin INTEGER DEFAULT 0,
+    score INTEGER DEFAULT 0
+    )''')
+conn.commit()
 
+# users
+def get_user(user_id):
+    cur.execute('SELECT * FROM users WHERE user_id=?', [user_id])
+    return cur.fetchone()
+
+def add_user(user_id):
+    cur.execute('INSERT INTO users(user_id) VALUES (?)', [user_id])
+    conn.commit()
+
+
+# questions
 def get_all_questions():
     cur.execute('SELECT * FROM questions')
     return cur.fetchall()
@@ -24,3 +42,4 @@ def get_all_questions():
 def add_new_question(text, a1, a2, a3, a4, correct):
     cur.execute('INSERT INTO questions(text_question, ans1, ans2, ans3, ans4, correct) VALUES (?, ?, ?, ?, ?, ?)', [text, a1, a2, a3, a4, correct])
     conn.commit()
+    
