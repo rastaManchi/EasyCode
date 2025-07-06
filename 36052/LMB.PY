@@ -1,35 +1,15 @@
-import random
+names = ['Иван', 'Роберт', 'Артем', 'Катя', 'Максим', 'Женя']
+# names.append('12') Добавить
+# names.remove('12') Удалить по значению
+# names.pop(1) Удалить по индексу
+# names[0] Элемент с индексом ноль
+# if '12' in names: проверка элеменита в списке
+# if 3 < len(names) проверка индекса в списке
+# film1 = input('введите название фильма')
+films = []
 
-
-# 1 - Камень
-# 2 - Ножницы
-# 3 - Бумажка
-
-choices = {
-    1: 'Камень',
-    2: 'Ножницы',
-    3: 'Бумага'
-}
-
-user_choice = int(input('Выбери:\n1-Камень\n2-Ножницы\n3-Бумажка'))
-pc_choice = random.randint(1, 3)
-if user_choice == 1:
-    if pc_choice == 1:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('Ничья')
-    elif pc_choice == 2:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('Ты победил')
-    else:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('ПК победил')
-elif user_choice == 2:
-    if pc_choice == 1:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('ПК победил')
-    elif pc_choice == 2:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('Ничья')
-    else:
-        print(f'PC - {choices[pc_choice]}\nPlayer - {choices[user_choice]}\n')
-        print('Ты победил')
+for i in range(3):
+    film_name = input('Введите название фильма: ')
+    films.append(film_name)
+    
+print(films)

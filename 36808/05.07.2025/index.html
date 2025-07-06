@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тренажер английских слов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Тренажер английских слов</h1>
+        <div id="wordToTranslate"></div>
+        <input type="text" id="userInput" placeholder="Введите перевод">
+        <button id="checkButton" onclick="checkTranslation()" disabled>Проверить</button>
+        <button onclick="showAnswer()">Показать ответ</button>
+        <div id="feedback"></div>
+        <div id="score">Очки: 0</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
