@@ -23,6 +23,13 @@ cur.execute('''CREATE TABLE IF NOT EXISTS users(
     )''')
 conn.commit()
 
+cur.execute('''CREATE TABLE IF NOT EXISTS game_status(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    status TEXT
+    )''')
+conn.commit()
+
+
 # users
 def get_user(user_id):
     cur.execute('SELECT * FROM users WHERE user_id=?', [user_id])
@@ -35,14 +42,38 @@ def add_user(user_id):
 def set_admin(user_id):
     cur.execute('UPDATE users SET isadmin=1 WHERE user_id=?', [user_id])
     conn.commit()
+    
+def get_all_user():
+    cur.execute('SELECT * FROM users')
+    return cur.fetchall()
 
 # questions
 def get_all_questions():
     cur.execute('SELECT * FROM questions')
     return cur.fetchall()
 
+def delete_questions():
+    cur.execute('DELETE FROM questions')
+    conn.commit()
 
 def add_new_question(text, a1, a2, a3, a4, correct):
     cur.execute('INSERT INTO questions(text_question, ans1, ans2, ans3, ans4, correct) VALUES (?, ?, ?, ?, ?, ?)', [text, a1, a2, a3, a4, correct])
     conn.commit()
     
+    
+# game_status
+def get_status():
+    cur.execute('SELECT * FROM game_status')
+    result = cur.fetchone()
+    if result[1] == 'OFF':
+        return False
+    else:
+        return True
+    
+def db_startgame():
+    cur.execute('UPDATE game_status SET status="ON"')
+    conn.commit()
+    
+def db_stopgame():
+    cur.execute('UPDATE game_status SET status="OFF"')
+    conn.commit()

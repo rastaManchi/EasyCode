@@ -4,6 +4,7 @@ import aiogram.dispatcher.filters as filters
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import random
+from aiogram.dispatcher import FSMContext
 
 
 bot = Bot(token='6735946626:AAFAkx8Vt8DR5u4UChIl0S444O7hHvWmhTc')
