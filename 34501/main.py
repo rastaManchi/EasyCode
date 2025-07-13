@@ -12,6 +12,9 @@ bot = Bot(token='6943333150:AAGA-uXOML1M88KaLtslNoXzF46eJZm7yxU')
 dp = Dispatcher(storage=MemoryStorage())
 
 
+
+
+
 # Хендлеры
 @dp.message(Command("start"))
 async def start(message: Message, state: FSMContext):
@@ -24,6 +27,11 @@ async def start(message: Message, state: FSMContext):
         'Добро пожаловать в аквапарк! Нажмите на название горки, чтобы получить больше информации, '
         'или на кнопку "КУПИТЬ БИЛЕТ", чтобы купить билет.',reply_markup=slides.as_markup(rezise_keydoard=True))
 
+
+@dp.message(F.text)
+async def about(message: Message):
+    slide = get_slide_by_name(message.text)
+    print(slide)
 
 
 # Основная функция запуска
