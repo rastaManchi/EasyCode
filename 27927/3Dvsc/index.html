@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            height: 50vh;
+            background-color: gray;
+            margin-bottom: 1em;
+            display: flex;
+            justify-content: center;
+        }
+
+        #trigger1 {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .next {
+            flex-direction: row;
+
+            >div {
+                background-color: red;
+                flex-grow: 1
+            }
+
+            h2 {
+                flex-grow: 1;
+                max-width: 50%;
+            }
+        }
+
+        .next2 {
+            flex-direction: row-reverse;
+
+            >div {
+                background-color: red;
+                flex-grow: 1
+            }
+
+            h2 {
+                flex-grow: 1;
+                max-width: 50%;
+            }
+        }
+
+        footer {
+            background-color: black;
+            height: 20vh;
+        }
+
+        header {
+            background-color: black;
+            height: 20vh;
+        }
+
+        canvas {
+            position: fixed;
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <section>
+            <div id="trigger1"></div>
+        </section>
+
+        <section class="next2">
+            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur laboriosam facilis et recusandae
+                distinctio quisquam voluptate obcaecati, ab perferendis doloribus laborum facere corporis nisi quaerat
+                neque exercitationem saepe odit excepturi!</h2>
+            <div id="trigger2"></div>
+        </section>
+
+        <section class="next">
+            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur laboriosam facilis et recusandae
+                distinctio quisquam voluptate obcaecati, ab perferendis doloribus laborum facere corporis nisi quaerat
+                neque exercitationem saepe odit excepturi!</h2>
+            <div id="trigger3"></div>
+        </section>
+
+        <section class="next2">
+            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur laboriosam facilis et recusandae
+                distinctio quisquam voluptate obcaecati, ab perferendis doloribus laborum facere corporis nisi quaerat
+                neque exercitationem saepe odit excepturi!</h2>
+            <div id="trigger4"></div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
