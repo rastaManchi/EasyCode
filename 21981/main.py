@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 
 WIDTH = 500
@@ -22,7 +23,7 @@ class Player():
         self.xspeed = xspeed
         self.yspeed = yspeed
         self.jump_count = 0
-        self.max_jumps = 20
+        self.max_jumps = 30
         self.is_jump = False
         
     def move(self):
@@ -54,10 +55,32 @@ class Block:
                 
     def draw(self):
         pygame.draw.rect(screen, self.color, self.rect)
+        
+class Level:
+    def __init__(self, lvl, height=HEIGHT):
+        self.lvl = lvl
+        self.height = height
+        self.blocks = []
+        
+    def generate(self):
+        if self.lvl == 1:
+            rows = self.height // 200
+            for row in range(rows):
+                self.blocks.append(Block(100*random.randint(0, 3)+10, 120*(-row) + HEIGHT - 50, 100, 20, (255, 0, 0)))
+                for i in range(3):
+                    if random.randint(0, 1):
+                        self.blocks.append(Block(100*i+10, 120*(-row) + HEIGHT - 50, 100, 20, (255, 0, 0)))
+                        print(100*i, 200*(-row) + HEIGHT)
+                
+    def draw(self):
+        for block in self.blocks:
+            block.draw()
+                    
 
 player = Player(50, 50, 0, 0, 5, 5, 'player.png')
 
-block1 = Block(100, 200, 150, 50, (0, 255, 0))
+lvl = Level(1, 1000)
+lvl.generate()
 
 while True:
     screen.fill(GRAY)
@@ -76,9 +99,10 @@ while True:
                 
     player.move()
     player.jump()
-    block1.collide(player)
+    for block in lvl.blocks:
+        block.collide(player)
     
-    block1.draw()
+    lvl.draw()
     player.draw()
 
             

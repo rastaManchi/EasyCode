@@ -76,6 +76,6 @@ def check_cookies():
         return response
 
 
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0', port='8000')
 
 

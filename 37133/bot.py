@@ -6,7 +6,7 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 
-bot = Bot(token='6735946626:AAFAkx8Vt8DR5u4UChIl0S444O7hHvWmhTc', parse_mode="HTML")
+bot = Bot(token='7129279159:AAE-CpSY4mWh1mmJiLxpLcliP0vZpI-96z4', parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 slides_file = open('slides.txt', 'r', encoding='utf-8')
