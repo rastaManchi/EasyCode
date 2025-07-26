@@ -1,5 +1,8 @@
-width1 = 100
-width2 = 200
-if width1 > width2:
-    width1, width2 = width2, width1
-else: pass
+number = int(input('введите число: '))
+
+while number != -1:
+    if number % 2 == 0:
+        print('Четное')
+    else:
+        print('Нечетные')
+    number = int(input('введите число: '))
