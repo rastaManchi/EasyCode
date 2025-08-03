@@ -1,17 +1,9 @@
 import sqlite3
 
-conn = sqlite3.connect('sqlite.db')
+conn = sqlite3.connect('music.db')
 cur = conn.cursor()
 
-cur.execute('''CREATE TABLE IF NOT EXISTS users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT,
-    is_admin INTEGER,
-    score INTEGER
-    )''')
-conn.commit()
-
-cur.execute('''CREATE TABLE IF NOT EXISTS questions (
+cur.execute('''CREATE TABLE IF NOT EXISTS questions(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     text TEXT,
     ans1 TEXT,
@@ -22,6 +14,14 @@ cur.execute('''CREATE TABLE IF NOT EXISTS questions (
     )''')
 conn.commit()
 
+cur.execute('''CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT,
+    is_admin INTEGER,
+    score INTEGER
+    )''')
+conn.commit()
+
 cur.execute('''CREATE TABLE IF NOT EXISTS game_status(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     status TEXT
@@ -29,6 +29,34 @@ cur.execute('''CREATE TABLE IF NOT EXISTS game_status(
 conn.commit()
 
 
+def add_user(user_id, is_admin=0, score=0):
+    cur.execute('INSERT INTO users(user_id, is_admin, score) VALUES (?, ?, ?)', [user_id, is_admin, score])
+    conn.commit()
+    
+def add_admin(user_id):
+    cur.execute('UPDATE users SET is_admin=? WHERE user_id=?', [1, user_id])
+    conn.commit()
+
+def get_all_users():
+    cur.execute('SELECT * FROM users')
+    return cur.fetchall()
+
+def get_user_by_id(user_id):
+    cur.execute('SELECT * FROM users WHERE user_id=?', [user_id])
+    return cur.fetchone()
+
 def get_all_questions():
     cur.execute('SELECT * FROM questions')
     return cur.fetchall()
+
+def add_question(text, ans1, ans2, ans3, ans4, correct):
+    cur.execute('INSERT INTO questions(text, ans1, ans2, ans3, ans4, correct) VALUES (?, ?, ?, ?, ?, ?)', [text, ans1, ans2, ans3, ans4, correct])
+    conn.commit()
+    
+def delete_all_questions():
+    cur.execute('DELETE FROM questions')
+    conn.commit()
+    
+def change_game_status(status):
+    cur.execute('UPDATE game_status SET status=?', [status])
+    conn.commit()
