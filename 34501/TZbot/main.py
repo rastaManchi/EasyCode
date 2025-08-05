@@ -19,6 +19,14 @@ class AddQuestion(StatesGroup):
     a3 = State()
     a4 = State()
     a5 = State()
+    
+    
+class Question(StatesGroup):
+    q1 = State()
+    q2 = State()
+    q3 = State()
+    q4 = State()
+    q5 = State()
 
 
 @dp.message(CommandStart())
