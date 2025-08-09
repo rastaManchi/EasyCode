@@ -1,0 +1,50 @@
+html {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  padding: 0;
+  /* Свойство perspective задает перспективу для элементов, которые будут трансформироваться */
+  perspective: 1px;
+  /* Свойство transform-style сохраняет 3D-трансформацию дочерних элементов */
+  transform-style: preserve-3d;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  color: #fff;
+}
+header {
+  box-sizing: border-box;
+  min-height: 100vh;
+  text-align: center;
+  padding-top: 20%;
+  /* Наследование 3D-трансформации от родительского элемента body */
+  transform-style: inherit;
+  width: 100vw;
+}
+header::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: -1;
+  /* Задает точку отсчета для трансформации */
+  transform-origin: center;
+  min-height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1754620731794-f16ab70963ec?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 1s;
+  /* Параллакс-эффект создается с помощью трансформации:
+     translateZ(-1px) смещает элемент вглубь по оси Z,
+     scale(2) увеличивает масштаб элемента в 2 раза */
+  transform: translateZ(-1px) scale(2);
+}
+header h1 {
+  margin-top: -100px;
+  font-size: 42px;
+}
+

@@ -14,3 +14,18 @@ class Task(models.Model):
         
     def __str__(self):
         return self.name
+
+
+class Profile(models.Model):
+    name = models.CharField('Имя')
+    surname = models.CharField('Фамилия')
+    phone = models.CharField('Телефон', default='77777777777')
+    username = models.CharField('Логин')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    
+    class Meta:
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
+        
+    def __str__(self):
+        return self.username

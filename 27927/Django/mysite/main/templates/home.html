@@ -9,5 +9,30 @@
 </head>
 <body>
     <button>Привет</button>
+    {% if not user.is_authenticated %}
+        <form action="login/" method="post">
+            {% csrf_token %}
+            <input type="text" name="loginlogin" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="submit">
+        </form>
+
+        <form action="register/"  method="post">
+            {% csrf_token %}
+            <input type="text" name="loginlogin" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="submit">
+        </form>
+    {% else %}
+        <a href="/logout">Выйти</a>
+        <div>
+            <h1>Задачи</h1>
+            {% if tasks %}
+            <div>
+                {{tasks}}
+            </div>
+            {% endif %}
+        </div>
+    {% endif %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 // const a = 4
 // let b = 10
 
+
 // console.log('Hello World')
 // alert('Hello world')
 
@@ -39,16 +40,55 @@
 
 // ######################################
 
-const btn = document.getElementById('btn')
-btn.addEventListener('click', () => {
+// const btn = document.getElementById('btn')
+// btn.addEventListener('click', () => {
     
-    let div_block = document.createElement('div')
-    div_block.classList.add('module')
+//     let div_block = document.createElement('div')
+//     div_block.classList.add('module')
 
-    let text = document.createElement('h2')
-    text.textContent = 'Новый текст'
+//     let text = document.createElement('h2')
+//     text.textContent = 'Новый текст'
 
-    div_block.appendChild(text)
+//     div_block.appendChild(text)
 
-    document.body.appendChild(div_block)
+//     document.body.appendChild(div_block)
+// })
+
+
+// #######################################
+
+// if (2==2) {
+//     alert('Круто')
+// }
+// else if (3==2) {
+//     alert('Норм')
+// }
+// else {
+//     alert('не круто')
+// }
+
+
+// for (let i=0; i<10; i++) {
+//     alert(i)
+// }
+
+
+// let a = ['Булат', 'Вадим']
+
+// for (let name in a) {
+//     alert(name)
+// }
+// in -- проход по индексам 0..1
+// of -- проход по значениям Булат..Вадим
+
+// while ('Булат' in a) {
+//     console.log('Привет')
+// }
+
+fetch('/buy', {
+    method: 'POST',
+    body: JSON.stringify({"item_id": 2})
+})
+.then(response => {
+    console.log(response.json())
 })
