@@ -50,6 +50,22 @@ while action != 'stop':
             print()
         # <животное1> <имя1> сегодня покормили <число1> раз(а)
         # <животное2> <имя2> сегодня покормили <число2> раз(а)
+    elif action == '1':
+        user_name = input('Как зовут животное?: ')
+        index = 0
+        if user_name in names:
+            for name in names:
+                if name == user_name:
+                    break
+                index += 1
+            food = feed[index]
+            if food < 3:
+                feed[index] += 1
+                print(f'{animals[index]} {names[index]} сегодня покормили {feed[index]} раз(а)')
+            else:
+                print('Животное сыто')
+        else:
+            print('Такого животного нет')
     print()
     action = input('Введите команду\n1-покормить\n2-Информация\nstop-выйти\n')
 
