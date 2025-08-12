@@ -28,8 +28,17 @@ slides = {
     'Кантемир': 100
 }
 
-del slides['Жираф']
-name = input('Введите название новой горки: ')
-length = int(input('Введите длину новой горки: '))
-slides[name] = length
-print(f"{slides['Жираф']}")
+for slide in slides:
+    print(slide, slides[slide])
+
+for key, value in slides.items():
+    print(key, value)
+    
+slides.keys() # ['Детская', 'Зактное солнце', ...]
+slides.values() # [5, 20, 31 ...]
+
+# del slides['Жираф']
+# name = input('Введите название новой горки: ')
+# length = int(input('Введите длину новой горки: '))
+# slides[name] = length
+# print(f"{slides['Жираф']}")
