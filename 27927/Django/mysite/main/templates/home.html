@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
     <button>Привет</button>
     {% if not user.is_authenticated %}
-        <form action="login/" method="post">
-            {% csrf_token %}
-            <input type="text" name="loginlogin" placeholder="Логин">
-            <input type="password" name="password" placeholder="Пароль">
-            <input type="submit">
-        </form>
+    <form action="login/" method="post">
+        {% csrf_token %}
+        <input type="text" name="loginlogin" placeholder="Логин">
+        <input type="password" name="password" placeholder="Пароль">
+        <input type="submit">
+    </form>
 
-        <form action="register/"  method="post">
-            {% csrf_token %}
-            <input type="text" name="loginlogin" placeholder="Логин">
-            <input type="password" name="password" placeholder="Пароль">
-            <input type="submit">
-        </form>
+    <form action="register/" method="post">
+        {% csrf_token %}
+        <input type="text" name="loginlogin" placeholder="Логин">
+        <input type="password" name="password" placeholder="Пароль">
+        <input type="submit">
+    </form>
     {% else %}
-        <a href="/logout">Выйти</a>
+    <a href="/logout">Выйти</a>
+
+    <form action="/add/" method="post" id="add_form">
+        {% csrf_token %}
         <div>
-            <h1>Задачи</h1>
-            {% if tasks %}
-            <div>
-                {{tasks}}
-            </div>
-            {% endif %}
+            <input type="text" name="task_name" placeholder="Введите название задачи">
         </div>
+        <div>
+            <textarea name="task_text" id="task_text" cols="30" rows="10"
+                placeholder="Введите описание задачи"></textarea>
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+
+    </form>
+
+    <div id="tasks">
+        <h1>Задачи</h1>
+        {% if tasks %}
+
+            {% for task in tasks %}
+
+            <div>
+                <h3>{{task.name}}</h3>
+                <p>{{task.text}}</p>
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+    </div>
     {% endif %}
+
+    <script src="{% static 'js/home.js' %}"></script>
 </body>
+
 </html>

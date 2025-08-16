@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import *
+import json
 
 # Create your views here.
 def hello(request):
@@ -38,3 +39,19 @@ def register(request):
 def logout_(request):
     logout(request)
     return redirect('/')
+
+
+def add(request):
+    data = request.POST
+    task_name = data['task_name']
+    task_text = data['task_text']
+    if 'script' in task_name or 'script' in task_text:
+        response = {
+            "status": False
+        }
+        return HttpResponse(json.dumps(response))
+    Task.objects.create(name=task_name, text=task_text, isChecked=False, owner=request.user)
+    response = {
+        "status": True
+    }
+    return HttpResponse(json.dumps(response))
