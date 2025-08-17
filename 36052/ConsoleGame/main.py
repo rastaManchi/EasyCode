@@ -18,6 +18,4 @@ while True:
         current_enemy = fight(current_enemy)
     elif action == '2':
         training()
-    elif action == '3':
-        new()
     

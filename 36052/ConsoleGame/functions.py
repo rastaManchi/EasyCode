@@ -40,7 +40,7 @@ def training():
     for i in range(0, 101, 10):
         print(f'тренировка завершена на {i}%')
         time.sleep(1)
-    if training_type == 1:
+    if training_type == '1':
         player['attack'] += 3
     else:
         player['armor'] -= 0.05
