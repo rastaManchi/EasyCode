@@ -1,17 +1,17 @@
 # sword = ['Владислав', 100, 50, 5]
 
-# sword2 = {
-#     'name': 'Владислав',
-#     'hp': 100,
-#     'damage': 50,
-#     'luck': 5
-# }
+sword2 = {
+    'name': 'Владислав',
+    'hp': 100,
+    'damage': 50,
+    'luck': 5
+}
 
-# print(sword2['name'])
-# sword2['luck'] = 'Бесконечно'
-# print(sword2)
-# sword2['armor'] = 20
-# print(sword2)
+print(sword2['name'])
+sword2['luck'] = 'Бесконечно'
+print(sword2)
+sword2['armor'] = 20
+print(sword2)
 
 # if 'damage' in sword2:
 #     del sword2['damage']
