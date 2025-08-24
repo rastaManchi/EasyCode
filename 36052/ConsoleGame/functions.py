@@ -53,6 +53,15 @@ def training():
         player['armor'] -= 0.05
     print('Тренировка завершена')
 
+def secret(wrong):
+    print('...')
+    if wrong==0:
+        player['attack'] += 5
+        wrong += 1
+    else:
+        print('Вы уже активировали')
+    return wrong
+
 def shop():
     for item in shop_items:
         print(item)
