@@ -25,6 +25,11 @@
         <input type="password" name="password" placeholder="Пароль">
         <input type="submit">
     </form>
+
+    <form action="/accounts/telegram/login/?process=login" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Войти через ТГ">
+    </form>
     {% else %}
     <a href="/logout">Выйти</a>
 

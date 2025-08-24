@@ -1,4 +1,0 @@
-import config
-
-
-config.start()

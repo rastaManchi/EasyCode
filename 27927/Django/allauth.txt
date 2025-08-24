@@ -1,0 +1,40 @@
+pip install django-allauth
+pip install "django-allauth[socialaccount]"
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.messages',
+
+    'allauth',
+    'allauth.account',
+    `django-allauth[socialaccount]`,
+    'allauth.socialaccount.providers.telegram',
+]
+
+MIDDLEWARE = (
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
+)
+
+# в urls.py
+urlpatterns = [
+    ...
+    path('accounts/', include('allauth.urls')),
+    ...
+]
+
+
+python manage.py migrate
+python manage.py runserver

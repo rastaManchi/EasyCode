@@ -13,10 +13,15 @@ def fight(current_enemy):
         if round % 2 == 1:
             print(f'{player["name"]} атакует {enemy["name"]}')
             crit = random.randint(1, 100)
+            baff = 0
+            if 'нож кух' in player['inventory']:
+                baff += 5
+            if 'меч' in player['inventory']:
+                baff += 20
             if crit < player["luck"]:
-                enemy_hp -= player["attack"] * 3
+                enemy_hp -= (player["attack"] + baff) * 3
             else:
-                enemy_hp -= player["attack"]
+                enemy_hp -= player["attack"] + baff
             time.sleep(1)
         else:
             print(f'{enemy["name"]} атакует {player["name"]}')
@@ -30,6 +35,8 @@ def fight(current_enemy):
     if player["hp"] > 0:
         print(f'Противник - {enemy["name"]}: {enemy["win"]}')
         current_enemy += 1
+        player['money'] += enemy['money']
+        print(player['money'])
     else:
         print(f'Противник - {enemy["name"]}: {enemy["loss"]}')
     player["hp"] = 100
@@ -45,3 +52,18 @@ def training():
     else:
         player['armor'] -= 0.05
     print('Тренировка завершена')
+
+def shop():
+    for item in shop_items:
+        print(item)
+    name = input('Введите название предмета, который хотите купить: ').lower()
+    if name in shop_items:
+        if player['money'] >= shop_items[name]:
+            player['money'] -= shop_items[name]
+            player['inventory'].append(name)
+            print('Предмет куплен')
+            print(player['inventory'])
+        else:
+            print('Денег не хватает')
+    else:
+        print('Предмет не был найден!')
