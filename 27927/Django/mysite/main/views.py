@@ -7,9 +7,13 @@ import json
 # Create your views here.
 def hello(request):
     tasks = None
+    avatar = None
     if request.user.is_authenticated:
+        profile = Profile.objects.filter(owner=request.user)
+        if profile:
+            avatar = profile[0].avatar
         tasks = Task.objects.filter(owner=request.user)
-    return render(request, 'home.html', {'tasks': tasks})
+    return render(request, 'home.html', {'tasks': tasks, 'avatar': avatar})
 
 
 def login_(request):

@@ -38,3 +38,38 @@ form.addEventListener('submit', (e) => {
         document.getElementById('task_text').value = ""
     })
 })
+
+edit_avatar_div = document.createElement("div")
+edit_avatar_div.style.display = "flex"
+edit_avatar_div.style.alignItems = "center"
+edit_avatar_input = document.createElement("input")
+edit_avatar_input.setAttribute("type","file")
+edit_avatar_btn = document.createElement('button')
+edit_avatar_btn.textContent = 'Изменить изображение'
+edit_avatar_btn.style.color = 'white'
+edit_avatar_btn.style.backgroundColor = 'green'
+edit_avatar_btn.style.width = '100%'
+edit_avatar_btn.style.display = 'flex'
+edit_avatar_btn.style.justifyContent = 'center'
+edit_avatar_btn.style.padding = '1em'
+edit_avatar_btn.style.borderRadius = '15px'
+edit_avatar_btn.setAttribute("id","edit_avatar_btn")
+edit_avatar_btn.onclick = function(){
+            const img =edit_avatar_input.files[0]
+            const form_data=new FormData()
+            form_data.append("avatar",img)
+            fetch("/change_avatar",{
+                method:"post",
+                body:form_data
+            })
+            .then(response=>{
+                location.reload()
+            })
+        }
+
+def change_avatar(request):
+    avatar=request.FILES.get("avatar")
+    account=Account.objects.get(owner=request.user)
+    account.avatar=avatar
+    account.save()
+    return HttpResponse(avatar)

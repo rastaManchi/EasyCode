@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <button>Привет</button>
+    <img src="/media/{{avatar}}" alt="Ава">
     {% if not user.is_authenticated %}
     <form action="login/" method="post">
         {% csrf_token %}

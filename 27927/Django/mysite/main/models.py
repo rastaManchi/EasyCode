@@ -17,6 +17,7 @@ class Task(models.Model):
 
 
 class Profile(models.Model):
+    avatar = models.ImageField("Аватарка", upload_to="avatar/", default="avatar/default.png")
     name = models.CharField('Имя')
     surname = models.CharField('Фамилия')
     phone = models.CharField('Телефон', default='77777777777')
