@@ -1,16 +1,9 @@
-# Дано натуральное число n. 
-# Напишите программу, которая выводит таблицу умножения на n 
-# (от 1 до 10 включительно).
+# import random
+# random.randint(1,100)
 
+# import random as r
+# r.randint(1,100)
 
-# n = int(input('Введите число: '))
-# for i in range(1, 11, 1):
-#     print(f'{i} * {n} = {i*n}')
-
-#range(1, 11, 1) -> 1,2,3,4,5,6,7,8,9,10
-#range(1, 11, 2) -> 1,3,5,7,9
-#range(0, 11, 5) -> 0,5,10
-
-stroka = 'привет'
-for i in stroka:
-    print(i)
+# from random import *
+# randint(1,100)
+# choice()
