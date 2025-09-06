@@ -1,24 +1,23 @@
-# def test():
-#     # global result
-#     result = 2 + 5
-#     return result
+# names = [1, 2, 300, "Булат", 5, 6]
 
-# result = 0
-# result = test() # result = 7
-# print(result)
+# names[0] = 'Булат' # изменить
+
+# names.append('Новый') # добавить
+
+# names.remove('Булат') # удалить по значению
+
+# names.pop(1) # удалить по индексу
+
+# del names[1] # удалить по индексу
+
+# for i in names:
+#     print(i)
 
 
-# def propper(shvabra):
-#     print(f'Мистер Проппер помыл квартиру шваброй {shvabra}')
+# text = "Булат - Гоша - Кирилл - Влад"
+# spisok = text.split(' - ')
+# print(spisok)
 
-# propper("Швабра красивая черная")
-
-
-import random
-
-def Card():
-    local_number = random.randint(1000000000000000, 9999999999999999)
-    return local_number
-
-global_number = Card()
-print(f"Номер карты: {global_number}")
+# names = ["Булат", 'Гоша', 'Кирилл', 'Влад']
+# text = ' @@@ - @@@ '.join(names)
+# print(text)
