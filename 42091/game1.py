@@ -10,6 +10,7 @@ clock = pygame.time.Clock()
 
 player = pygame.Rect(0, 0, 50, 50)
 speed = 2
+direction = None
 
 while True:
     screen.fill(BACKGROUND)
@@ -18,10 +19,33 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
             pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                direction = 'right'
+            elif event.key == pygame.K_LEFT:
+                direction = 'left'
+            elif event.key == pygame.K_UP:
+                direction = 'up'
+            elif event.key == pygame.K_DOWN:
+                direction = 'down'
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP or \
+                event.key == pygame.K_DOWN or \
+                event.key == pygame.K_RIGHT or \
+                event.key == pygame.K_LEFT:
+                    direction = None
 
-    player.x += speed
-    if player.x >= 450 or player.x <= 0:
-        speed = -speed
+
+    if direction:
+        if direction == 'right':
+            player.x += speed
+        elif direction == 'left':
+            player.x -= speed
+        elif direction == 'up':
+            player.y -= speed
+        elif direction == 'down':
+            player.y += speed
+    
     pygame.draw.rect(screen, (255, 0, 0), player)
 
     pygame.display.update()

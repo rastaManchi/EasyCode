@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def welcome():
-    return "Привет"
+    return "<a href='https://google.com'>Кнопка</a>"
 
 
 @app.route("/profile")

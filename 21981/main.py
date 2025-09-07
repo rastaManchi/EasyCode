@@ -1,23 +1,26 @@
-# names = [1, 2, 300, "Булат", 5, 6]
+items = {
+    'Яблоко': 80,
+    'ПК': 50000,
+    'ручка': 50
+}
 
-# names[0] = 'Булат' # изменить
+items['ПК']
+items['ПК'] = 70000 # изменение значения
+items['new_key'] = 'new_value' # добавление новой пары
+del items['ручка'] # удаление элемента
 
-# names.append('Новый') # добавить
+keys = list(items.keys()) # список только ключей
+values = list(items.values()) # список только значений
+items_ = list(items.items()) # список элементов
 
-# names.remove('Булат') # удалить по значению
+# for key, value in items_:
+#     print(key, value)
 
-# names.pop(1) # удалить по индексу
-
-# del names[1] # удалить по индексу
-
-# for i in names:
+# spisok = [1, 2, 'Булат', 4, 5]
+# for i in spisok:
 #     print(i)
 
 
-# text = "Булат - Гоша - Кирилл - Влад"
-# spisok = text.split(' - ')
-# print(spisok)
-
-# names = ["Булат", 'Гоша', 'Кирилл', 'Влад']
-# text = ' @@@ - @@@ '.join(names)
-# print(text)
+# for i in items:
+#     print(i)
+#     print(items[i])

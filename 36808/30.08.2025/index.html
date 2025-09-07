@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <h2>Заголовок</h2>
-    </header>
 
-    <main>
-        <section>
-            <img src="" alt="">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem quibusdam vero expedita quis repellendus deserunt, iste culpa magni modi placeat suscipit libero molestiae quo consequatur dicta a tenetur, repudiandae voluptatem!</p>
-        </section>
-    </main>
+<body>
+    <button id="btn">Кнопка</button>
+    <button id="btn">Кнопка</button>
+    <button id="btn">Кнопка</button>
+    <button id="btn">Кнопка</button>
+    <button id="btn">Кнопка</button>
+
+
+    <div>
+        <input type="text" id="word" placeholder="введите слово">
+        <button onclick="add_word()">Отправить</button>
+    </div>
+
+    <div>
+        <h2 class="result new"></h2>
+    </div>
+    <button onclick="recover()">Верни меня</button>
+
+    <button onclick="delme(this)">удали меня</button>
+
     <script src="script.js"></script>
 </body>
+
 </html>
