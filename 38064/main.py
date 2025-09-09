@@ -1,16 +1,12 @@
-# empty = [] # создание списки
-# empty.append("новый") #добавление элемента
-# empty.remove("старый") # удаление элемента по значению
-# empty.pop(0) # удаление элемента по индкесу
-# del empty[0] # удаление элемента по индексу
+fruits = ('Яблоко', 'Банан')
 
+name = input('Введи название фрукта: ')
 
-# spisok = ['БУлат', 'Никита']
-# length = len(spisok) # длина списка
-# print(f"Кол-во элементов: {length}")
+count = 1
 
-# text = "Булат - Кирилл - Никита - Влад"
-# spisok = text.split(' - ')
-# print(spisok)
-# new_text = ' ,'.join(spisok)
-# print(new_text)
+for i in fruits:
+    if name == i:
+        result = count
+    count += 1
+
+print(f'{name} - фрукт под номером {result}')
