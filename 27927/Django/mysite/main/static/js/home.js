@@ -67,9 +67,3 @@ edit_avatar_btn.onclick = function(){
             })
         }
 
-def change_avatar(request):
-    avatar=request.FILES.get("avatar")
-    account=Account.objects.get(owner=request.user)
-    account.avatar=avatar
-    account.save()
-    return HttpResponse(avatar)
