@@ -9,12 +9,12 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 player = pygame.Rect(0, 0, 50, 50)
-player_image = pygame.image.load("ufoBlue.png")
-player_image = pygame.transform.scale(player_image, (50, 50))
+player_orig_image = pygame.image.load("ufoBlue.png")
+player_image = pygame.transform.scale(player_orig_image, (50, 50))
 
 enemy = pygame.Rect(100, 100, 50, 50)
-enemy_image = pygame.image.load("ufoRed.png")
-enemy_image = pygame.transform.scale(enemy_image, (50, 50))
+enemy_origin_image = pygame.image.load("ufoRed.png")
+enemy_image = pygame.transform.scale(enemy_origin_image, (50, 50))
 
 speed = 2
 direction = None
@@ -82,8 +82,9 @@ while True:
     if player.colliderect(enemy):
         print('Столкновение')
     
-    
+    pygame.draw.rect(screen, (0, 255, 0), player)
     screen.blit(player_image, player)
+    
     screen.blit(enemy_image, enemy)
 
     pygame.display.update()

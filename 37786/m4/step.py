@@ -3,6 +3,7 @@ import time
 from data import *
 from helpers import *
 
+
 name = input('Введите свое имя, путник: ')
 player["name"] = name
 

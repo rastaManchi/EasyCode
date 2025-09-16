@@ -31,11 +31,28 @@ def fight(enemy_index):
     return enemy_index
 
 
-
-
-
 def training():
-    print('Тренируемся')
+    type = input('Что мы тренируем?\n1 - Атака\n2 - Оборона\n')
+    for procent in range(0, 101, 10):
+        print(f"Тренировка завершена на {procent}%")
+        time.sleep(1)
+    if type=='1':
+        player['attack'] += 5
+    else:
+        player['armor'] += 5
 
 def shop():
-    print('Закупаемся')
+    msg = ""
+    count = 1
+    for item in shop_items:
+        msg += f"{count} - {item['name']} - {item['price']}\n"
+        count += 1
+    print(msg)
+    user_chioce = int(input('Какой товар выберите: ')) - 1
+    if player['money'] >= shop_items[user_chioce]['price']:
+        player['money'] -= shop_items[user_chioce]['price']
+        player['inventory'].append(shop_items[user_chioce])
+    else:
+        print('Денег нет')
+    print(player['inventory'])
+    print(player['money'])
