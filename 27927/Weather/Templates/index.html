@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .weather-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(10px) brightness(0.6);
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease;
+        }
+        
+        .modal {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .day-cell:hover {
+            transform: scale(1.03);
+            transition: transform 0.2s ease;
+        }
+        
+        .weather-icon {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Background with dynamic weather -->
+    <div class="weather-bg" id="weatherBackground"></div>
+    
+    <!-- Main container -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold mb-2">Weather Calendar</h1>
+            <p class="text-gray-400">Plan your outfits based on the weather</p>
+        </header>
+        
+        <!-- Month selector -->
+        <div class="flex justify-between items-center mb-6 bg-gray-800 rounded-lg p-4">
+            <button id="prevMonth" class="p-2 rounded-full hover:bg-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <h2 id="currentMonth" class="text-2xl font-semibold">January 2023</h2>
+            <button id="nextMonth" class="p-2 rounded-full hover:bg-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Calendar grid -->
+        <div class="grid grid-cols-7 gap-2 mb-2">
+            <div class="text-center font-medium py-2">Sun</div>
+            <div class="text-center font-medium py-2">Mon</div>
+            <div class="text-center font-medium py-2">Tue</div>
+            <div class="text-center font-medium py-2">Wed</div>
+            <div class="text-center font-medium py-2">Thu</div>
+            <div class="text-center font-medium py-2">Fri</div>
+            <div class="text-center font-medium py-2">Sat</div>
+        </div>
+        
+        <div id="calendarGrid" class="grid grid-cols-7 gap-2">
+            <!-- Calendar days will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Modal for outfit recommendation -->
+    <div id="outfitModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 modal">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalDate" class="text-xl font-bold"></h3>
+                <button id="closeModal" class="text-gray-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center mb-4">
+                <div id="modalWeatherIcon" class="text-4xl mr-3"></div>
+                <div>
+                    <p id="modalWeatherDesc" class="font-medium"></p>
+                    <p id="modalTemp" class="text-2xl"></p>
+                </div>
+            </div>
+            <div class="bg-gray-700 rounded-lg p-4">
+                <h4 class="font-medium mb-2">Outfit Recommendation</h4>
+                <p id="outfitRecommendation" class="text-gray-300"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Current date
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            
+            // Weather conditions
+            const weatherConditions = [
+                { type: 'sunny', icon: '☀️', minTemp: 20, maxTemp: 35, bg: 'https://media.giphy.com/media/xT9IgzoKnwFNmIS1kY/giphy.gif' },
+                { type: 'cloudy', icon: '☁️', minTemp: 10, maxTemp: 20, bg: 'https://media.giphy.com/media/l0HU7jj0iv2xV4X4k/giphy.gif' },
+                { type: 'rainy', icon: '🌧️', minTemp: 5, maxTemp: 15, bg: 'https://media.giphy.com/media/3o7TKsQ8gqVrqVWY5a/giphy.gif' },
+                { type: 'stormy', icon: '⛈️', minTemp: 5, maxTemp: 15, bg: 'https://media.giphy.com/media/3o6Zt6MLq3FnY8q3mE/giphy.gif' },
+                { type: 'snowy', icon: '❄️', minTemp: -10, maxTemp: 0, bg: 'https://media.giphy.com/media/3o7TKr7e5gLUQhQYx2/giphy.gif' },
+                { type: 'night', icon: '🌙', minTemp: 10, maxTemp: 20, bg: 'https://media.giphy.com/media/l0HU7jj0iv2xV4X4k/giphy.gif' }
+            ];
+            
+            // Outfit recommendations
+            const outfitRecommendations = {
+                sunny: "Wear light clothing, sunglasses, and don't forget sunscreen! A hat would also be helpful.",
+                cloudy: "A light jacket or sweater would be perfect. You might not need sunglasses today.",
+                rainy: "Bring an umbrella and wear waterproof shoes. A raincoat would be ideal.",
+                stormy: "Stay indoors if possible. If you must go out, wear waterproof everything and be cautious.",
+                snowy: "Bundle up with a heavy coat, gloves, scarf, and warm boots. Layers are key!",
+                night: "A light jacket or sweater would be good as temperatures drop at night."
+            };
+            
+            // DOM elements
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentMonthElement = document.getElementById('currentMonth');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const outfitModal = document.getElementById('outfitModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const modalDate = document.getElementById('modalDate');
+            const modalWeatherIcon = document.getElementById('modalWeatherIcon');
+            const modalWeatherDesc = document.getElementById('modalWeatherDesc');
+            const modalTemp = document.getElementById('modalTemp');
+            const outfitRecommendation = document.getElementById('outfitRecommendation');
+            const weatherBackground = document.getElementById('weatherBackground');
+            
+            // Event listeners
+            prevMonthBtn.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar();
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+                outfitModal.classList.add('hidden');
+            });
+            
+            outfitModal.addEventListener('click', (e) => {
+                if (e.target === outfitModal) {
+                    outfitModal.classList.add('hidden');
+                }
+            });
+            
+            // Generate random weather for a day
+            function getRandomWeather() {
+                const randomIndex = Math.floor(Math.random() * weatherConditions.length);
+                return weatherConditions[randomIndex];
+            }
+            
+            // Render calendar
+            function renderCalendar() {
+                // Update month display
+                const monthNames = ["January", "February", "March", "April", "May", "June", 
+                                   "July", "August", "September", "October", "November", "December"];
+                currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+                
+                // Clear previous calendar
+                calendarGrid.innerHTML = '';
+                
+                // Get first day of month and total days
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                
+                // Add empty cells for days before first day
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'h-24 bg-gray-800 rounded-lg opacity-50';
+                    calendarGrid.appendChild(emptyCell);
+                }
+                
+                // Add day cells
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayCell = document.createElement('div');
+                    dayCell.className = 'day-cell bg-gray-800 rounded-lg p-2 h-24 flex flex-col cursor-pointer hover:bg-gray-700 transition';
+                    
+                    // Random weather for the day
+                    const weather = getRandomWeather();
+                    const temp = Math.floor(Math.random() * (weather.maxTemp - weather.minTemp + 1)) + weather.minTemp;
+                    
+                    // Date for this cell
+                    const cellDate = new Date(currentYear, currentMonth, day);
+                    
+                    // If it's today, highlight it
+                    if (day === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()) {
+                        dayCell.classList.add('border-2', 'border-blue-400');
+                    }
+                    
+                    // Day number
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'text-right font-medium';
+                    dayNumber.textContent = day;
+                    dayCell.appendChild(dayNumber);
+                    
+                    // Weather icon
+                    const weatherIcon = document.createElement('div');
+                    weatherIcon.className = 'weather-icon text-2xl text-center my-1';
+                    weatherIcon.textContent = weather.icon;
+                    dayCell.appendChild(weatherIcon);
+                    
+                    // Temperature
+                    const tempElement = document.createElement('div');
+                    tempElement.className = 'text-center text-sm';
+                    tempElement.textContent = `${temp}°C`;
+                    dayCell.appendChild(tempElement);
+                    
+                    // Store weather data on the cell
+                    dayCell.dataset.date = cellDate.toDateString();
+                    dayCell.dataset.weatherType = weather.type;
+                    dayCell.dataset.weatherIcon = weather.icon;
+                    dayCell.dataset.temperature = temp;
+                    
+                    // Click event for outfit recommendation
+                    dayCell.addEventListener('click', () => {
+                        openOutfitModal(day, weather, temp, cellDate);
+                    });
+                    
+                    calendarGrid.appendChild(dayCell);
+                }
+                
+                // Update background based on current weather
+                updateBackground();
+            }
+            
+            // Open outfit recommendation modal
+            function openOutfitModal(day, weather, temp, date) {
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                modalDate.textContent = date.toLocaleDateString('en-US', dateOptions);
+                modalWeatherIcon.textContent = weather.icon;
+                modalWeatherDesc.textContent = weather.type.charAt(0).toUpperCase() + weather.type.slice(1);
+                modalTemp.textContent = `${temp}°C`;
+                outfitRecommendation.textContent = outfitRecommendations[weather.type];
+                
+                // Change background to match the selected day's weather
+                weatherBackground.style.backgroundImage = `url(${weather.bg})`;
+                
+                outfitModal.classList.remove('hidden');
+            }
+            
+            // Update background based on time of day and weather
+            function updateBackground() {
+                const now = new Date();
+                const hours = now.getHours();
+                
+                // Night time (8pm to 6am)
+                if (hours >= 20 || hours < 6) {
+                    weatherBackground.style.backgroundImage = 'url(https://media.giphy.com/media/l0HU7jj0iv2xV4X4k/giphy.gif)';
+                } 
+                // Morning (6am to 12pm)
+                else if (hours >= 6 && hours < 12) {
+                    weatherBackground.style.backgroundImage = 'url(https://media.giphy.com/media/xT9IgzoKnwFNmIS1kY/giphy.gif)';
+                }
+                // Afternoon (12pm to 5pm)
+                else if (hours >= 12 && hours < 17) {
+                    weatherBackground.style.backgroundImage = 'url(https://media.giphy.com/media/xT9IgzoKnwFNmIS1kY/giphy.gif)';
+                }
+                // Evening (5pm to 8pm)
+                else {
+                    weatherBackground.style.backgroundImage = 'url(https://media.giphy.com/media/l0HU7jj0iv2xV4X4k/giphy.gif)';
+                }
+            }
+            
+            // Initialize
+            renderCalendar();
+            
+            // Update background every hour
+            setInterval(updateBackground, 3600000);
+        });
+    </script>
+</body>
+</html>
