@@ -14963,3 +14963,8 @@
 27927/Django/.venv/Scripts/python.exe
 27927/Django/.venv/Scripts/pythonw.exe
 27927/Django/.venv/Scripts/sqlformat.exe
+27927/Weather/Templates/clear_night.gif
+27927/Weather/Templates/day_rain.gif
+27927/Weather/Templates/day_snow.gif
+27927/Weather/Templates/index.html
+27927/Weather/Templates/night_snow.gif

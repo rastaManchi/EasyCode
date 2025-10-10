@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth UI | Modern Login & Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        .auth-container {
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .auth-card {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus-within {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        .toggle-forms {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 auth-container">
+    <div class="w-full max-w-md">
+        <!-- Login Form -->
+        <div id="login-form" class="auth-card rounded-2xl shadow-2xl overflow-hidden p-8 toggle-forms">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
+                <p class="text-gray-600 mt-2">Sign in to your account</p>
+            </div>
+
+            <form class="space-y-6" action="/signin" method="post">
+                <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                    <i data-feather="mail" class="text-gray-500 mr-3"></i>
+                    <input name="login" type="email" placeholder="Email Address" class="w-full outline-none bg-transparent text-gray-700">
+                </div>
+
+                <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                    <i data-feather="lock" class="text-gray-500 mr-3"></i>
+                    <input name="password" type="password" placeholder="Password" class="w-full outline-none bg-transparent text-gray-700">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
+                        <span class="ml-2 text-sm text-gray-700">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition duration-300 transform hover:scale-[1.01]">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Don't have an account? 
+                    <button onclick="toggleForms()" class="text-indigo-600 font-medium hover:text-indigo-500">Sign up</button>
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-3 gap-3">
+                    <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <i data-feather="github" class="h-5 w-5"></i>
+                    </button>
+                    <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <i data-feather="twitter" class="h-5 w-5"></i>
+                    </button>
+                    <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        <i data-feather="facebook" class="h-5 w-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Form (Hidden by default) -->
+        <div id="register-form" class="auth-card rounded-2xl shadow-2xl overflow-hidden p-8 toggle-forms hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
+                <p class="text-gray-600 mt-2">Join us today</p>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                        <i data-feather="user" class="text-gray-500 mr-3"></i>
+                        <input type="text" placeholder="First Name" class="w-full outline-none bg-transparent text-gray-700">
+                    </div>
+                    <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                        <i data-feather="user" class="text-gray-500 mr-3"></i>
+                        <input type="text" placeholder="Last Name" class="w-full outline-none bg-transparent text-gray-700">
+                    </div>
+                </div>
+
+                <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                    <i data-feather="mail" class="text-gray-500 mr-3"></i>
+                    <input type="email" placeholder="Email Address" class="w-full outline-none bg-transparent text-gray-700">
+                </div>
+
+                <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                    <i data-feather="lock" class="text-gray-500 mr-3"></i>
+                    <input type="password" placeholder="Password" class="w-full outline-none bg-transparent text-gray-700">
+                </div>
+
+                <div class="input-field bg-white rounded-lg flex items-center px-4 py-3 border border-gray-200">
+                    <i data-feather="lock" class="text-gray-500 mr-3"></i>
+                    <input type="password" placeholder="Confirm Password" class="w-full outline-none bg-transparent text-gray-700">
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms</a> and <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition duration-300 transform hover:scale-[1.01]">
+                    Sign Up
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Already have an account? 
+                    <button onclick="toggleForms()" class="text-indigo-600 font-medium hover:text-indigo-500">Sign in</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            loginForm.classList.toggle('hidden');
+            registerForm.classList.toggle('hidden');
+            
+            // Add animation class and remove it after animation completes
+            [loginForm, registerForm].forEach(form => {
+                form.classList.add('toggle-forms');
+                setTimeout(() => form.classList.remove('toggle-forms'), 500);
+            });
+        }
+
+        // Initialize AOS and Feather Icons
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            feather.replace();
+        });
+    </script>
+</body>
+</html>

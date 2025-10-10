@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.block {
+  width: 80px;
+  height: 80px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+#btnEquals {
+  width: 80px;
+  height: 80px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#result {
+  width: 200px;
+  height: 80px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="block">5</div>
+    <div class="block">+</div>
+    <div class="block">3</div>
+    <button id="btnEquals">=</button>
+    <div id="result"></div>
+
+    <script>
+        let x = 5;
+        let y = 3;
+        let result = x + y;
+
+        const btn = document.getElementById("btnEquals")
+        const screen = document.getElementById("result")
+        btn.addEventListener("click", () => {
+            screen.textContent = result
+        })
+    </script>
+</body>
+
+</html>
