@@ -14,13 +14,13 @@ enemy = pygame.Rect(50, 50, 30, 30)
 enemy_img = pygame.image.load('ufoRed.png')
 enemy_img = pygame.transform.scale(enemy_img, (enemy.width, enemy.height))
 
+
 font = pygame.font.SysFont('Arial', 30)
 start_text_1 = font.render('Добро пожаловать!', False, (255, 0, 0))
 start_text_2 = font.render('нажмите на пробел чтобы начать', False, (255, 0, 0))
 end_text_1 = font.render('вы прошли игру! нажмите пробел', False, (0, 255, 0))
 end_text_2 = font.render('чтобы начать заново', False, (0, 255, 0))
 game_state = 0
-direction = '0'
 
 
 class Player:
@@ -28,17 +28,13 @@ class Player:
         self.rect = pygame.Rect(x, y, w, h)
         self.orig_img = pygame.image.load(img)
         self.img = pygame.transform.scale(self.orig_img, (w, h))
-        self.direction = None
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = 5
 
     def move(self):
-        if self.direction == 'left':
-            self.rect.x -= 5
-        elif self.direction == 'right':
-            self.rect.x += 5
-        elif self.direction == 'up':
-            self.rect.y -= 5
-        elif self.direction == 'down':
-            self.rect.y += 5
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
 
     def draw(self):
         screen.blit(self.img, self.rect)
@@ -77,15 +73,18 @@ while True:
                 sys.exit()
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_RIGHT:
-                    player.direction = 'right'
+                    player.speedx = player.speed
                 elif e.key == pygame.K_LEFT:
-                    player.direction = 'left'
+                    player.speedx = -player.speed
                 elif e.key == pygame.K_UP:
-                    player.direction = 'up'
+                    player.speedy = -player.speed
                 elif e.key == pygame.K_DOWN:
-                    player.direction = 'down'
+                    player.speedy = player.speed
             if e.type == pygame.KEYUP:
-                player.direction = 'none'
+                if e.key == pygame.K_LEFT or e.key == pygame.K_RIGHT:
+                    player.speedx = 0
+                if e.key == pygame.K_UP or e.key == pygame.K_DOWN:
+                    player.speedy = 0
 
         player.move()
 
