@@ -39,7 +39,18 @@ class Player:
     def draw(self):
         screen.blit(self.img, self.rect)
 
+class Sprite:
+    def __init__(self, x, y, w, h, img):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        
+    def draw(self):
+        screen.blit(self.img, self.rect)
+
 player = Player(0, 0, 50, 50, "ufoRed.png")
+sprite1 = Sprite(150, 225, 50, 50, "ufoRed.png")
+sprite2 = Sprite(250, 225, 50, 50, "ufoBlue.png")
 
 
 while True:
@@ -50,10 +61,32 @@ while True:
                 sys.exit()
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_SPACE:
-        
                     game_state = 1
-        screen.blit(start_text_1,(20,225))
-        screen.blit(start_text_2,(20,255))
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                pos = e.pos
+                x, y = pos[0], pos[1]
+                if x >= sprite1.rect.x and \
+                    x <= sprite1.rect.x + sprite1.rect.width and \
+                    y >= sprite1.rect.y and \
+                    y <= sprite1.rect.y + sprite1.rect.height:
+                        print("Спрайт 1")
+                        player.orig_img = pygame.image.load("ufoRed.png")
+                        player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+                        game_state = 1
+                elif x >= sprite2.rect.x and \
+                    x <= sprite2.rect.x + sprite2.rect.width and \
+                    y >= sprite2.rect.y and \
+                    y <= sprite2.rect.y + sprite2.rect.height:
+                        print("Спрайт 2")
+                        player.orig_img = pygame.image.load("ufoBlue.png")
+                        player.img = pygame.transform.scale(player.orig_img, (player.rect.width, player.rect.height))
+                        game_state = 1
+        pygame.draw.rect(screen, (255,255,0), sprite1)
+        pygame.draw.rect(screen, (255,255,0), sprite2)
+        sprite1.draw()
+        sprite2.draw()
+        # screen.blit(start_text_1,(20,225))
+        # screen.blit(start_text_2,(20,255))
     if game_state == 2:
 
         for e in pygame.event.get():

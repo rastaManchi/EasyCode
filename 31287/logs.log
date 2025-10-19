@@ -1,0 +1,11 @@
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967251 is handled. Duration 280 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:root:Тест
+INFO:aiogram.event:Update id=858967252 is handled. Duration 217 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:root:[2025-10-18 15:28:00.383346] Тест
+INFO:aiogram.event:Update id=858967253 is handled. Duration 250 ms by bot id=8236076703

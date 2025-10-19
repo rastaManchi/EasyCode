@@ -9,10 +9,12 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 GREEN = (0, 255, 0)
+RED = (255, 0, 0)
 GRAY = (128, 128, 128)
 
 
 player = pygame.Rect(0, 0, 50, 50)
+enemy = pygame.Rect(100, 100, 50, 50)
 direction = 'право'
 
 
@@ -39,11 +41,6 @@ while True:
                 direction = 'право'
     # Движение
 
-    # if player.x <= 0:
-    #     direction = 'право'
-    # elif player.x >= WIDTH - player.width:
-    #     direction = 'лево'
-
     if direction == 'право':
         player.x += 2
     elif direction == 'лево':
@@ -53,9 +50,13 @@ while True:
     elif direction == 'вниз':
         player.y += 2
 
+    if player.colliderect(enemy):
+        print("Столкновение")
+
     # Отрисовка
 
     pygame.draw.rect(screen, GREEN, player)
+    pygame.draw.rect(screen, RED, enemy)
 
     pygame.display.update()
     clock.tick(FPS)
