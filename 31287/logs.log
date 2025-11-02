@@ -9,3 +9,292 @@ INFO:aiogram.dispatcher:Start polling
 INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
 INFO:root:[2025-10-18 15:28:00.383346] Тест
 INFO:aiogram.event:Update id=858967253 is handled. Duration 250 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967254 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967255 is handled. Duration 16 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967256 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967257 is handled. Duration 15 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967258 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967259 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967260 is not handled. Duration 0 ms by bot id=8236076703
+ERROR:aiogram.event:Cause exception while process update id=858967260 by bot id=8236076703
+ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=24, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\31287\main.py", line 32, in text_command
+    await message.answer(message)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\types\message.py", line 2244, in answer
+    return SendMessage(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=24, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+INFO:aiogram.event:Update id=858967261 is not handled. Duration 16 ms by bot id=8236076703
+ERROR:aiogram.event:Cause exception while process update id=858967261 by bot id=8236076703
+ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=25, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\31287\main.py", line 32, in text_command
+    await message.answer(message)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\types\message.py", line 2244, in answer
+    return SendMessage(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=25, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967262 is not handled. Duration 0 ms by bot id=8236076703
+ERROR:aiogram.event:Cause exception while process update id=858967262 by bot id=8236076703
+ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=26, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\31287\main.py", line 32, in text_command
+    await message.answer(message)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\types\message.py", line 2244, in answer
+    return SendMessage(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for SendMessage
+text
+  Input should be a valid string [type=string_type, input_value=Message(message_id=26, da...=None, user_shared=None), input_type=Message]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967263 is handled. Duration 235 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967264 is handled. Duration 93 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967265 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967266 is handled. Duration 235 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967267 is not handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967268 is handled. Duration 328 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967269 is handled. Duration 93 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967270 is handled. Duration 94 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967271 is handled. Duration 233 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967272 is handled. Duration 78 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967273 is handled. Duration 171 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967274 is handled. Duration 296 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967275 is handled. Duration 250 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Polling stopped
+INFO:aiogram.dispatcher:Polling stopped for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967276 is handled. Duration 296 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967277 is handled. Duration 250 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967278 is not handled. Duration 203 ms by bot id=8236076703
+ERROR:aiogram.event:Cause exception while process update id=858967278 by bot id=8236076703
+TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\'
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\31287\main.py", line 33, in text_command
+    await message.answer('<u>И тебе привет</u>', parse_mode=ParseMode.MARKDOWN_V2)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\'
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967279 is handled. Duration 234 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967280 is handled. Duration 234 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967281 is handled. Duration 250 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967282 is handled. Duration 281 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967283 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967284 is not handled. Duration 219 ms by bot id=8236076703
+ERROR:aiogram.event:Cause exception while process update id=858967284 by bot id=8236076703
+TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\31287\main.py", line 33, in text_command
+    await message.answer('-', parse_mode=ParseMode.MARKDOWN_V2)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\bot.py", line 485, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\aiohttp.py", line 185, in make_request
+    response = self.check_response(
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967285 is handled. Duration 281 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967286 is handled. Duration 233 ms by bot id=8236076703
+INFO:aiogram.event:Update id=858967287 is handled. Duration 0 ms by bot id=8236076703
+INFO:aiogram.dispatcher:Start polling
+INFO:aiogram.dispatcher:Run polling for bot @qwertyuioplgf_bot id=8236076703 - 'sdfbdgkbdfgdfgdf'
+INFO:aiogram.event:Update id=858967288 is handled. Duration 219 ms by bot id=8236076703

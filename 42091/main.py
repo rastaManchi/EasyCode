@@ -1,45 +1,59 @@
-import pygame, sys
+import pygame
+import os
+import sys
 
 
-HEIGHT = 500
+pygame.init()
 WIDTH = 500
+HEIGHT = 500 
 FPS = 60
-BACKGROUND = (150, 209, 227)
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-class Player:
-    def __init__(self, x, y, w, h):
-        self.rect = pygame.Rect(x, y, w, h)
-        self.speedx = 2
-        self.speedy = 0
 
-    def move(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-
+class Wall:
+    def __init__(self, x, y, w, h, img):
+        self.rect = pygame.Rect(x,y,w,h)
+        self.orig_img = pygame.image.load(img)
+        self.img = pygame.transform.scale(self.orig_img, (w, h))
+        
     def draw(self):
-        pygame.draw.rect(screen, (255, 0, 0), self.rect)
+        screen.blit(self.img, self.rect)
 
-player = Player(0,0,50,50)
-speed = 2
+
+lvl_map = []
+
+
+if os.path.exists("lvl1.txt"):
+    file = open('lvl1.txt', 'r')
+    stroki = file.read().split('\n')
+    row = 0
+    for stroka in stroki:
+        symbols = list(stroka)
+        col = 0
+        for symbol in symbols:
+            if symbol == "1":
+                wall = Wall(20*col, 20*row, 20, 20, "wall.webp")
+                lvl_map.append(wall)
+            col += 1
+        row += 1
+
+
 
 while True:
-    screen.fill(BACKGROUND)
-
+    
+    screen.fill((125, 125, 125))
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
             pygame.quit()
-
-    player.move()
-
-    if player.rect.x >= 450:
-        player.speedx = -speed
-    elif player.rect.x < 0:
-        player.speedx = speed
+            sys.exit()
     
-    player.draw()
-
+    
+    for wall in lvl_map:
+        wall.draw()
+        
+        
     pygame.display.update()
     clock.tick(FPS)

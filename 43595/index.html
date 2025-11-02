@@ -3,35 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid black
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Генератор паролей</h1>
-        <label for="length">Длина</label>
-        <input type="number" id="length" min="1" max="100" value="10">
-        
-        <label for="language">Язык</label>
-        <select id="language">
-            <option value="en">English</option>
-            <option value="ru">Russian</option>
-        </select>
-        
-        <label for="complexity">Сложность</label>
-        <select id="complexity">
-            <option value="simple">Простой</option>
-            <option value="medium">Средний</option>
-            <option value="complex">Высокий</option>
-        </select>
-        
-        <button id="generate">Сгенерировать</button>
-        
-        <div class="output">
-            <h2>Ваш пароль:</h2>
-            <p id="password"></p>
-        </div>
-    </div>
+    <canvas id="my_game" width="800" height="800"></canvas>
     <script src="script.js"></script>
 </body>
 </html>
