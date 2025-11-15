@@ -7,6 +7,7 @@ class Item(Model):
     name = CharField()
     desc = TextField()
     price = FloatField()
+    image = TextField()
 
     class Meta:
         database = db

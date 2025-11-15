@@ -1,15 +1,21 @@
-class Car:
-    def __init__(self, model, power, speed, color):
-        self.model = model
-        self.power = power
-        self.speed = speed
-        self.color = color
-        
-    def forward(self):
-        print(f'Я еду вперёд со скоростью {self.speed}')
-        
-    def __str__(self):
-        return f"Модель: {self.model}"
+# Добавьте в класс Rect два метода: get_area(self), 
+# возвращающий площадь прямоугольника, и get_perimeter(self), возвращающий его периметр
 
-car = Car("Supra", 300, 200, 'black')
-print(car)
+
+
+
+class Rect:
+    def __init__(self, height, width): 
+        self.height = height
+        self.width = width
+
+    def get_perimeter(self):
+        return 2*(self.height + self.width)
+    
+    def get_area(self):
+        return self.width * self.height
+    
+object_ = Rect(120, 100)
+result = object_.get_perimeter()
+result2 = object_.get_area()
+print(result)
