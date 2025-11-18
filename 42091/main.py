@@ -31,6 +31,8 @@ class Player:
         self.speed_x = 0
         self.speed_y = 0
         self.walls = walls
+        self.max_hp = 100
+        self.hp = 100
         
     def move(self):
         self.rect.x += self.speed_x
@@ -43,10 +45,12 @@ class Player:
             if self.collide(wall):
                 self.rect.y -= self.speed_y
                 
+                
     def collide(self, obj):
         return self.rect.colliderect(obj.rect)
     
     def draw(self):
+        pygame.draw.rect(screen, (255, 0, 0), (self.rect.x, self.rect.y - 11, 30*self.hp/self.max_hp, 10))
         screen.blit(self.img, self.rect)
         
 
@@ -88,18 +92,20 @@ def generate_lvl(lvl):
                 if symbol == "1":
                     wall = Wall(20*col, 20*row, 20, 20, "wall.webp")
                     lvl_map.append(wall)
+                elif symbol == "2":
+                    wall = Wall(20*col, 20*row, 20, 20, "player.png")
+                    lvl_map.append(wall)
                 col += 1
             row += 1
     return lvl_map
 
 lvl_map = generate_lvl(lvl)
-print(lvl_map)
 
-player = Player(30, 30, 20, 20, 'wall.webp', lvl_map)
+player = Player(30, 30, 30, 30, 'player.png', lvl_map)
 
 lvl1enemies = [
-    Enemy(30, 80, 25, 25, 'wall.webp', 3, 30, 200, 'h'),
-    Enemy(420, 50, 25, 25, 'wall.webp', 5, 50, 400, 'v')
+    Enemy(30, 80, 25, 25, 'player.png', 3, 30, 200, 'h'),
+    Enemy(420, 50, 25, 25, 'player.png', 5, 50, 400, 'v')
 ]
 
 
@@ -147,6 +153,13 @@ while True:
     if lvl == 1:
         for enemy in lvl1enemies:
             enemy.move()
+            
+        for enemy in lvl1enemies:
+            if player.collide(enemy):
+                player.hp -= 25
+                player.rect.x = 30
+                player.rect.y = 30
+                lvl1enemies.remove(enemy)
         
         for enemy in lvl1enemies:
             enemy.draw()
