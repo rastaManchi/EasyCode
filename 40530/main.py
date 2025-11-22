@@ -1,10 +1,15 @@
-balance_global = 1000
+test = {
+    'Детская': 5,
+    'Закатное солнце': 20,
+    'Жираф': 31,
+    'Красный дракон': 53,
+    'Кантемир': 100
+}
+items = test.items()
+for i,j in items:
+    print(f'{i} - {j}')
 
-def buy(balance, price):
-    if balance >= price:
-        balance -= price
-    print(f"Локальная: {balance}")
-    return balance
 
-balance_global = buy(balance_global, 500) # 500
-print(balance_global)
+slovar.items() # [ ('Ключ', 'Значение') ]
+slovar.keys() # ['Ключ1', 'Ключ2']
+slovar.values() # ['Значение1', 'Значение2']
