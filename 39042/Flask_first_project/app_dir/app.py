@@ -46,6 +46,18 @@ def signin():
     return render_template('signin.html')
 
 
+@app.route('/profile/')
+def profile():
+    user = get_user_by_id(2)
+    response = {
+        "id": user[0],
+        "name": user[1],
+        "email": user[2],
+        "password": user[3]
+    }
+    return render_template('profile.html', data=response)
+
+
 @app.route('/add_post/', methods=['GET', 'POST'])
 def add_post():
     if request.method == 'POST':
