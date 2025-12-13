@@ -42,3 +42,8 @@ def get_user_by_id(id):
 def get_user_by_email(email):
     cur.execute(f'SELECT * FROM users WHERE email = ?', [email])
     return cur.fetchone()
+
+
+def delete_post_by_id(id):
+    cur.execute(f"DELETE FROM posts WHERE id={id}")
+    db.commit()

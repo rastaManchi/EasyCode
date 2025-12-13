@@ -22225,3 +22225,4 @@
 21981/tgbot/.venv/Lib/site-packages/aiohttp/__pycache__/test_utils.cpython-310.pyc
 21981/tgbot/.venv/Lib/site-packages/aiohttp/__pycache__/tracing.cpython-310.pyc
 21981/tgbot/.venv/Lib/site-packages/aiohttp/__pycache__/typedefs.cpython-310.pyc
+*.pyc

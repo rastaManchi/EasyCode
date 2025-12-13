@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 from db import *
 
+admin_id = '1'
 
 app = Flask(__name__)
 
@@ -8,8 +9,21 @@ app = Flask(__name__)
 @app.route('/')
 def welcome():
     posts = get_all_posts()
-    return render_template('main.html', posts=posts)
+    user_id = request.cookies.get('Session')
+    is_admin = False
+    if user_id == admin_id:
+        is_admin = True
+    return render_template('main.html', posts=posts, is_admin=is_admin)
 
+
+@app.route('/delete/')
+def delete_post():
+    data = request.args
+    print(data)
+    post_id = int(data.get('post_id'))
+    delete_post_by_id(post_id)
+    return redirect('/')
+    
 
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
@@ -21,7 +35,10 @@ def signup():
         user = get_user_by_email(email)
         if user is None:
             add_user(name, email, password)
-            return redirect('/profile/')
+            user = get_user_by_email(email)
+            response = make_response(redirect('/profile/'))
+            response.set_cookie('Session', str(user[0]), max_age=120)
+            return response
         else:
             print('Такой пользователь уже есть!')
     return render_template('signup.html')
@@ -40,7 +57,9 @@ def signin():
         
         if user[3] == password:
             print('Вход разрешен')
-            return redirect('/profile/')
+            response = make_response(redirect('/profile/'))
+            response.set_cookie('Session', str(user[0]), max_age=120)
+            return response
         else:
             return render_template('signin.html', message='Пароль неверный')
     return render_template('signin.html')
@@ -48,14 +67,17 @@ def signin():
 
 @app.route('/profile/')
 def profile():
-    user = get_user_by_id(2)
-    response = {
-        "id": user[0],
-        "name": user[1],
-        "email": user[2],
-        "password": user[3]
-    }
-    return render_template('profile.html', data=response)
+    user_id = request.cookies.get('Session')
+    if user_id:
+        user = get_user_by_id(int(user_id))
+        response = {
+            "id": user[0],
+            "name": user[1],
+            "email": user[2],
+            "password": user[3]
+        }
+        return render_template('profile.html', data=response)
+    return 'Вы не авторизованы'
 
 
 @app.route('/add_post/', methods=['GET', 'POST'])
