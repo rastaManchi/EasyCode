@@ -13,5 +13,14 @@
             <a href="{{ url_for('login') }}">Вход</a>
         </div>
     </div>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h3>{{ post[1] }}</h3>
+                <p>{{ post[2] }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

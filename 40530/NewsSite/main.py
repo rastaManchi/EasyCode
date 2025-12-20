@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def welcome():
-    return render_template('main.html')
+    posts = get_posts()
+    return render_template('main.html', posts=posts)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -15,7 +16,7 @@ def register():
     if request.method == 'POST':
         data = request.form
         name = data.get('name')
-        email = data.get('email')
+        email = data['email']
         password = data.get('password')
         
         user = get_user_by_email(email)
@@ -50,8 +51,14 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/add_post/')
+@app.route('/add_post/', methods=['GET', 'POST'])
 def add_post():
+    if request.method == 'POST':
+        data = request.form
+        title = data.get('title')
+        content = data.get('content')
+        add_post_in_db(title, content)
+        return redirect('/profile/')
     return render_template('add_post.html')
 
 

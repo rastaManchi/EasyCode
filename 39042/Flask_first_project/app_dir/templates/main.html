@@ -17,7 +17,10 @@
         </div>
     </header>
 
-    <ul>
+    <input type="text" placeholder="Найти что-то интересное" id="search_value">
+    <button id="search_btn">Найти</button>
+
+    <ul id="posts">
         {% for post in posts %}
             <li>
                 <h2>{{ post[1] }}</h2>
@@ -28,6 +31,8 @@
             </li>
         {% endfor %}
     </ul>
+
+    <script src="/static/js/search.js"></script>
 </body>
 
 </html>

@@ -22226,3 +22226,4 @@
 21981/tgbot/.venv/Lib/site-packages/aiohttp/__pycache__/tracing.cpython-310.pyc
 21981/tgbot/.venv/Lib/site-packages/aiohttp/__pycache__/typedefs.cpython-310.pyc
 *.pyc
+/26557/websockets_project/node_modules

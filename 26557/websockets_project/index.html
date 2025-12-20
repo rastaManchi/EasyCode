@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Chat</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        input {
+            padding: 10px;
+            width: calc(100% - 22px);
+        }
+
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="username" placeholder="Enter your name" autocomplete="off" /><br />
+        <input id="input" placeholder="Type a message" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const usernameInput = document.getElementById('username');
+        const messages = document.getElementById('messages');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value && usernameInput.value) {
+                const messageData = {
+                    username: usernameInput.value,
+                    message: input.value
+                };
+                socket.emit('chat message', messageData);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', function (data) {
+            const item = document.createElement('li');
+            item.textContent = `${data.username}: ${data.message}`;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+
+</html>

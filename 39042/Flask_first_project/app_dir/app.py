@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response
 from db import *
 
+
 admin_id = '1'
 
 app = Flask(__name__)
@@ -89,6 +90,14 @@ def add_post():
         add_new_post(title, content)
         return redirect('/')
     return render_template('add_post.html')
+
+
+@app.route('/search/', methods=['POST'])
+def search():
+    return {'text': """<li>
+                            <h2>Заголовок</h2>
+                            <p>Описание</p>
+                        </li>"""}
 
 
 if __name__  == '__main__':

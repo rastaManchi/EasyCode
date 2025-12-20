@@ -16,3 +16,17 @@ for item in items:
     max = temps[0].get('value')
     print(f'Описание: {desc}\nМин: {min}\nМакс: {max}\n')
     print('-'*20)
+    
+    
+# GET: https://vk.ru/friends?search="Максим"
+# POST: https://vk.ru/login/
+        # -b {'username': '123', 'pass': 'qwerty'} 
+# DELETE PUT UPDATE
+
+# websockets
+# ws:// wss://
+# ws://vk.ru/dfgkdhbsfldfghb
+# CONNECTING 
+# HANDSHAKING
+# Двусторонняя связь
+# DISCONNECT
