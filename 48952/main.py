@@ -39,7 +39,7 @@ async def text_command(message: Message):
         is_premium = message.from_user.is_premium
         username = message.from_user.username
         await message.answer(f"id: `{id}`", )
-        await message.answer(f'name: {name}\nis_premium\: {is_premium}\nusername: {username}')
+        await message.answer(f'name: {name}\nis_premium\: {is_premium}\nusername: {username}', reply_markup=inline_keyboard())
 
 
 asyncio.run(dp.start_polling(bot))
