@@ -16,13 +16,14 @@ db.commit()
 cur.execute('''CREATE TABLE IF NOT EXISTS posts(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
-            content TEXT
+            content TEXT,
+            author INT
 )''')
 db.commit()
 
 
-def add_new_post(title, content):
-    cur.execute('INSERT INTO posts(title, content) VALUES (?, ?)', [title, content])
+def add_new_post(title, content, author_id):
+    cur.execute('INSERT INTO posts(title, content, author) VALUES (?, ?, ?)', [title, content, author_id])
     db.commit()
     
 
@@ -47,3 +48,14 @@ def get_user_by_email(email):
 def delete_post_by_id(id):
     cur.execute(f"DELETE FROM posts WHERE id={id}")
     db.commit()
+    
+    
+def search_post(text):
+    cur.execute("""SELECT * FROM posts WHERE title LIKE
+                :keyword OR content LIKE
+                :keyword""", {'keyword': f'%{text}%'})
+    return cur.fetchall() # [ (1, title, content, author),  ]
+
+
+# SELECT * FROM ITEMS WHERE Country LIKE '%я_'
+

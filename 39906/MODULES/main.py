@@ -1,6 +1,6 @@
-number = 123456
+import functions
 
-num_length = len(str(number))
 
-if num_length != 11:
-    print('вы не из России')
+functions.PI
+
+functions.test()

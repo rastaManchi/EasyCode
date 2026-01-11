@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, make_response
 from db import *
 
 
@@ -24,7 +24,10 @@ def register():
             print('Такой пользователь уже существует.')
         else:
             add_user(name, email, password)
-            return redirect('/profile/')
+            user = get_user_by_email(email)
+            response = make_response(redirect('/profile/'))
+            response.set_cookie('session', str(user[0][0]), 60)
+            return response
     return render_template('register.html')
 
 
@@ -43,7 +46,9 @@ def login():
         user = get_user_by_email(email)
         if user:
             if password == user[0][3]:
-                return redirect('/profile/')
+                response = make_response(redirect('/profile/'))
+                response.set_cookie('session', str(user[0][0]), 60)
+                return response
             else:
                 print('Пароль неверный')
         else:

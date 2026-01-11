@@ -1,9 +1,9 @@
-true_num = -1
+spisok = []
+n = int(input('Введите число: '))
+for i in range(1, n+1):
+    spisok.append(i)
+print(spisok)
 
-total = 0
-num = int(input('Ведите числа каторые хатите слажить'))
-
-while true_num != num:
-    print('ведите другие числа') 
-    num = int(input('Ведите числа каторые хатите слажить'))
-print()
+# print(list())
+# print(list(range(1, n+1)))
+# print(list('Булат'))

@@ -19,11 +19,13 @@ def welcome():
 
 @app.route('/delete/')
 def delete_post():
-    data = request.args
-    print(data)
-    post_id = int(data.get('post_id'))
-    delete_post_by_id(post_id)
-    return redirect('/')
+    user_id = request.cookies.get('Session')
+    if user_id == '2':
+        data = request.args
+        print(data)
+        post_id = int(data.get('post_id'))
+        delete_post_by_id(post_id)
+        return redirect('/')
     
 
 @app.route('/signup/', methods=['GET', 'POST'])
@@ -84,20 +86,21 @@ def profile():
 @app.route('/add_post/', methods=['GET', 'POST'])
 def add_post():
     if request.method == 'POST':
-        title = request.form.get('title')
-        content = request.form.get('content')
-        
-        add_new_post(title, content)
-        return redirect('/')
+        user_id = request.cookies.get('Session')
+        if user_id:
+            title = request.form.get('title')
+            content = request.form.get('content')
+            add_new_post(title, content, user_id)
+            return redirect('/')
     return render_template('add_post.html')
 
 
 @app.route('/search/', methods=['POST'])
 def search():
-    return {'text': """<li>
-                            <h2>Заголовок</h2>
-                            <p>Описание</p>
-                        </li>"""}
+    data = request.form
+    txt = data.get('txt')
+    posts = search_post(txt)
+    return posts
 
 
 if __name__  == '__main__':
