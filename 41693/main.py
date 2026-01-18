@@ -1,10 +1,11 @@
-import datetime
+import random
 
 
-print(datetime.date.today())
-print(datetime.datetime.now().time())
-print(datetime.datetime.now().minute)
+random.randint(1, 1000) # генерация случайного целого числа -> 423
+random.random() # генерация случайного числа от 0 до 1 -> 0.49
+random.uniform(1, 1000) # генерация случайного дробного числа -> 423.1
 
-time_object = datetime.time(12, 00, 00)
-datetime_object = datetime.datetime(2026, 1, 11, 12, 00)
-print(datetime_object - datetime.timedelta(seconds=6000000))
+random.randrange(1, 1000, 100) # генерация случайного целого числа между 1 и 1000 с шагом 100 -> 1, 101, 201, 301
+numbers = [1, 2, 100, -3]
+random.choice(numbers) # Выбор случайного элемента из списка numbers
+random.shuffle(numbers) # Случайно перемешали список -> [100, -3, 1, 2]

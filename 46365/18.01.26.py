@@ -1,0 +1,5 @@
+fruits = (255, 333, 55645)
+print(sum(fruits))
+print(min(fruits))
+print(max(fruits))
+print(len(fruits))

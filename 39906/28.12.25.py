@@ -1,25 +1,24 @@
-class People:
-    def __init__(self,name,age,height,nationality):
-        self.name = name
-        self.age = age
-        self.height = height
-        self.nationality = nationality
+# Ранее вы создавали класс Rect с методами, которые вычисляют площадь и периметр фигуры. 
+# Наследуйте от данного класса класс Square. Подумайте, какие изменения стоит внести в дочерний класс
+
+
+class Rect:
+    def __init__(self, h, w):
+        self.width = w
+        self.height = h
         
-    def __str__(self):
-        return f"{self.name, self.age, self.height, self.nationality}"
+    def perimetr(self):
+        return 0
+    
+    def area(self):
+        return 0
+    
 
-name_people = str(input("Введите имя: "))
-age_people = int(input("Введите возраст: "))
-height_people = float(input("Введите ваш рост: "))
-nationality_people = str(input("Введите откуда вы: "))
-
-human = People(name_people,age_people,height_people,nationality_people)
-
-name_people = str(input("Введите имя: "))
-age_people = int(input("Введите возраст: "))
-height_people = float(input("Введите ваш рост: "))
-nationality_people = str(input("Введите откуда вы: "))
-
-human2 = People(name_people,age_people,height_people,nationality_people)
-
-print(human)
+class Square(Rect):
+    def multipy(self, num):
+        self.height *= num 
+        self.width *= num
+        
+    def info(self):
+        print('Я квадрат')
+        

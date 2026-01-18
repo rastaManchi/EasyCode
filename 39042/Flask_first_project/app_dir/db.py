@@ -8,7 +8,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     email TEXT,
-    password TEXT
+    password TEXT,
+    is_admin INT DEFAULT 0
 )''')
 db.commit()
 
@@ -17,7 +18,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS posts(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
             content TEXT,
-            author INT
+            author INT,
+            status INT DEFAULT 0
 )''')
 db.commit()
 
@@ -28,7 +30,7 @@ def add_new_post(title, content, author_id):
     
 
 def get_all_posts():
-    cur.execute('SELECT * FROM posts')
+    cur.execute('SELECT * FROM posts WHERE status=1')
     return cur.fetchall()
 
 
@@ -51,11 +53,24 @@ def delete_post_by_id(id):
     
     
 def search_post(text):
-    cur.execute("""SELECT * FROM posts WHERE title LIKE
+    cur.execute("""SELECT * FROM posts WHERE status=1 AND (title LIKE
                 :keyword OR content LIKE
-                :keyword""", {'keyword': f'%{text}%'})
-    return cur.fetchall() # [ (1, title, content, author),  ]
+                :keyword)""", {'keyword': f'%{text}%'})
+    return cur.fetchall() 
 
 
-# SELECT * FROM ITEMS WHERE Country LIKE '%я_'
+def get_notchecked_posts():
+    cur.execute("SELECT * FROM posts WHERE status=0")
+    return cur.fetchall()
+
+
+def change_post_status(post_id, status):
+    cur.execute(f"UPDATE posts SET status={status} WHERE id={post_id}")
+    db.commit()
+    
+
+def add_admin(id):
+    cur.execute(f"UPDATE users SET is_admin=1 WHERE id={id}")
+    db.commit()
+
 

@@ -2,18 +2,17 @@ from flask import Flask, render_template, request, redirect, make_response
 from db import *
 
 
-admin_id = '1'
-
 app = Flask(__name__)
 
 
 @app.route('/')
 def welcome():
     posts = get_all_posts()
+    is_admin = None
     user_id = request.cookies.get('Session')
-    is_admin = False
-    if user_id == admin_id:
-        is_admin = True
+    if user_id:
+        user = get_user_by_id(user_id)
+        is_admin = user[4]
     return render_template('main.html', posts=posts, is_admin=is_admin)
 
 
@@ -101,6 +100,35 @@ def search():
     txt = data.get('txt')
     posts = search_post(txt)
     return posts
+
+
+@app.route('/admin')
+def admin():
+    user_id = request.cookies.get('Session')
+    is_admin = 0
+    if user_id:
+        user = get_user_by_id(user_id)
+        is_admin = user[4]
+    if is_admin:
+        posts = get_notchecked_posts()
+        return render_template('admin.html', posts=posts)
+    return redirect('/')
+
+
+@app.route('/check/')
+def check():
+    user_id = request.cookies.get('Session')
+    is_admin = 0
+    if user_id:
+        user = get_user_by_id(user_id)
+        is_admin = user[4]
+    if is_admin:
+        data = request.args
+        post_id = data.get('id')
+        status = data.get('approve')
+        change_post_status(post_id, status)
+        return redirect('/admin')
+    return redirect('/')
 
 
 if __name__  == '__main__':
