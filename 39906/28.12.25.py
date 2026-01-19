@@ -1,24 +1,22 @@
-# Ранее вы создавали класс Rect с методами, которые вычисляют площадь и периметр фигуры. 
-# Наследуйте от данного класса класс Square. Подумайте, какие изменения стоит внести в дочерний класс
-
-
-class Rect:
-    def __init__(self, h, w):
-        self.width = w
-        self.height = h
-        
-    def perimetr(self):
-        return 0
+class Animal:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
     
-    def area(self):
-        return 0
-    
-
-class Square(Rect):
-    def multipy(self, num):
-        self.height *= num 
-        self.width *= num
+    def get_name(self):
+        name = self.__name
+        print(name)
         
-    def info(self):
-        print('Я квадрат')
+    def get_age(self):
+        age = self.__age
+        print(age)
+        
+    def set_name(self, new_name):
+        self.__name = new_name
+
+obj1 = Animal('Мурка', 5)
+obj1.get_name()
+obj1.set_name('Плюсик')
+obj1.get_name()
+
         
