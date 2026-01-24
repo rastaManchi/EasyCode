@@ -109,17 +109,17 @@
                                                         <i data-feather="file-text" class="text-gray-500"></i>
                                                     </div>
                                                     <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">{{ post[1] }}</div>
-                                                        <div class="text-sm text-gray-500 line-clamp-1">{{ post[2] }}</div>
+                                                        <div class="text-sm font-medium text-gray-900">{{ post.title }}</div>
+                                                        <div class="text-sm text-gray-500 line-clamp-1">{{ post.content }}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">John Doe</div>
+                                                <div class="text-sm text-gray-900">{{ post.author_name }}</div>
                                                 <div class="text-sm text-gray-500">john@example.com</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                2023-04-15
+                                                {{ post.created_at }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div class="flex space-x-2">
@@ -155,6 +155,5 @@
         </div>
     </div>
     <script>feather.replace();</script>
-<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
 </body>
 </html>

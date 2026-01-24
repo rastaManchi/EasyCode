@@ -39,7 +39,7 @@ def signup():
             add_user(name, email, password)
             user = get_user_by_email(email)
             response = make_response(redirect('/profile/'))
-            response.set_cookie('Session', str(user[0]), max_age=120)
+            response.set_cookie('Session', str(user[0]), max_age=3600)
             return response
         else:
             print('Такой пользователь уже есть!')
@@ -60,7 +60,7 @@ def signin():
         if user[3] == password:
             print('Вход разрешен')
             response = make_response(redirect('/profile/'))
-            response.set_cookie('Session', str(user[0]), max_age=120)
+            response.set_cookie('Session', str(user[0]), max_age=3600)
             return response
         else:
             return render_template('signin.html', message='Пароль неверный')
@@ -111,7 +111,18 @@ def admin():
         is_admin = user[4]
     if is_admin:
         posts = get_notchecked_posts()
-        return render_template('admin.html', posts=posts)
+        data = []
+        for post in posts:
+            author = get_user_by_id(post[3])
+            data.append(
+                {
+                    'title': post[1],
+                    'content': post[2],
+                    'created_at': post[5],
+                    'author_name': author[1]
+                }
+            )
+        return render_template('admin.html', posts=data)
     return redirect('/')
 
 

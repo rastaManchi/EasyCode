@@ -19,7 +19,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS posts(
             title TEXT,
             content TEXT,
             author INT,
-            status INT DEFAULT 0
+            status INT DEFAULT 0,
+            created_at DATE DEFAULT (datetime(current_timestamp))
 )''')
 db.commit()
 
@@ -72,5 +73,4 @@ def change_post_status(post_id, status):
 def add_admin(id):
     cur.execute(f"UPDATE users SET is_admin=1 WHERE id={id}")
     db.commit()
-
-
+    
