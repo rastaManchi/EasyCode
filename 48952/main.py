@@ -45,10 +45,12 @@ async def weather(message: Message):
     r = requests.get(GET_WEATHER_URL.replace('{lat}', lat).replace('{lon}', lon).replace('apikey', WEATHER_API))
     data = json.loads(r.content)
     temp = round(data['main']['temp'] - 273, 0)
+    temp_min = "10"
+    text = f"Температура сейчас: {temp}\nМинимвльная темература: {temp_min}"
     # TODO: добавить temp_feel, max_temp, min_temp, wind_speed, wind_deg
     # TODO: ответить пользователю красивым сообщением
     
-    await message.answer(str(temp))
+    await message.answer(text)
     
     
 """
