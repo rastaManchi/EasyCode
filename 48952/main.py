@@ -46,7 +46,7 @@ async def weather(message: Message):
     data = json.loads(r.content)
     temp = round(data['main']['temp'] - 273, 0)
     temp_min = "10"
-    text = f"Температура сейчас: {temp}\nМинимвльная темература: {temp_min}"
+    text = f"Температура сейчас: {temp}\nМинимальная температура: {temp_min}"
     # TODO: добавить temp_feel, max_temp, min_temp, wind_speed, wind_deg
     # TODO: ответить пользователю красивым сообщением
     
