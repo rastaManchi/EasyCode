@@ -1,11 +1,12 @@
-import random
+import turtle
 
+turtle.Turtle()
+turtle.forward(10) # вперед
+turtle.backward(10) # назад
+turtle.right(90) # повернуть направо
+turtle.left(90) # повернуть налево
+turtle.fillcolor('Black') # цвет заливки
+turtle.color('red') # цвет черепахи
 
-random.randint(1, 1000) # генерация случайного целого числа -> 423
-random.random() # генерация случайного числа от 0 до 1 -> 0.49
-random.uniform(1, 1000) # генерация случайного дробного числа -> 423.1
-
-random.randrange(1, 1000, 100) # генерация случайного целого числа между 1 и 1000 с шагом 100 -> 1, 101, 201, 301
-numbers = [1, 2, 100, -3]
-random.choice(numbers) # Выбор случайного элемента из списка numbers
-random.shuffle(numbers) # Случайно перемешали список -> [100, -3, 1, 2]
+turtle.begin_fill() # начало заливки
+turtle.end_fill() # конец заливки
