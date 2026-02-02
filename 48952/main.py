@@ -5,9 +5,10 @@ import json
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
 from aiogram.enums import ParseMode
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile, InputMediaPhoto
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
+import os
 
 from config import *
 from keyboards import *
@@ -15,6 +16,8 @@ from keyboards import *
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
+all_media_dir = os.path.join( os.path.dirname(os.path.abspath(__file__)), 'all_media' )
+
 
 
 class Anceta(StatesGroup):
@@ -47,60 +50,7 @@ async def weather(message: Message):
     temp = round(data['main']['temp'] - 273, 0)
     temp_min = "10"
     text = f"Температура сейчас: {temp}\nМинимальная температура: {temp_min}"
-    # TODO: добавить temp_feel, max_temp, min_temp, wind_speed, wind_deg
-    # TODO: ответить пользователю красивым сообщением
-    
-    await message.answer(text)
-    
-    
-"""
-{
-  "coord": {
-    "lon": 127.5272,
-    "lat": 50.2905
-  },
-  "weather": [
-    {
-      "id": 800,
-      "main": "Clear",
-      "description": "clear sky",
-      "icon": "01n"
-    }
-  ],
-  "base": "stations",
-  "main": {
-    "temp": 255.49,
-    "feels_like": 248.49,
-    "temp_min": 255.49,
-    "temp_max": 255.49,
-    "pressure": 1031,
-    "humidity": 46,
-    "sea_level": 1031,
-    "grnd_level": 1008
-  },
-  "visibility": 10000,
-  "wind": {
-    "speed": 3,
-    "deg": 280
-  },
-  "clouds": {
-    "all": 0
-  },
-  "dt": 1769335256,
-  "sys": {
-    "type": 1,
-    "id": 8859,
-    "country": "RU",
-    "sunrise": 1769296458,
-    "sunset": 1769328575
-  },
-  "timezone": 32400,
-  "id": 2026609,
-  "name": "Blagoveshchensk",
-  "cod": 200
-}
-"""
-    
+    await message.answer(text)  
     
 
 @dp.message(Anceta.name)
@@ -139,6 +89,19 @@ async def roll(message: Message):
     await message.answer(str(number))
     
     
+@dp.message(Command(commands='send_photo'))
+async def send_photo(message: Message):
+    photo_file = FSInputFile(path=os.path.join(all_media_dir, 'mem.jpg'))
+    await message.answer_photo(photo=photo_file)    
+
+
+@dp.message(F.photo)
+async def get_photo(message: Message):
+    photo_id = message.photo[-1].file_id
+    photo_file = await bot.get_file(photo_id)
+    await bot.download_file(photo_file.file_path, os.path.join(all_media_dir, f"{photo_file.file_id}.jpg"))
+    
+    
 @dp.message(F.text)
 async def text_command(message: Message):
     text = message.text
@@ -151,6 +114,19 @@ async def text_command(message: Message):
         username = message.from_user.username
         await message.answer(f"id: `{id}`", )
         await message.answer(f'name: {name}\nis_premium\: {is_premium}\nusername: {username}')
+    elif 'Звук' == text:
+        sound_file = FSInputFile(path=os.path.join(all_media_dir, 'lucky-lucky.mp3'))
+        await message.answer_audio(audio=sound_file, caption="Test")
+    elif 'Голосовое' == text:
+        voice_file = FSInputFile(path=os.path.join(all_media_dir, 'lucky-lucky.mp3'))
+        await message.answer_voice(voice=voice_file, caption="Test")
+    elif 'Группа фото' == text:
+        photo1 = InputMediaPhoto(type='photo', 
+                                 media=FSInputFile(os.path.join(all_media_dir, 'mem.jpg')),
+                                 caption="Какой-то текст")
+        photo2 = InputMediaPhoto(type='photo', media=FSInputFile(os.path.join(all_media_dir, 'mem2.jpg')))
+        media = [photo1, photo2]
+        await message.answer_media_group(media=media)
 
 
 asyncio.run(dp.start_polling(bot))
