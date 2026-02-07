@@ -14,6 +14,22 @@ cur.execute("""CREATE TABLE IF NOT EXISTS users(
 conn.commit()
 
 
+cur.execute("""CREATE TABLE IF NOT EXISTS posts(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        content TEXT
+    )""")
+conn.commit()
+
+
+def add_post_to_db(title, content):
+    cur.execute('INSERT INTO posts(title, content) VALUES (?, ?, ?)', [title, content])
+    conn.commit()
+
+
+# 1. TODO: добавить функцию получения всех постов
+
+
 def add_user(name, email, password):
     cur.execute('INSERT INTO users(name, email, password) VALUES (?, ?, ?)', [name, email, password])
     conn.commit()

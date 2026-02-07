@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from db import *
 
 
@@ -7,6 +7,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    # 1. в db.py
+    # 2. TODO: получить все посты и сохранить в переменную 
+    # 3. TODO: передать вместе с шаблоном посты
+    # 4. TODO: По желанию. В main.html отображать актуальные данные постов
     return render_template('main.html')
 
 
@@ -36,6 +40,20 @@ def register():
         add_user(name, email, password)
         return "Успешно"
     return render_template("register.html")
+
+
+@app.route('/post')
+def post():
+    return render_template('new_posts.html')
+
+
+@app.route('/add_post', methods=['POST'])
+def add_post():
+    data = request.form
+    title = data.get('title')
+    content = data.get('content')
+    add_post_to_db(title, content)
+    return redirect('/')
 
 
 app.run()

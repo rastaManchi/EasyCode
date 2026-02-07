@@ -1,8 +1,33 @@
 from flask import Flask, render_template, request, redirect, make_response
 from db import *
+import requests
+import json
+
+
+def get_weather(city_name):
+    API_KEY = "3140cf48db6a89dd9eb2dc1338ae400d"
+    r = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={city_name}&appid={API_KEY}")
+    data = json.loads(r.content)
+    lat = data[0]['lat']
+    lon = data[0]['lon']
+
+    r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}")
+    data = json.loads(r.content)
+    temp = data['main']['temp'] - 273
+
+    return temp
 
 
 app = Flask(__name__)
+
+
+@app.route('/api/', methods=['GET', 'POST'])
+def api():
+    if request.method == 'POST':
+        city = request.form.get("city")
+        temp = get_weather(city)
+        return render_template('api.html', last_result=temp)
+    return render_template('api.html')
 
 
 @app.route('/')

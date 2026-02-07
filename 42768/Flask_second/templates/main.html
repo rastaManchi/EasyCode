@@ -11,7 +11,18 @@
         <div>
             <a href="{{ url_for('register') }}">Регистрация</a>
             <a href="{{ url_for('login') }}">Вход</a>
+            <a href="{{ url_for('post') }}">Новый пост</a>
         </div>
     </div>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>Заголовок</h2>
+                <p>Текстом</p>
+            </li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
