@@ -17,17 +17,31 @@ conn.commit()
 cur.execute("""CREATE TABLE IF NOT EXISTS posts(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
-        content TEXT
+        content TEXT,
+        user_id INTEGER,
+        FOREIGN KEY(user_id) REFERENCES users(id)
     )""")
 conn.commit()
 
 
-def add_post_to_db(title, content):
-    cur.execute('INSERT INTO posts(title, content) VALUES (?, ?, ?)', [title, content])
+def add_post_to_db(title, content, user_id):
+    cur.execute('INSERT INTO posts(title, content, user_id) VALUES (?, ?, ?)', [title, content, user_id])
     conn.commit()
 
 
-# 1. TODO: добавить функцию получения всех постов
+def get_all_posts():
+    cur.execute("SELECT * FROM posts")
+    return cur.fetchall()
+
+
+def get_all_users():
+    cur.execute("SELECT * FROM users")
+    return cur.fetchall()
+
+
+def get_posts_by_user(id):
+    cur.execute(f'SELECT * FROM posts WHERE user_id={id}')
+    return cur.fetchall() # [(1, 'Название', 'Контент', 10), (2, 'Название2', 'Контент2', 10)]
 
 
 def add_user(name, email, password):

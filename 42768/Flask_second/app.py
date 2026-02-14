@@ -7,11 +7,38 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    # 1. в db.py
-    # 2. TODO: получить все посты и сохранить в переменную 
-    # 3. TODO: передать вместе с шаблоном посты
-    # 4. TODO: По желанию. В main.html отображать актуальные данные постов
-    return render_template('main.html')
+    all_posts = get_all_posts()
+    all_users = get_all_users()
+    # 1. TODO: В main.html отображать актуальные данные постов
+    # 2. TODO: Добавить рядом с каждым постом имя автора
+    return render_template('main.html', all_users=all_users, all_posts=all_posts)
+
+
+# 3. TODO: Создайте страницу "Все пользователи", 
+    # где будет отображаться список всех зарегистрированных пользователей с указанием количества их постов. 
+    # Для этого:
+        # Создайте новый маршрут /users
+        # Напишите SQL-запрос(в db.py), который считает количество постов для каждого пользователя
+        # Создайте шаблон для отображения этой информации (в templates users.html)
+        
+        
+# 4. TODO: Реализуйте возможность редактирования и удаления постов. 
+    # Добавьте на страницу пользователя кнопки "Редактировать" и "Удалить" для каждого его поста. 
+    # Для этого:
+        # Создайте новые маршруты /post/<int:post_id>/edit и /post/<int:post_id>/delete
+        # Добавьте проверку, что только автор поста может его редактировать и удалять
+        # Создайте формы для редактирования поста
+
+
+#http://127.0.0.1:5000/user/1
+@app.route('/user/<int:user_id>')
+def user(user_id):
+    print(type(user_id))
+    user = get_user_by_id(user_id)
+    user_posts = get_posts_by_user(user_id)
+    if user:
+        return render_template('user_template.html', user=user, user_posts=user_posts)
+    return f"Пользователь не найден", 404
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -52,7 +79,7 @@ def add_post():
     data = request.form
     title = data.get('title')
     content = data.get('content')
-    add_post_to_db(title, content)
+    add_post_to_db(title, content, 1)
     return redirect('/')
 
 

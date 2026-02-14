@@ -8,9 +8,16 @@
 </head>
 
 <body>
-    <h1>Профиль</h1>
+    <h1>{{ user[1] }}</h1>
 
-    <h3>Добро пожаловать!</h3>
+    <ul>
+        {% for post in user_posts %}
+            <li>
+                <h2>Заголовок</h2>
+                <p>Текстом</p>
+            </li>
+        {% endfor %}
+    </ul>
     
 </body>
 

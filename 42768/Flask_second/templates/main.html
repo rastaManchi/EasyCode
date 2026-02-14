@@ -16,7 +16,15 @@
     </div>
 
     <ul>
-        {% for post in posts %}
+        {% for user in all_users %}
+            <li>
+                <a href="/user/{{ user[0] }}" >{{ user[1] }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for post in all_posts %}
             <li>
                 <h2>Заголовок</h2>
                 <p>Текстом</p>

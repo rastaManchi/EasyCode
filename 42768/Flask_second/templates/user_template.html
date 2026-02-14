@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+</head>
+
+<body>
+    <h1>{{ user[1] }}</h1>
+
+    {% if user_posts %}
+        <ul>
+            {% for post in user_posts %}
+                <li>
+                    <h2>{{ post[1] }}</h2>
+                    <p>{{ post[2] }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>Постов нет</h3>
+    {% endif %}
+    
+</body>
+
+</html>

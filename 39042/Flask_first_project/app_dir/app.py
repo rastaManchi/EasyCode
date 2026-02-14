@@ -67,7 +67,7 @@ def signup():
             response.set_cookie('Session', str(user[0]), max_age=3600)
             return response
         else:
-            print('Такой пользователь уже есть!')
+            return 'Такой пользователь уже есть!'
     return render_template('signup.html')
 
 
@@ -141,6 +141,7 @@ def admin():
             author = get_user_by_id(post[3])
             data.append(
                 {
+                    'id': post[0],
                     'title': post[1],
                     'content': post[2],
                     'created_at': post[5],
