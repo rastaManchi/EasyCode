@@ -16,12 +16,35 @@ cur.execute('''
 conn.commit()
 
 
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS posts(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        content TEXT
+    )        
+            ''')
+conn.commit()
+
+
+def get_all_posts():
+    cur.execute('SELECT * FROM posts')
+    return cur.fetchall() # [ (1, 'Название', 'Контент'),  (2, 'Название', 'Контент') ]
+
+
 def add_user(name, email, password):
     cur.execute('''
         INSERT INTO users(name, email, password) VALUES
         (?, ?, ?)
                 ''', [name, email, password])
     conn.commit()
+    
+    
+def add_new_post(title, content):
+    cur.execute('''
+        INSERT INTO posts(title, content) VALUES
+        (?, ?)
+                ''', [title, content])
+    conn.commit()    
     
 
 def get_user_by_email(email):

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from db import *
 
 
@@ -14,17 +14,42 @@ def test():
 #http://127.0.0.1:5000/
 @app.route('/')
 def home():
-    return render_template('main.html')
+    posts = get_all_posts()
+    return render_template('main.html', posts=posts)
+
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+
+@app.route('/new_post')
+def new_post():
+    return render_template('new_post.html')
+
+
+@app.route('/add_post', methods=['POST'])
+def add_post():
+    data = request.form
+    title = data.get('title')
+    content = data.get('content')
+    add_new_post(title, content)
+    return redirect('/')
 
 
 #http://127.0.0.1:5000/login
-# 1. TODO: Разрешить метод POST
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    # 2. TODO: Проверить метод
-        # 3. TODO: Получить данные от пользователя
-        # 4. TODO: Проверить данные
-        # 5. TODO: Вернуть Success или Failed 
+    if request.method == 'POST':
+        data = request.form
+        email = data.get('email')
+        password = data.get('password')
+        user = get_user_by_email(email)
+        if user:
+            if user[3] == password:
+                return "Successed"
+            return "Wrong password"
+        return "User not found"
     return render_template('login.html')
 
 
