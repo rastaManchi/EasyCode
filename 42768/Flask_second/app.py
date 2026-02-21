@@ -1,5 +1,36 @@
 from flask import Flask, render_template, request, redirect
 from db import *
+from dotenv import load_dotenv
+from email.mime.text import MIMEText
+import os
+import smtplib
+load_dotenv()
+
+
+def send_gmail_message(user_email):
+    from_email = os.getenv("EMAIL_USER")
+    password = os.getenv("EMAIL_PASSWORD")
+    if not from_email or not password:
+        print("ОШИБКА: Не найдены EMAIL_USER или EMAIL_PASSWORD в .env файле!")
+        return False
+    subject = "Добро пожаловать"
+    body = """Привет, это тестовое сообщение!"""
+    msg = MIMEText(body, 'plain', 'utf-8')
+    msg['Subject'] = subject
+    msg['From'] = from_email
+    msg['To'] = user_email
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(from_email, password)
+        server.send_message(msg)
+        server.quit()
+        return True
+    except smtplib.SMTPAuthenticationError:
+        print("Ошибка аутентификации - неверный логин или пароль")
+    except Exception as e:
+        print(f"Ошибка подключения: {e}")
+    return False
 
 
 app = Flask(__name__)
@@ -36,7 +67,9 @@ def user(user_id):
     print(type(user_id))
     user = get_user_by_id(user_id)
     user_posts = get_posts_by_user(user_id)
+    # 2.1 TODO: Получить все уведы пользователя
     if user:
+        # 2.2 TODO: передать в return все уведы пользователя
         return render_template('user_template.html', user=user, user_posts=user_posts)
     return f"Пользователь не найден", 404
 
@@ -64,8 +97,17 @@ def register():
         name = data.get('name')
         email = data.get('email')
         password = data.get('password')
-        add_user(name, email, password)
-        return "Успешно"
+        user = get_user_by_email(email)
+        if not user:
+            add_user(name, email, password)
+            user = get_user_by_email(email)
+            email_sent = send_gmail_message(email)
+            if email_sent:
+                log_notification(user[0], 'welcome_email_sent', f'Письмо успешно отправлено на {email}')
+            else:
+                log_notification(user[0], 'welcome_email_sent', f'Письмо не было отправлено на {email}')
+            return "Успешно"
+        return "Пользователь уже существует"
     return render_template("register.html")
 
 

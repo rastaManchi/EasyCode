@@ -22,6 +22,19 @@
     {% else %}
         <h3>Постов нет</h3>
     {% endif %}
+
+    {% if notifications %}
+        <ul>
+            {% for note in notifications %}
+                <li>
+                    <strong>{{ note[2] }}</strong>: {{ note[3] }}
+                    <em>({{ note[4] }})</em>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Уведомлений нет.</p>
+    {% endif %}
     
 </body>
 

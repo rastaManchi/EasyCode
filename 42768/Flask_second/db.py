@@ -24,6 +24,27 @@ cur.execute("""CREATE TABLE IF NOT EXISTS posts(
 conn.commit()
 
 
+cur.execute("""CREATE TABLE IF NOT EXISTS notifications(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        action TEXT,
+        details TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )""")
+conn.commit()
+
+
+def log_notification(user_id, action, details):
+    cur.execute('INSERT INTO notifications(user_id, action, details) VALUES (?, ?, ?)', [user_id, action, details])
+    conn.commit()
+    
+    
+def get_notifications_by_user(user_id):
+    cur.execute(f'SELECT * FROM notifications WHERE user_id={user_id} ORDER BY created_at DESC')
+    return cur.fetchall()
+
+
 def add_post_to_db(title, content, user_id):
     cur.execute('INSERT INTO posts(title, content, user_id) VALUES (?, ?, ?)', [title, content, user_id])
     conn.commit()
@@ -54,5 +75,5 @@ def get_user_by_id(id):
 
 def get_user_by_email(email):
     cur.execute('SELECT * FROM users WHERE email=?', [email])
-    return cur.fetchall() # [ (1, 'Булат', '123@123', 'qwerty') ]
+    return cur.fetchone() # (1, 'Булат', '123@123', 'qwerty')
     

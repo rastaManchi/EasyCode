@@ -1,0 +1,12 @@
+services:
+
+  web:
+    build: ./
+    restart: always
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: "curl --fail --silent --write-out 'HTTP CODE: %{http_code}\n' http://127.0.0.1:5000/"
+      interval: 5s
+      timeout: 10s
+      retries: 5
