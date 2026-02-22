@@ -7,6 +7,7 @@ from aiogram.fsm.context import FSMContext
 
 from config import *
 from keyboards import *
+from db import *
 
 
 bot = Bot(token=TOKEN)
@@ -31,6 +32,12 @@ print(slides_dict)
     
 @dp.message(CommandStart())
 async def welcome(message: Message):
+    if add_user(message.from_user.id,
+             message.from_user.username,
+             message.from_user.first_name,
+             message.from_user.last_name,
+             "-1"):
+        await message.answer("Добро пожаловать!", reply_markup=main_keyboard(slides_dict))
     await message.answer(START_MESSAGE, reply_markup=main_keyboard(slides_dict))
     
 
@@ -50,6 +57,9 @@ async def get_city(message: Message, state: FSMContext):
     data = await state.get_data()
     text = f"Имя: {data['name']} -- Телефон: {data['phone']}\n"
     await message.answer(text)
+    
+    # 3. TODO: воспользоваться функцией add_ticket(name, phone, message.from_user.id)
+    
     file = open('result.txt', 'a', encoding='utf-8')
     file.write(text)
     file.close()
