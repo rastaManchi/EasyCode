@@ -10,7 +10,8 @@ cur.execute('''
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         email TEXT,
-        password TEXT
+        password TEXT,
+        is_admin INTEGER DEFAULT 0
     )        
             ''')
 conn.commit()
@@ -20,7 +21,9 @@ cur.execute('''
     CREATE TABLE IF NOT EXISTS posts(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
-        content TEXT
+        content TEXT,
+        user_id INTEGER,
+        FOREIGN KEY (user_id) REFERENCES users(id)
     )        
             ''')
 conn.commit()
@@ -31,6 +34,12 @@ def get_all_posts():
     return cur.fetchall() # [ (1, 'Название', 'Контент'),  (2, 'Название', 'Контент') ]
 
 
+def get_posts_by_user_id(user_id):
+    cur.execute(f'''SELECT * FROM posts
+                    WHERE user_id={user_id}''')
+    return cur.fetchall()
+
+
 def add_user(name, email, password):
     cur.execute('''
         INSERT INTO users(name, email, password) VALUES
@@ -39,11 +48,11 @@ def add_user(name, email, password):
     conn.commit()
     
     
-def add_new_post(title, content):
+def add_new_post(title, content, user_id=1):
     cur.execute('''
-        INSERT INTO posts(title, content) VALUES
-        (?, ?)
-                ''', [title, content])
+        INSERT INTO posts(title, content, user_id) VALUES
+        (?, ?, ?)
+                ''', [title, content, user_id])
     conn.commit()    
     
 

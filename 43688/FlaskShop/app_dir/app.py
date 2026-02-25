@@ -23,6 +23,12 @@ def profile():
     return render_template('profile.html')
 
 
+@app.route('/user/<int:user_id>')
+def get_user_profile(user_id):
+    user = get_user_by_id(user_id)
+    return str(user)
+
+
 @app.route('/new_post')
 def new_post():
     return render_template('new_post.html')
