@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>главная страница</title>
+</head>
+<body>
+    <div class="header">
+        <h1>главная</h1>
+        <div>
+            <a href="{{ url_for('register')}}">Регистрация</a>
+             <a href="{{ url_for('login')}}">Войти</a>
+        </div>
+    </div>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{post[1]}}</h2>
+                <p>{{post[2]}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- 5. TODO: Показать всех пользователей -->
+</body>
+</html>

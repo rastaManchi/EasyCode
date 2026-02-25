@@ -15,9 +15,8 @@ def test():
 @app.route('/')
 def home():
     posts = get_all_posts()
-    # 2. TODO: получить всех пользователей
-    # 3. TODO: Передать всех пользователей в шаблон
-    return render_template('main.html', posts=posts)
+    users = get_all_users()
+    return render_template('main.html', posts=posts, users=users)
 
 
 @app.route('/profile')
