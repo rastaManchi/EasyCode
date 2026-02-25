@@ -15,6 +15,8 @@ def test():
 @app.route('/')
 def home():
     posts = get_all_posts()
+    # 2. TODO: получить всех пользователей
+    # 3. TODO: Передать всех пользователей в шаблон
     return render_template('main.html', posts=posts)
 
 
@@ -26,7 +28,12 @@ def profile():
 @app.route('/user/<int:user_id>')
 def get_user_profile(user_id):
     user = get_user_by_id(user_id)
-    return str(user)
+    posts = get_posts_by_user_id(user_id)
+    if user:
+        return render_template('user_page.html',
+                            user=user,
+                            posts=posts)
+    return "Пользователь не найден", 404
 
 
 @app.route('/new_post')

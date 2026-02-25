@@ -64,3 +64,5 @@ def get_user_by_email(email):
 def get_user_by_id(id):
     cur.execute(f'SELECT * FROM users WHERE id={id}')
     return cur.fetchone() # (1, 'Булат', '@mail.ru', '123')
+
+# 1. TODO: функция для получения всех пользователей из БД
