@@ -1,4 +1,6 @@
 import sqlite3
+import secrets
+import time
 
 
 conn = sqlite3.connect('mydb.db', check_same_thread=False)
@@ -33,6 +35,36 @@ cur.execute("""CREATE TABLE IF NOT EXISTS notifications(
         FOREIGN KEY (user_id) REFERENCES users(id)
     )""")
 conn.commit()
+
+
+cur.execute("""CREATE TABLE IF NOT EXISTS auth_tokens(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        token TEXT UNIQUE,
+        expires_at TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )""")
+conn.commit()
+
+
+def create_auth_token(user_id, remember=False):
+    token = secrets.token_hex(32)
+    if remember:
+        expires_at = time.time() + 60 * 60 * 24 * 30
+    else:
+        expires_at = time.time() + 60 * 60
+    cur.execute('''INSERT INTO auth_tokens(user_id, token, expires_at)
+                    VALUES (?, ?, ?)''', [user_id, token, expires_at])
+    conn.commit()
+    return token
+
+
+def validate_auth_token(token):
+    cur.execute('SELECT user_id FROM auth_tokens WHERE token = ? AND expires_at > ?', [token, time.time()])
+    result = cur.fetchone()
+    if result:
+        return result[0]
+    return None
 
 
 def log_notification(user_id, action, details):

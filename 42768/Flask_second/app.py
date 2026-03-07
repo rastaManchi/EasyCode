@@ -46,6 +46,15 @@ def home():
     all_users = get_all_users()
     # 1. TODO: В main.html отображать актуальные данные постов
     # 2. TODO: Добавить рядом с каждым постом имя автора
+    if 'user_id' not in session:
+        token = request.cookies.get('auth_token')
+        if token:
+            user_id = validate_auth_token(token)
+            if user_id:
+                user = get_user_by_id(user_id)
+                if user:
+                    session['user_id'] = user[0]
+                    session['username'] = user[1]
     username = None
     if 'user_id' in session:
         username = session['username']
@@ -87,6 +96,7 @@ def login():
         data = request.form
         email = data.get('email')
         password = data.get('password')
+        remember = data.get('remember')
         user = get_user_by_email(email)
         if user:
             user_pass = user[3]
@@ -94,7 +104,13 @@ def login():
                 session['user_id'] = user[0]
                 session['username'] = user[1]
                 log_notification(user[0], 'login', 'Успешная авторизация')
-                return "Успешно"
+                if remember:
+                    token = create_auth_token(user[0], True)
+                    response = redirect('/')
+                    response.set_cookie('auth_token', token, max_age=60*60*24*30)
+                else:
+                    response = redirect('/')
+                return response
             return "Неверный пароль"
         return "Неверная почта"
     return render_template('login.html')
