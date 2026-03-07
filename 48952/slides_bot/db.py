@@ -19,6 +19,16 @@ cur.execute('''
 conn.commit()
 
 # 1. TODO: Создать таблицу tickets (id, name, phone, user_id)
+cur.execute('''
+        CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            phone TEXT,
+            user_id TEXT
+        )
+            ''')
+conn.commit()
+
 
 
 def add_user(user_id: str, 
@@ -39,3 +49,7 @@ def add_user(user_id: str,
     return False
 
 # 2. TODO: Создать функцию добавления билета add_ticket
+def add_ticket(name, phone, user_id):
+    cur.execute("""INSERT INTO tickets (name, phone, user_id) 
+                VALUES (?,?,?)""", [name, phone, user_id])
+    conn.commit()

@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from db import *
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
 import os
 import smtplib
+
+import secrets
+
 load_dotenv()
 
 
@@ -34,6 +37,7 @@ def send_gmail_message(user_email):
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 
 
 @app.route('/')
@@ -42,7 +46,10 @@ def home():
     all_users = get_all_users()
     # 1. TODO: В main.html отображать актуальные данные постов
     # 2. TODO: Добавить рядом с каждым постом имя автора
-    return render_template('main.html', all_users=all_users, all_posts=all_posts)
+    username = None
+    if 'user_id' in session:
+        username = session['username']
+    return render_template('main.html', all_users=all_users, all_posts=all_posts, username=username)
 
 
 # 3. TODO: Создайте страницу "Все пользователи", 
@@ -82,8 +89,11 @@ def login():
         password = data.get('password')
         user = get_user_by_email(email)
         if user:
-            user_pass = user[0][3]
+            user_pass = user[3]
             if user_pass == password:
+                session['user_id'] = user[0]
+                session['username'] = user[1]
+                log_notification(user[0], 'login', 'Успешная авторизация')
                 return "Успешно"
             return "Неверный пароль"
         return "Неверная почта"

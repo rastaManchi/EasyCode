@@ -9,9 +9,13 @@
     <div class="header">
         <h1>Главная</h1>
         <div>
-            <a href="{{ url_for('register') }}">Регистрация</a>
-            <a href="{{ url_for('login') }}">Вход</a>
-            <a href="{{ url_for('post') }}">Новый пост</a>
+            {% if not username %}
+                <a href="{{ url_for('register') }}">Регистрация</a>
+                <a href="{{ url_for('login') }}">Вход</a>
+            {% else %}
+                <p>{{username}}</p>
+                <a href="{{ url_for('post') }}">Новый пост</a>
+            {% endif %}
         </div>
     </div>
 

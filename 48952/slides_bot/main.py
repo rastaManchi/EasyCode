@@ -58,7 +58,7 @@ async def get_city(message: Message, state: FSMContext):
     text = f"Имя: {data['name']} -- Телефон: {data['phone']}\n"
     await message.answer(text)
     
-    # 3. TODO: воспользоваться функцией add_ticket(name, phone, message.from_user.id)
+    add_ticket(data['name'], data['phone'], message.from_user.id)
     
     file = open('result.txt', 'a', encoding='utf-8')
     file.write(text)

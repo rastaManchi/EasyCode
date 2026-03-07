@@ -45,9 +45,14 @@ def get_all_posts():
     cur.execute('SELECT * FROM posts')
     return cur.fetchall()
 
-# 6. TODO: Создать функцию получения всех пользователей
+def get_all_users():
+    cur.execute('SELECT * FROM users')
+    return cur.fetchall()
 
-# 1. TODO: Создать функцию получения постов по user_id
+
+def get_posts_by_user_id(user_id):
+    cur.execute('SELECT * FROM posts WHERE user_id = ?', [user_id])
+    return cur.fetchall()
 
 def get_user_by_id(user_id):
     cur.execute('SELECT * FROM users WHERE id = ?', [user_id])

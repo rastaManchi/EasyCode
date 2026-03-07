@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Документация API</title>
+    <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .endpoint { background: #f5f5f5; padding: 15px; margin: 10px 0; border-left: 4px solid #007bff; }
+    .method { display: inline-block; padding: 5px 10px; border-radius: 3px; color: white; font-weight: bold; }
+    .get { background: #28a745; }
+    .post { background: #007bff; }
+    .put { background: #ffc107; color: #212529; }
+    .delete { background: #dc3545; }
+    code { background: #e9ecef; padding: 2px 5px; border-radius: 3px; }
+    pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow: auto; }
+    </style>
+</head>
+<body>
+<h1>Документация API</h1>
+<nav>
+    <a href="/">На главную</a> |
+    {% if user_name %}
+    <span>Вы вошли как: <strong>{{ user_name }}</strong></span> |
+    <a href="/logout">Выйти</a>
+    {% else %}
+    <a href="/login/">Вход</a> |
+    <a href="/register/">Регистрация</a>
+    {% endif %}
+</nav>
+
+<br>
+
+<h2>Базовый URL</h2>
+<p><code>http://ваш-домен/api/v1/</code></p>
+
+<h2>Аутентификация</h2>
+<p>Для аутентификации используйте заголовок:</p>
+<pre>Authorization: Bearer ваш_токен</pre>
+
+<h2>Эндпоинты</h2>
+
+<div class="endpoint">
+    <h3><span class="method get">GET</span> Получение всех постов</h3>
+    <p><code>/api/v1/posts</code></p>
+    <p>Параметры: <code>page</code> (номер страницы), <code>per_page</code> (постов на страницу)</p>
+    <p>Пример: <code>/api/v1/posts?page=1&per_page=10</code></p>
+</div>
+
+<div class="endpoint">
+    <h3><span class="method get">GET</span> Получение одного поста</h3>
+    <p><code>/api/v1/posts/{id}</code></p>
+    <p>Пример: <code>/api/v1/posts/1</code></p>
+</div>
+
+<div class="endpoint">
+    <h3><span class="method post">POST</span> Вход в систему</h3>
+    <p><code>/api/v1/login</code></p>
+    <p>Тело запроса (JSON): </p>
+    <pre>
+    "email": "user@example.com",
+    "password": "password123"
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3><span class="method post">POST</span> Создание поста (требует аутентификации)</h3>
+    <p><code>/api/v1/posts/</code></p>
+    <p>Тело запроса (JSON):</p>
+    <pre>
+"title": "Заголовок поста",
+"content": "Содержание поста...",
+"category_id": 1
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3><span class="method put">PUT</span> Обновление поста (требует аутентификации)</h3>
+    <p><code>/api/v1/posts/{id}</code></p>
+    <p>Тело запроса (JSON):</p>
+    <pre>
+"title": "Новый заголовок",
+"content": "Новое содержание...",
+"category_id": 2
+    </pre>
+</div>
+
+<div class="endpoint">
+    <h3><span class="method delete">DELETE</span> Удаление поста (требует прав администратора)</h3>
+    <p><code>/api/v1/posts/{id}</code></p>
+    <p>Пример: <code>/api/v1/posts/1</code></p>
+</div>
+
+<h2>Пример использования с JavaScript (Fetch API)</h2>
+<pre>
+// Получение постов
+fetch('/api/v1/posts')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+// Создание поста
+fetch('/api/v1/posts', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ваш_токен'
+    },
+    body: JSON.stringify({
+        title: 'Новый пост',
+        content: 'Содержание...',
+        category_id: 1
+    })
+})
+    .then(response => response.json())
+    .then(data => console.log(data));
+</pre>
+
+<h2>Коды ответов</h2>
+<ul>
+    <li><strong>200</strong> – Успешный запрос</li>
+    <li><strong>201</strong> – Успешно создан</li>
+    <li><strong>400</strong> – Ошибка в запросе</li>
+    <li><strong>401</strong> – Требуется аутентификация</li>
+    <li><strong>403</strong> – Недостаточно прав</li>
+    <li><strong>404</strong> – Не найдено</li>
+    <li><strong>500</strong> – Ошибка сервера</li>
+</ul>
+</body>
+</html>

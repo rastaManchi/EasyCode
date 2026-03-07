@@ -1,5 +1,44 @@
 from flask import Flask, render_template, redirect, request, make_response
 from help import *
+import os
+from dotenv import load_dotenv
+import smtplib
+from email.mime.text import MIMEText
+
+
+load_dotenv()
+from_email = os.getenv("EMAIL_USER")
+password = os.getenv("EMAIL_PASSWORD")
+
+
+def send_mail(email_to):
+    if not from_email or not password:
+        print("ОШИБКА: Не найдены EMAIL_USER или EMAIL_PASSWORD в .env файле!")
+        return False
+    subject = "Добро пожаловать!"
+    body = """
+Добрый день!
+Спасибо, что выбрали нас!
+
+Команда ... <3
+    """
+    msg = MIMEText(body, 'plain', 'utf-8')
+    msg['Subject'] = subject
+    msg['From'] = from_email
+    msg['To'] = email_to
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(from_email, password)
+        server.send_message(msg)
+        server.quit()
+        return True
+    except smtplib.SMTPAuthenticationError:
+        print("Ошибка аутентификации - неверный логин или пароль")
+    except Exception as e:
+        print(f"Ошибка подключения: {e}")
+    return False
+
 
 app = Flask(__name__)
 
@@ -8,15 +47,14 @@ def main():
     user_id = request.cookies.get('user_id') 
     user = get_user_by_id(user_id) 
     posts = get_all_posts()
-    # 7. TODO: Получить всех пользователей
-    # 8. TODO: Передать пользователей в шаблон
-    return render_template('main.html', posts = posts)
+    users = get_all_users()
+    return render_template('main.html', posts = posts, users=users)
 
-@app.route('/profile')
-def profile():
-    # 2. TODO: Получал все посты пользователя
-    # 3. TODO: Передать посты в шаблон
-    return render_template('profile.html')
+
+@app.route('/profile/<int:user_id>')
+def profile(user_id):
+    posts = get_posts_by_user_id(user_id)
+    return render_template('profile.html', posts=posts)
 
 @app.route('/new_post')
 def new_post():   
@@ -40,6 +78,7 @@ def register():
         email = data.get('email')
         add_user(name, email, password)
         user = get_user_by_email(email)
+        send_mail(email)
         response = make_response(redirect('/'))
         response.set_cookie('user_id', str(user[0]), max_age=10000)
         return response
