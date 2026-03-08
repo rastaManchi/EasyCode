@@ -20,7 +20,7 @@ conn.commit()
 
 # 1. TODO: Создать таблицу tickets (id, name, phone, user_id)
 cur.execute('''
-        CREATE TABLE IF NOT EXISTS users(
+        CREATE TABLE IF NOT EXISTS tickets(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
             phone TEXT,
@@ -52,4 +52,10 @@ def add_user(user_id: str,
 def add_ticket(name, phone, user_id):
     cur.execute("""INSERT INTO tickets (name, phone, user_id) 
                 VALUES (?,?,?)""", [name, phone, user_id])
+    conn.commit()
+    
+    
+def update_test(id, phone):
+    cur.execute('''UPDATE tickets SET phone=?
+                    WHERE id=?''', [phone, id])
     conn.commit()

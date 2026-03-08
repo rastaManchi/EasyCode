@@ -11,6 +11,10 @@ bool() # True/False
 a = 10 # -> '10'
 b = bool(a) # True
 
+bool('привет') # True
+bool('') # False
+
+
 num1 = 1
 num2 = 2
 
