@@ -95,6 +95,7 @@ def profile():
 
 
 @app.route('/user/<int:user_id>')
+@check_session
 def get_user_profile(user_id):
     user = get_user_by_id(user_id)
     posts = get_posts_by_user_id(user_id)
@@ -108,6 +109,7 @@ def get_user_profile(user_id):
 
 
 @app.route('/new_post')
+@check_session
 def new_post():
     return render_template('new_post.html')
 
@@ -123,6 +125,7 @@ def add_post():
 
 #http://127.0.0.1:5000/login
 @app.route('/login', methods=['GET', 'POST'])
+@check_session
 def login():
     if request.method == 'POST':
         data = request.form
@@ -143,11 +146,14 @@ def login():
                 return response
             return "Wrong password"
         return "User not found"
+    if g.username:
+        return redirect('/')
     return render_template('login.html')
 
 
 #http://127.0.0.1:5000/register
 @app.route('/register', methods=['GET', 'POST'])
+@check_session
 def register():
     if request.method == 'POST':
         data = request.form
@@ -164,6 +170,8 @@ def register():
             else:
                 log_notification(user[0], 'welcome_email_sent', f'Приветственное письмо НЕ было отправлено на {email}')
             return render_template('profile.html')
+    if g.username:
+        return redirect('/')
     return render_template('register.html')
 
 
