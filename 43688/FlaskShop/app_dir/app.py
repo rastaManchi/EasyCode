@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, g
 from db import *
 import os
+import secrets
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
+from functools import wraps
 
 
 load_dotenv()
@@ -40,6 +42,26 @@ def send_email(email_to):
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
+
+
+def check_session(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        token = request.cookies.get('auth_token')
+        if token:
+            user_id = validate_auth_token(token)
+            if user_id:
+                user = get_user_by_id(user_id)
+                session['user_id'] = user[0]
+                session['username'] = user[1]
+        username = None
+        if 'user_id' in session:
+            username = session['username']
+        g.username = username
+        res = func(*args, **kwargs)
+        return res
+    return wrapper
 
 
 #http://127.0.0.1:5000/test
@@ -50,10 +72,21 @@ def test():
 
 #http://127.0.0.1:5000/
 @app.route('/')
+@check_session
 def home():
     posts = get_all_posts()
     users = get_all_users()
-    return render_template('main.html', posts=posts, users=users)
+    return render_template('main.html', posts=posts, users=users, username=g.username)
+
+
+@app.route('/search')
+@check_session
+def search():
+    data = request.args
+    q = data.get('q')
+    posts = get_posts_by_text(q)
+    users = get_all_users()
+    return render_template('main.html', posts=posts, users=users, username=g.username)
 
 
 @app.route('/profile')
@@ -95,10 +128,19 @@ def login():
         data = request.form
         email = data.get('email')
         password = data.get('password')
+        remember = data.get('remember')
         user = get_user_by_email(email)
         if user:
             if user[3] == password:
-                return "Successed"
+                session['user_id'] = user[0]
+                session['username'] = user[1]
+                if remember:
+                    token = create_auth_token(user[0], True)
+                    response = redirect('/')
+                    response.set_cookie('auth_token', token, max_age=60 * 60 * 24 * 30)
+                else:
+                    response = redirect('/')
+                return response
             return "Wrong password"
         return "User not found"
     return render_template('login.html')

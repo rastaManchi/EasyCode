@@ -59,6 +59,11 @@ def create_auth_token(user_id, remember=False):
     return token
 
 
+def delete_auth_token(user_id):
+    cur.execute(f'DELETE FROM auth_tokens WHERE user_id={user_id}')
+    conn.commit()
+
+
 def validate_auth_token(token):
     cur.execute('SELECT user_id FROM auth_tokens WHERE token = ? AND expires_at > ?', [token, time.time()])
     result = cur.fetchone()
@@ -83,7 +88,7 @@ def add_post_to_db(title, content, user_id):
 
 
 def get_all_posts():
-    cur.execute("SELECT * FROM posts")
+    cur.execute("SELECT * FROM posts ORDER BY id DESC")
     return cur.fetchall()
 
 
@@ -93,8 +98,17 @@ def get_all_users():
 
 
 def get_posts_by_user(id):
-    cur.execute(f'SELECT * FROM posts WHERE user_id={id}')
+    cur.execute(f'SELECT * FROM posts WHERE user_id={id} ORDER BY id DESC')
     return cur.fetchall() # [(1, 'Название', 'Контент', 10), (2, 'Название2', 'Контент2', 10)]
+
+
+def get_posts_by_text(text):
+    cur.execute(f'''
+SELECT * FROM posts
+WHERE title LIKE "%{text}%" OR content LIKE "%{text}%"
+ORDER BY id DESC
+                ''')
+    return cur.fetchall()
 
 
 def add_user(name, email, password):

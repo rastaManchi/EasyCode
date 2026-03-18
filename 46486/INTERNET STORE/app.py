@@ -25,24 +25,20 @@ def register():
 
     return render_template('register.html')
 
+
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
         user = get_user_by_email(email)
-
-        
         if user is None:
             return render_template('login.html', message="Нет такой почты")
-        
-
         if user[3] == password:
             print('Вход выполнен')
             return redirect('/profile/')     
         else:
             return render_template('login.html', message="Пароль неверный")
-        
     return render_template('login.html')
 
 
@@ -58,6 +54,15 @@ def add_post():
     content = data.get('content')
     add_posts(title, content)
     return "Пост добавлен"
+
+
+@app.route('/user/<int:user_id>')
+def user(user_id):
+    user = get_user_by_id(user_id)
+    if user:
+        posts = get_posts_by_user_id(user_id)
+        return render_template('profile.html', posts=posts, user=user)
+    return "Пользователь не найден!", 404
 
 
 if __name__=='__main__':

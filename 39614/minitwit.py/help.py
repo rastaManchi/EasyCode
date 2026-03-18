@@ -61,3 +61,10 @@ def get_user_by_id(user_id):
 def get_user_by_email(email):
     cur.execute('SELECT * FROM users WHERE email = ?', [email])
     return cur.fetchone()
+
+
+def search_posts_by_text(search_text):
+    cur.execute('''SELECT * FROM posts 
+                WHERE title LIKE ? OR content LIKE ?''',
+                [f"%{search_text}%", f"%{search_text}%"])
+    return cur.fetchall()

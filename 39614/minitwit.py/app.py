@@ -100,6 +100,15 @@ def login():
         return redirect('/')
     return render_template('login.html')
 
+
+@app.route('/search_posts', methods=['POST'])
+def search_posts():
+    data = request.form
+    search_text = data.get('search_text')
+    posts = search_posts_by_text(search_text)
+    return posts
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 

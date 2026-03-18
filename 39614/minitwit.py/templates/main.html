@@ -13,13 +13,22 @@
              <a href="{{ url_for('login')}}">Войти</a>
         </div>
     </div>
-    <ul>
+
+    <div>
+        <input type="text" id="search_input" placeholder="Введите что нибудь">
+        <button id="search_btn">Поиск</button>
+    </div>
+
+
+
+    <ul id="posts_list">
         {% for post in posts %}
             <li>
                 <h2>{{post[1]}}</h2>
                 <p>{{post[2]}}</p>
             </li>
         {% endfor %}
+        
     </ul>
 
     <ul>
@@ -29,5 +38,7 @@
             </li>
         {% endfor %}
     </ul>
+
+    <script src="/static/main.js"></script>
 </body>
 </html>

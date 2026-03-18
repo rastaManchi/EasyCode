@@ -61,6 +61,27 @@ def home():
     return render_template('main.html', all_users=all_users, all_posts=all_posts, username=username)
 
 
+@app.route('/search_post', methods=["GET"])
+def search_post():
+    data = request.args
+    search_text = data.get('search_text')
+    posts = get_posts_by_text(search_text)
+    all_users = get_all_users()
+    if 'user_id' not in session:
+        token = request.cookies.get('auth_token')
+        if token:
+            user_id = validate_auth_token(token)
+            if user_id:
+                user = get_user_by_id(user_id)
+                if user:
+                    session['user_id'] = user[0]
+                    session['username'] = user[1]
+    username = None
+    if 'user_id' in session:
+        username = session['username']
+    return render_template('main.html', all_users=all_users, all_posts=posts, username=username), 200
+
+
 # 3. TODO: Создайте страницу "Все пользователи", 
     # где будет отображаться список всех зарегистрированных пользователей с указанием количества их постов. 
     # Для этого:
@@ -116,6 +137,14 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    user_id = session.get('user_id')
+    session.clear()
+    delete_auth_token(user_id)
+    return redirect('/')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -144,11 +173,14 @@ def post():
 
 @app.route('/add_post', methods=['POST'])
 def add_post():
-    data = request.form
-    title = data.get('title')
-    content = data.get('content')
-    add_post_to_db(title, content, 1)
-    return redirect('/')
+    user_id = session.get('user_id')
+    if user_id:
+        data = request.form
+        title = data.get('title')
+        content = data.get('content')
+        add_post_to_db(title, content, user_id)
+        return redirect('/')
+    return "Вы не авторизованы", 401
 
 
-app.run()
+app.run('0.0.0.0', 8000)

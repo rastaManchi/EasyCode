@@ -14,6 +14,7 @@
                 <a href="{{ url_for('login') }}">Вход</a>
             {% else %}
                 <p>{{username}}</p>
+                <a href="{{ url_for('logout') }}">Выход</a>
                 <a href="{{ url_for('post') }}">Новый пост</a>
             {% endif %}
         </div>
@@ -27,11 +28,16 @@
         {% endfor %}
     </ul>
 
+    <form action="/search_post">
+        <input type="text" name="search_text" placeholder="Найти что нибудь">
+        <button type="submit">Найти</button>
+    </form>
+
     <ul>
         {% for post in all_posts %}
             <li>
-                <h2>Заголовок</h2>
-                <p>Текстом</p>
+                <h2>{{ post[1] }}</h2>
+                <p>{{ post[2] }}</p>
             </li>
         {% endfor %}
     </ul>
