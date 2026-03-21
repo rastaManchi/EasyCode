@@ -33,7 +33,7 @@
         <button type="submit">Найти</button>
     </form>
 
-    <ul>
+    <ul id="posts_list">
         {% for post in all_posts %}
             <li>
                 <h2>{{ post[1] }}</h2>
@@ -41,6 +41,41 @@
             </li>
         {% endfor %}
     </ul>
+
+    {% if total_pages > 1 %}
+        <button page="{{ page_num+1 }}" onclick="load_new(this)">Загрузить еще</button>
+        <div>
+            {% if page_num > 1 %}
+                <a href="/?page_num={{page_num-1}}">Предыдущая</a>
+            {% endif %}
+                <p>Страница: {{ page_num }} из {{ total_pages }}</p>
+            {% if page_num < total_pages %}
+                <a href="/?page_num={{page_num+1}}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <script>
+        const posts_list = document.getElementById('posts_list')
+
+        function load_new(el) {
+            page = el.getAttribute('page')
+            fetch(`/api/posts?page_num=${page}`)
+            .then(result => {
+                return result.json()
+            })
+            .then(data => {
+                data.forEach(post => {
+                    const postElement = document.createElement('li')
+                    postElement.innerHTML = `
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>`
+                    posts_list.appendChild(postElement)
+                })
+                el.setAttribute('page', parseInt(page)+1)
+            })
+        }
+    </script>
 
 </body>
 </html>

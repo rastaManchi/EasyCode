@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from db import *
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
@@ -42,7 +42,12 @@ app.secret_key = secrets.token_hex(16)
 
 @app.route('/')
 def home():
-    all_posts = get_all_posts()
+    page_num = int(request.args.get('page_num', 1))
+    posts_offset = (page_num - 1) * 5
+    total_posts = get_all_posts_count()
+    total_pages = total_posts // 5 + 1
+    
+    all_posts = get_posts_by_page(posts_offset)
     all_users = get_all_users()
     # 1. TODO: В main.html отображать актуальные данные постов
     # 2. TODO: Добавить рядом с каждым постом имя автора
@@ -58,7 +63,28 @@ def home():
     username = None
     if 'user_id' in session:
         username = session['username']
-    return render_template('main.html', all_users=all_users, all_posts=all_posts, username=username)
+    return render_template('main.html',
+                           all_users=all_users,
+                           all_posts=all_posts,
+                           username=username,
+                           page_num=page_num,
+                           total_pages=total_pages)
+    
+    
+@app.route('/api/posts')
+def api_posts():
+    page_num = int(request.args.get('page_num', 1))
+    posts_offset = (page_num - 1) * 5
+    all_posts = get_posts_by_page(posts_offset)
+    result = []
+    for post in all_posts:
+        result.append({
+            'id': post[0],
+            'title': post[1],
+            'content': post[2],
+            'author': post[3]
+        })
+    return jsonify(result)
 
 
 @app.route('/search_post', methods=["GET"])
