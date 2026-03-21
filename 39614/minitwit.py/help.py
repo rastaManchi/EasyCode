@@ -1,4 +1,7 @@
 import sqlite3
+import secrets
+import time
+
 
 def init_db():
     conn = sqlite3.connect('users.db', check_same_thread= False)
@@ -21,10 +24,38 @@ def init_db():
                 FOREIGN KEY (user_id) REFERENCES users(id)
                 )''')
     conn.commit()
+    
+    cur.execute('''CREATE TABLE IF NOT EXISTS auth_tokens(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                token TEXT,
+                user_id INTEGER,
+                expires_at TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+                )''')
+    conn.commit()
 
     return conn, cur 
 
 conn, cur = init_db()
+
+
+def create_token(user_id, remember=False):
+    token = secrets.token_hex(32)
+    if remember:
+        expires_at = time.time() + 60 * 10
+    else:
+        expires_at = time.time() + 10
+    cur.execute('INSERT INTO auth_tokens(token, user_id, expires_at) VALUES (?, ?, ?)', [token, user_id, expires_at])
+    conn.commit()
+    return token
+
+
+def validate_token(token):
+    cur.execute('SELECT user_id FROM auth_tokens WHERE token=? AND expires_at>?', [token, time.time()])
+    result = cur.fetchone()
+    if result:
+        return result[0]
+    return None
 
 
 def set_admin(user_id):

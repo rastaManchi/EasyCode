@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <a href="/signup">Sign Up</a>
+            <a href="/signin">Sign In</a>
+            <a href="/add_post">Add Post</a>
+            <a href="/profile">Profile</a>
+            {% if is_admin %}
+                <a href="/admin">Admin</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <input type="text" placeholder="Найти что-то интересное" id="search_value">
+    <button id="search_btn">Найти</button>
+
+    <ul id="posts">
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                {% if request.user.is_superuser %}
+                    <a href="/delete?post_id={{post.id}}">Удалить</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script src="/static/js/search.js"></script>
+</body>
+
+</html>

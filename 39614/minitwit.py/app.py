@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, request, make_response
+from flask import Flask, render_template, redirect, request, make_response, session
 from help import *
 import os
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
+import secrets
 
 
 load_dotenv()
@@ -41,14 +42,24 @@ def send_mail(email_to):
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
+
 
 @app.route('/')
 def main():
-    user_id = request.cookies.get('user_id') 
-    user = get_user_by_id(user_id) 
+    token = request.cookies.get('auth_token')
+    if token:
+        user_id = validate_token(token)
+        if user_id:
+            user = get_user_by_id(user_id)
+            session['user_id'] = user[0]
+            session['username'] = user[1]
+    username = None
+    if 'username' in session:
+        username = session['username']
     posts = get_all_posts()
     users = get_all_users()
-    return render_template('main.html', posts = posts, users=users)
+    return render_template('main.html', posts = posts, users=users, username=username)
 
 
 @app.route('/profile/<int:user_id>')
@@ -56,18 +67,23 @@ def profile(user_id):
     posts = get_posts_by_user_id(user_id)
     return render_template('profile.html', posts=posts)
 
+
 @app.route('/new_post')
 def new_post():   
     return render_template('new_post.html') 
 
+
 @app.route('/add_post', methods = ["POST"])
 def post():
-    user_id = request.cookies.get('user_id') 
-    data = request.form
-    title = data.get('title')
-    content = data.get('content')
-    add_new_post(title, content, user_id)
-    return redirect('/')
+    user_id = None
+    if 'user_id' in session:
+        user_id = session['user_id']
+        data = request.form
+        title = data.get('title')
+        content = data.get('content')
+        add_new_post(title, content, user_id)
+        return redirect('/')
+    return "Вы не авторизованы", 401
 
 @app.route('/register', methods= ["GET", "POST"])
 def register():
@@ -80,9 +96,11 @@ def register():
         user = get_user_by_email(email)
         send_mail(email)
         response = make_response(redirect('/'))
-        response.set_cookie('user_id', str(user[0]), max_age=10000)
+        session['user_id'] = user[0]
+        session['username'] = user[1]
         return response
     return render_template('register.html')
+
 
 @app.route('/login', methods= ["GET", "POST"])
 def login():
@@ -94,7 +112,10 @@ def login():
         if user:
            if user[3] == password:
                response = make_response(redirect('/'))
-               response.set_cookie('user_id', str(user[0]), max_age=10000)
+               token = create_token(user[0], True)
+               response.set_cookie('auth_token', token, max_age=60 * 10)
+               session['user_id'] = user[0]
+               session['username'] = user[1]
                return response
            return 'неверно'
         return redirect('/')
