@@ -76,6 +76,17 @@ def get_all_posts():
     cur.execute('SELECT * FROM posts')
     return cur.fetchall()
 
+
+def get_all_posts_by_page(limit, offset):
+    cur.execute('''SELECT * FROM posts
+                LIMIT ? OFFSET ?''', [limit, offset])
+    return cur.fetchall()
+
+def get_posts_count():
+    cur.execute("SELECT COUNT(*) FROM posts")
+    return cur.fetchone()[0]
+
+
 def get_all_users():
     cur.execute('SELECT * FROM users')
     return cur.fetchall()

@@ -2,6 +2,13 @@
 import sys
 from PyQt6.QtWidgets import *
 
+clicks = 0
+
+def click():
+    global clicks
+    clicks += 1
+    label.setText(f"Clicks: {clicks}")
+
 
 # Создание окна
 app = QApplication(sys.argv)
@@ -14,23 +21,20 @@ label = QLabel(text="Какой нибудь текст")
 line_edit = QLineEdit()
 button = QPushButton("OK")
 
+button.clicked.connect(click)
+
 vbox.addWidget(label)
 vbox.addWidget(line_edit)
 vbox.addWidget(button)
 
-
-
 # Заголовок окна
 window.setWindowTitle('Простое окно')
-
 
 # Размер окна
 window.resize(400, 300)
 
-
 # Отображение окна
 window.show()
-
 
 # Цикл обработки событий
 app.exec()

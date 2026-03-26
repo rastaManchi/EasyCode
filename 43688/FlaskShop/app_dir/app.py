@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, g
+from flask import Flask, render_template, request, redirect, session, g, jsonify
 from db import *
 import os
 import secrets
@@ -74,9 +74,37 @@ def test():
 @app.route('/')
 @check_session
 def home():
-    posts = get_all_posts()
+    current_page = int(request.args.get('page', 1))
+    posts_per_page = 2
+    posts_count = get_posts_count()
+    pages = posts_count // posts_per_page + 1
+    offset = posts_per_page * (current_page - 1)
+    posts = get_all_posts_by_page(posts_per_page, offset)
+    
     users = get_all_users()
-    return render_template('main.html', posts=posts, users=users, username=g.username)
+    return render_template('main.html',
+                           posts=posts,
+                           users=users,
+                           username=g.username,
+                           current_page=current_page,
+                           pages=pages)
+
+
+@app.route('/loadposts')
+def loadposts():
+    current_page = int(request.args.get('page', 1))
+    posts_per_page = 2
+    offset = posts_per_page * (current_page - 1)
+    posts = get_all_posts_by_page(posts_per_page, offset)
+    posts_data = []
+    for post in posts:
+        posts_data.append({
+            'id': post[0],
+            'title': post[1],
+            'content': post[2],
+            'user_id': post[3]
+        })
+    return jsonify(posts_data)
 
 
 @app.route('/search')

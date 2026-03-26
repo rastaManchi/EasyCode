@@ -90,6 +90,12 @@ def get_all_posts():
     return cur.fetchall() # [ (1, 'Название', 'Контент'),  (2, 'Название', 'Контент') ]
 
 
+def get_all_posts_by_page(limit, offset):
+    cur.execute('''SELECT * FROM posts ORDER BY id DESC
+                LIMIT ? OFFSET ?''', [limit, offset])
+    return cur.fetchall()
+
+
 def get_posts_by_text(text):
     cur.execute(f'''
                 SELECT * FROM posts
@@ -98,6 +104,11 @@ def get_posts_by_text(text):
                 ORDER BY id DESC
                 ''')
     return cur.fetchall()
+
+
+def get_posts_count():
+    cur.execute("SELECT COUNT(*) FROM posts")
+    return cur.fetchone()[0]
 
 
 def get_posts_by_user_id(user_id):

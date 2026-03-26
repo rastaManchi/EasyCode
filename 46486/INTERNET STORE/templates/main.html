@@ -6,9 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/login/">Войти</a>
+    {% if not username %}
+        <a href="/login/">Войти</a>
+    {% else %}
+        <h4>{{ username }}</h4>
+        <a href="/logout/">Выйти</a>
+    {% endif %}
 
-    
-    
 </body>
 </html>

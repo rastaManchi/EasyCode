@@ -57,7 +57,11 @@ def main():
     username = None
     if 'username' in session:
         username = session['username']
-    posts = get_all_posts()
+        
+    current_page = int(request.args.get('page', 1))
+    posts_per_page = 2
+    offset = (current_page - 1) * posts_per_page
+    posts = get_all_posts_by_page(posts_per_page, offset)
     users = get_all_users()
     return render_template('main.html', posts = posts, users=users, username=username)
 

@@ -34,7 +34,19 @@
         <button type=submit>Поиск</button>
     </form>
 
-    <ul>
+    {% if pages > 1 %}
+        <div>
+            {% if current_page > 1 %}
+                <a href="/?page={{ current_page - 1 }}">Предыдущая</a>
+            {% endif %}
+            <p>{{current_page}} из {{ pages }}</p>
+            {% if current_page < pages %}
+                <a href="/?page={{ current_page + 1 }}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <ul id="posts_list">
 
         {% for post in posts %}
             <li>
@@ -44,6 +56,40 @@
         {% endfor %}
 
     </ul>
+
+    <button onclick="load_more(this)" page="{{current_page + 1}}">Загрузить еще</button>
+
+    {% if pages > 1 %}
+        <div>
+            {% if current_page > 1 %}
+                <a href="/?page={{ current_page - 1 }}">Предыдущая</a>
+            {% endif %}
+            <p>{{current_page}} из {{ pages }}</p>
+            {% if current_page < pages %}
+                <a href="/?page={{ current_page + 1 }}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
     
+    <script>
+        const posts_list = document.getElementById('posts_list')
+
+        function load_more(el) {
+            load_page = el.getAttribute('page');
+            fetch(`/loadposts?page=${load_page}`)
+            .then(response => {return response.json()})
+            .then(data => {
+                data.forEach(element => {
+                    posts_list.innerHTML += `
+                        <li>
+                            <h3>${element.title}</h3>
+                            <p>${element.content}</p>
+                        </li>
+                    `
+                });
+            });
+            el.setAttribute('page', parseInt(load_page) + 1)
+        }
+    </script>
 </body>
 </html>
