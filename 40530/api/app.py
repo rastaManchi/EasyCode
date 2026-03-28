@@ -41,4 +41,5 @@ def api_test():
     return jsonify({'status': g.bulat})
 
 
-app.run()
+if __name__ == '__main__':
+    app.run()

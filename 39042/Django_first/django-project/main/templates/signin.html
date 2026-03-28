@@ -12,6 +12,7 @@
     <h3>Sign In</h3>
 
     <form method="post">
+        {% csrf_token %}
 
         <label for="email">Email:</label>
         <input id="email" name="email" type="email" placeholder="Email">

@@ -10,3 +10,10 @@ class Post(models.Model):
     views_count = models.PositiveIntegerField("Просмотры", default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=1)
     created_at = models.DateTimeField("Время создания", default=datetime.now())
+    
+    
+class Profile(models.Model):
+    username = models.CharField('Имя', max_length=100)
+    # avatar = models.ImageField('Автарка')
+    status = models.CharField('Статус', max_length=255)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
