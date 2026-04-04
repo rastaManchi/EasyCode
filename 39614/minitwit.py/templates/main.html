@@ -23,7 +23,15 @@
         <button id="search_btn">Поиск</button>
     </div>
 
-    <p>{{current_page}} из {{max_page}}</p>
+    {% if max_page != 1 %}
+        {% if current_page > 1 %}
+            <a href="/?page={{current_page - 1}}">Предыдущая</a>
+        {% endif %}
+        <p>{{current_page}} из {{max_page}}</p>
+        {% if current_page < max_page %}
+            <a href="/?page={{current_page + 1}}">Следующая</a>
+        {% endif %}
+    {% endif %}
     
     <ul id="posts_list">
         {% for post in posts %}

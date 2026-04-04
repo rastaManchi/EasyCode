@@ -2,13 +2,32 @@ from flask import (Flask,
                    render_template,
                    request,
                    redirect,
-                   session)
+                   session,
+                   g)
 from db import *
 import smtplib
 import os
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
 import secrets
+from functools import wraps
+
+def session_repair(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        token = request.cookies.get('auth_token')
+        if token:
+            user_id = validate_token(token)
+            if user_id:
+                user = get_user_by_id(user_id)
+                session['user_id'] = user[0]
+                session['username'] = user[1]
+                g.user_id = user[0]
+        
+        g.username = session.get('username')
+        result = func(*args, **kwargs)
+        return result
+    return wrapper
 
 
 load_dotenv()
@@ -46,17 +65,9 @@ app.secret_key = secrets.token_hex(16)
 
 
 @app.route('/')
+@session_repair
 def main():
-    token = request.cookies.get('auth_token')
-    if token:
-        user_id = validate_token(token)
-        if user_id:
-            user = get_user_by_id(user_id)
-            session['user_id'] = user[0]
-            session['username'] = user[1]
-    
-    username = session.get('username')
-    return render_template('main.html', username=username)
+    return render_template('main.html', username=g.username)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -100,17 +111,26 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/search/')
+@session_repair
+def search():
+    search_text = request.args.get('search_text', '')
+    posts = get_posts_by_search(search_text)
+    return render_template('main.html', username=g.username, posts=posts)
+    
+
 @app.route('/new_post/')
 def new_post():
     return render_template('new_post.html')
 
 
 @app.route('/add_post/', methods=['POST'])
+@session_repair
 def add_post():
     data = request.form
     title = data.get('title')
     content = data.get('content')
-    add_posts(title, content)
+    add_posts(title, content, g.user_id)
     return "Пост добавлен"
 
 

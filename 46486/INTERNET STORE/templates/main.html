@@ -13,5 +13,19 @@
         <a href="/logout/">Выйти</a>
     {% endif %}
 
+    <form action="/search" method="get">
+        <input type="text" name="search_text">
+        <button type="submit">Поиск</button>
+    </form>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h3>{{post[1]}}</h3>
+                <p>{{post[2]}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    
 </body>
 </html>

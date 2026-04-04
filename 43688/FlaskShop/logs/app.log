@@ -1,0 +1,3 @@
+2026-04-01 16:24:43,246 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 232]
+2026-04-01 16:49:40,160 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
+2026-04-01 16:49:54,621 ERROR: Ошибка аутентификации - неверный логин или пароль [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 53]

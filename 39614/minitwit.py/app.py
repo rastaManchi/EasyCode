@@ -7,6 +7,10 @@ from email.mime.text import MIMEText
 import secrets
 
 
+import logging
+from logging.handlers import RotatingFileHandler
+
+
 load_dotenv()
 from_email = os.getenv("EMAIL_USER")
 password = os.getenv("EMAIL_PASSWORD")
@@ -45,6 +49,23 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
 
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+    
+file_handler = RotatingFileHandler('logs/app.log',
+                                   maxBytes=10240,
+                                   backupCount=10,
+                                   encoding='utf-8')
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+))
+file_handler.setLevel(logging.INFO)
+app.logger.addHandler(file_handler)
+app.logger.setLevel(logging.INFO)
+app.logger.info('Test')
+app.logger.warning('Test')
+app.logger.error('Test')
+
 @app.route('/')
 def main():
     token = request.cookies.get('auth_token')
@@ -59,11 +80,18 @@ def main():
         username = session['username']
         
     current_page = int(request.args.get('page', 1))
-    posts_per_page = 2
+    posts_per_page = 3
     offset = (current_page - 1) * posts_per_page
+    posts_count = get_posts_count()
+    max_page = posts_count // posts_per_page
     posts = get_all_posts_by_page(posts_per_page, offset)
     users = get_all_users()
-    return render_template('main.html', posts = posts, users=users, username=username)
+    return render_template('main.html',
+                           posts = posts,
+                           users=users,
+                           username=username,
+                           current_page=current_page,
+                           max_page = max_page)
 
 
 @app.route('/profile/<int:user_id>')
@@ -88,6 +116,7 @@ def post():
         add_new_post(title, content, user_id)
         return redirect('/')
     return "Вы не авторизованы", 401
+
 
 @app.route('/register', methods= ["GET", "POST"])
 def register():
@@ -132,6 +161,12 @@ def search_posts():
     search_text = data.get('search_text')
     posts = search_posts_by_text(search_text)
     return posts
+
+
+@app.errorhandler(404)
+def error_404(error):
+    app.logger.error(error)
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':

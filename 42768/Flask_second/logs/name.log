@@ -1,0 +1,36 @@
+2026-03-28 13:42:52,853 INFO: Site started [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:62]
+2026-03-28 13:43:21,091 INFO: Site started [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:62]
+2026-03-28 13:43:28,367 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:66]
+2026-03-28 13:45:19,251 ERROR: Exception on /test500 [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py", line 77, in test500
+    raise Exception("ŒÔËÒ‡ÌËÂ Ó¯Ë·ÍË")
+Exception: ŒÔËÒ‡ÌËÂ Ó¯Ë·ÍË
+2026-03-28 13:45:19,255 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:71]
+2026-03-28 13:45:53,643 ERROR: Exception on /test500 [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py", line 78, in test500
+    raise Exception("–û–ø–∏—Å–∞–Ω–∏–µ –æ—à–∏–±–∫–∏")
+Exception: –û–ø–∏—Å–∞–Ω–∏–µ –æ—à–∏–±–∫–∏
+2026-03-28 13:45:53,646 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:72]
+2026-03-28 14:05:46,350 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:72]
+2026-03-28 14:20:38,281 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:72]
+2026-03-28 14:21:18,373 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\42768\Flask_second\app.py:72]

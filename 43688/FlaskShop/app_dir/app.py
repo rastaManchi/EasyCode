@@ -7,6 +7,21 @@ import smtplib
 from email.mime.text import MIMEText
 from functools import wraps
 
+import traceback
+import logging
+from logging.handlers import RotatingFileHandler
+
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+    
+file_handler = RotatingFileHandler('logs/app.log',
+                                   maxBytes=10240,
+                                   backupCount=10,
+                                   encoding='utf-8')
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s : %(lineno)d]'
+))
+file_handler.setLevel(logging.INFO)
 
 load_dotenv()
 from_email = os.getenv("EMAIL_USER")
@@ -15,7 +30,7 @@ password = os.getenv("EMAIL_PASSWORD")
 
 def send_email(email_to):
     if not from_email or not password:
-        print("ОШИБКА: Не найдены EMAIL_USER или EMAIL_PASSWORD в .env файле!")
+        app.logger.error("ОШИБКА: Не найдены EMAIL_USER или EMAIL_PASSWORD в .env файле!")
         exit()
     subject = "Добро пожаловать в наш блог!"
     body = f"""
@@ -35,14 +50,18 @@ def send_email(email_to):
         server.quit()
         return True
     except smtplib.SMTPAuthenticationError:
-        print("Ошибка аутентификации - неверный логин или пароль")
+        app.logger.error("Ошибка аутентификации - неверный логин или пароль")
     except Exception as e:
-        print(f"Ошибка подключения: {e}")
+        app.logger.error(f"Ошибка подключения: {e}")
     return False
 
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+
+app.logger.addHandler(file_handler)
+app.logger.setLevel(logging.INFO)
+app.logger.info("Сайт запущен")
 
 
 def check_session(func):
@@ -104,7 +123,7 @@ def loadposts():
             'content': post[2],
             'user_id': post[3]
         })
-    return jsonify(posts_data)
+    return jsonify(posts_data), 200
 
 
 @app.route('/search')
@@ -172,10 +191,10 @@ def login():
                 else:
                     response = redirect('/')
                 return response
-            return "Wrong password"
-        return "User not found"
+            return "Wrong password", 403
+        return "User not found", 404
     if g.username:
-        return redirect('/')
+        return redirect('/'), 301
     return render_template('login.html')
 
 
@@ -201,6 +220,23 @@ def register():
     if g.username:
         return redirect('/')
     return render_template('register.html')
+
+
+@app.route('/error500')
+def error_500_test():
+    raise Exception("Это тестовая 500 ошибка!!!")
+
+
+@app.errorhandler(404)
+def error_404(error):
+    app.logger.error(error)
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def error_500(error):
+    app.logger.error(error)
+    return render_template('500.html'), 500
 
 
 app.run()

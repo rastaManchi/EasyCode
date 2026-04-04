@@ -52,3 +52,13 @@ def signup(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+
+def new_post(request):
+    if request.method == 'POST':
+        data = request.POST
+        title = data.get('title')
+        content = data.get('content')
+        Post.objects.create(title=title, content=content, author=request.user)
+        return redirect('/')
+    return render(request, 'add_post.html')

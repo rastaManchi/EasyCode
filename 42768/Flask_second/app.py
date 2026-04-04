@@ -7,7 +7,27 @@ import smtplib
 
 import secrets
 
+# Логи
+import traceback
+import logging
+from logging.handlers import RotatingFileHandler
+
 load_dotenv()
+
+
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+
+file_handler = RotatingFileHandler(
+    'logs/name.log',
+    maxBytes=10240,
+    backupCount=10,
+    encoding='utf-8'
+)
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+))
+file_handler.setLevel(logging.INFO)
 
 
 def send_gmail_message(user_email):
@@ -38,6 +58,36 @@ def send_gmail_message(user_email):
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+app.logger.addHandler(file_handler)
+app.logger.setLevel(logging.INFO)
+
+@app.errorhandler(404)
+def error_404(error):
+    if app.debug:
+        error_traceback = traceback.format_exc()
+        return render_template('debug_error.html',
+                               error_type=type(error).__name__,
+                               error_message=str(error),
+                               error_traceback=error_traceback), 404
+    app.logger.error(error)
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def error_500(error):
+    app.logger.error(error)
+    return render_template('500.html'), 500
+
+
+@app.route('/test500')
+def test500():
+    raise Exception("Описание ошибки")
+
+
+@app.route('/debugtest')
+def debug_test():
+    result = 10/0
+    return str(result)
 
 
 @app.route('/')
@@ -49,8 +99,6 @@ def home():
     
     all_posts = get_posts_by_page(posts_offset)
     all_users = get_all_users()
-    # 1. TODO: В main.html отображать актуальные данные постов
-    # 2. TODO: Добавить рядом с каждым постом имя автора
     if 'user_id' not in session:
         token = request.cookies.get('auth_token')
         if token:
@@ -108,22 +156,6 @@ def search_post():
     return render_template('main.html', all_users=all_users, all_posts=posts, username=username), 200
 
 
-# 3. TODO: Создайте страницу "Все пользователи", 
-    # где будет отображаться список всех зарегистрированных пользователей с указанием количества их постов. 
-    # Для этого:
-        # Создайте новый маршрут /users
-        # Напишите SQL-запрос(в db.py), который считает количество постов для каждого пользователя
-        # Создайте шаблон для отображения этой информации (в templates users.html)
-        
-        
-# 4. TODO: Реализуйте возможность редактирования и удаления постов. 
-    # Добавьте на страницу пользователя кнопки "Редактировать" и "Удалить" для каждого его поста. 
-    # Для этого:
-        # Создайте новые маршруты /post/<int:post_id>/edit и /post/<int:post_id>/delete
-        # Добавьте проверку, что только автор поста может его редактировать и удалять
-        # Создайте формы для редактирования поста
-
-
 #http://127.0.0.1:5000/user/1
 @app.route('/user/<int:user_id>')
 def user(user_id):
@@ -157,10 +189,10 @@ def login():
                     response.set_cookie('auth_token', token, max_age=60*60*24*30)
                 else:
                     response = redirect('/')
-                return response
-            return "Неверный пароль"
-        return "Неверная почта"
-    return render_template('login.html')
+                return response, 301
+            return "Неверный пароль", 401
+        return "Неверная почта", 401
+    return render_template('login.html'), 200
 
 
 @app.route('/logout')
@@ -168,7 +200,7 @@ def logout():
     user_id = session.get('user_id')
     session.clear()
     delete_auth_token(user_id)
-    return redirect('/')
+    return redirect('/'), 301
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -187,9 +219,9 @@ def register():
                 log_notification(user[0], 'welcome_email_sent', f'Письмо успешно отправлено на {email}')
             else:
                 log_notification(user[0], 'welcome_email_sent', f'Письмо не было отправлено на {email}')
-            return "Успешно"
-        return "Пользователь уже существует"
-    return render_template("register.html")
+            return "Успешно", 201
+        return "Пользователь уже существует", 409
+    return render_template("register.html"), 200
 
 
 @app.route('/post')
@@ -209,4 +241,4 @@ def add_post():
     return "Вы не авторизованы", 401
 
 
-app.run('0.0.0.0', 8000)
+app.run('0.0.0.0', 8000, debug=False)

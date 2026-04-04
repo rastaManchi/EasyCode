@@ -63,6 +63,13 @@ def get_posts():
     return cur.fetchall() # [(1, 'title', 'content', 1), (2, 'title', 'content', 2)]
 
 
+def get_posts_by_search(text):
+    cur.execute(f'''SELECT * FROM posts
+                WHERE title LIKE "%{text}%" or
+                content LIKE "%{text}%" ''')
+    return cur.fetchall()
+
+
 def get_posts_by_user_id(user_id):
     cur.execute('SELECT * FROM posts WHERE user_id=?', [user_id])
     return cur.fetchall()
