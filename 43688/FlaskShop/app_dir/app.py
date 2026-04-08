@@ -82,6 +82,18 @@ def check_session(func):
         return res
     return wrapper
 
+def check_admin(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        user_id = session['user_id']
+        print(user_id)
+        user = get_user_by_id(user_id)
+        if user[4]:
+            result = func(*args, **kwargs)
+            return result
+        else:
+            return redirect('/'), 403
+    return wrapper
 
 #http://127.0.0.1:5000/test
 @app.route('/test')
@@ -220,6 +232,19 @@ def register():
     if g.username:
         return redirect('/')
     return render_template('register.html')
+
+
+@app.route('/admin')
+@check_session
+@check_admin
+def admin():
+    zeroposts = get_status_posts(0)
+    approveposts = get_status_posts(1)
+    disapproveposts = get_status_posts(2)
+    return render_template('admin.html', 
+                           zeroposts=zeroposts,
+                           approveposts=approveposts,
+                           disapproveposts=disapproveposts)
 
 
 @app.route('/error500')

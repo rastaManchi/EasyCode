@@ -25,6 +25,7 @@ cur.execute('''
         title TEXT,
         content TEXT,
         user_id INTEGER,
+        status INTEGER DEFAULT 0, 
         FOREIGN KEY (user_id) REFERENCES users(id)
     )        
             ''')
@@ -90,6 +91,11 @@ def get_all_posts():
     return cur.fetchall() # [ (1, 'Название', 'Контент'),  (2, 'Название', 'Контент') ]
 
 
+def get_status_posts(status):
+    cur.execute(f'SELECT * FROM posts WHERE status={status}')
+    return cur.fetchall()
+
+
 def get_all_posts_by_page(limit, offset):
     cur.execute('''SELECT * FROM posts ORDER BY id DESC
                 LIMIT ? OFFSET ?''', [limit, offset])
@@ -146,3 +152,9 @@ def get_user_by_id(id):
 def get_all_users():
     cur.execute('SELECT * FROM users')
     return cur.fetchall()
+
+
+def set_isadmin(status, id):
+    cur.execute(f'UPDATE users SET is_admin={status} WHERE id={id}')
+    conn.commit()
+    
