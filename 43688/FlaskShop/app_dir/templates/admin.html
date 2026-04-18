@@ -7,16 +7,23 @@
 </head>
 <body>
     <div>
-        <ul>
-            <li>
-                <h3>Заголовок</h3>
-                <p>Контент</p>
-                <div>
-                    <a href="/approve">Разрешить</a>
-                    <a href="/disaprove">Запретить</a>
-                </div>
-            </li>
-        </ul>
+        {% if zeroposts %}
+            <h4>Непроверенный посты</h4>
+            <ul>
+                {% for post in zeroposts %}
+                    <li>
+                        <h3>{{post[1]}}</h3>
+                        <p>{{post[2]}}</p>
+                        <div>
+                            <a href="/approve?id={{post[0]}}">Разрешить</a>
+                            <a href="/disapprove?id={{post[0]}}">Запретить</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h4>Постов непроверенных нет</h4>
+        {% endif %}
     </div>
 </body>
 </html>

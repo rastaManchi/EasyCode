@@ -1,0 +1,30 @@
+2026-04-14 17:37:34,329 INFO: Site started [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:89]
+2026-04-14 17:37:34,672 INFO: Site started [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:89]
+2026-04-14 17:42:14,987 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:205]
+2026-04-14 17:42:30,565 ERROR: Exception on /error500 [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py", line 199, in test_error500
+    10/0
+    ~~^~
+ZeroDivisionError: division by zero
+2026-04-14 17:42:30,568 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:211]
+2026-04-14 17:53:18,634 ERROR: division by zero [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:217]
+2026-04-16 16:10:10,256 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:205]
+2026-04-16 16:10:16,893 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:205]
+2026-04-16 16:23:13,506 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:223]
+2026-04-16 16:23:25,021 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:223]
+2026-04-16 16:37:23,153 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:231]
+2026-04-16 16:37:30,734 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:231]
+2026-04-16 16:41:02,703 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:231]
+2026-04-16 16:41:05,809 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:231]
+2026-04-16 16:48:41,901 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:247]
+2026-04-16 16:50:13,529 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\46486\INTERNET STORE\app.py:247]

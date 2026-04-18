@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Post, Profile
+from .models import Post, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -62,3 +62,14 @@ def new_post(request):
         Post.objects.create(title=title, content=content, author=request.user)
         return redirect('/')
     return render(request, 'add_post.html')
+
+
+def post(request, post_id):
+    post_data = Post.objects.get(id=post_id)
+    comments = Comment.objects.filter(post=post_data)
+    return render(request, 
+                    'post.html', 
+                    {
+                      'post': post_data,
+                      'comments': comments
+                    })

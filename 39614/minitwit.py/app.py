@@ -10,6 +10,8 @@ import secrets
 import logging
 from logging.handlers import RotatingFileHandler
 
+from functools import wraps
+
 
 load_dotenv()
 from_email = os.getenv("EMAIL_USER")
@@ -66,6 +68,48 @@ app.logger.info('Test')
 app.logger.warning('Test')
 app.logger.error('Test')
 
+
+def check_admin(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        user_id = session.get('user_id')
+        if user_id:
+            user = get_user_by_id(user_id)
+            if user[4]:
+                result = func(*args, **kwargs)
+                return result
+        return redirect('/'), 403
+    return wrapper
+
+
+@app.route('/admin')
+@check_admin
+def admin():
+    zeroposts = get_posts_by_status(0)
+    approvedposts = get_posts_by_status(1)
+    disapprovedposts = get_posts_by_status(2)
+    return render_template('admin.html',
+                           zeroposts=zeroposts,
+                           approvedposts=approvedposts,
+                           disapprovedposts=disapprovedposts)
+    
+    
+@app.route('/approve')
+@check_admin
+def approve():
+    id = request.args.get('id')
+    set_post_status(1, id)
+    return redirect('/admin')
+
+
+@app.route('/disapprove')
+@check_admin
+def disapprove():
+    id = request.args.get('id')
+    set_post_status(2, id)
+    return redirect('/admin')
+
+
 @app.route('/')
 def main():
     token = request.cookies.get('auth_token')
@@ -116,6 +160,21 @@ def post():
         add_new_post(title, content, user_id)
         return redirect('/')
     return "Вы не авторизованы", 401
+
+
+@app.route('/admin/post/edit/<int:post_id>', methods=['GET', 'POST'])
+@check_admin
+def edit_post(post_id):
+    post = get_post_by_id(post_id)
+    if request.method == 'POST':
+        data = request.form
+        new_title = data.get('title')
+        new_content = data.get('content')
+        update_post(post_id, new_title, new_content)
+        return redirect('/')
+    return render_template('edit_post.html',
+                           title=post[1],
+                           content=post[2])
 
 
 @app.route('/register', methods= ["GET", "POST"])

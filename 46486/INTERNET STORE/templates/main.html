@@ -18,7 +18,19 @@
         <button type="submit">Поиск</button>
     </form>
 
-    <ul>
+    {% if pages > 1 %}
+        <div>
+            {% if page>1 %}
+                <a href="/?page={{page-1}}">Предыдущая</a>
+            {% endif %}
+            <p>{{page}} из {{pages}}</p>
+            {% if page < pages %}
+                <a href="/?page={{page+1}}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <ul id="posts_list">
         {% for post in posts %}
             <li>
                 <h3>{{post[1]}}</h3>
@@ -26,6 +38,29 @@
             </li>
         {% endfor %}
     </ul>
+
+    <button onclick="load_more(this)" page="{{page}}">Загрузить еще</button>
     
+    <script>
+        const posts_list = document.getElementById('posts_list')
+
+        function load_more(element) {
+            page = parseInt(element.getAttribute('page'))
+            fetch(`/load_more?page=${page+1}`)
+            .then(result => { return result.json() })
+            .then(data => {
+                data.forEach(post => {
+                    posts_list.innerHTML += `
+                        <li>
+                            <h3>${post.title}</h3>
+                            <p>${post.content}</p>
+                        </li>
+                    `
+                });
+                element.setAttribute('page', page + 1)
+            })
+        }
+    </script>
+
 </body>
 </html>

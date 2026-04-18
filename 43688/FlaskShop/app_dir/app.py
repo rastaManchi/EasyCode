@@ -68,12 +68,14 @@ def check_session(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         token = request.cookies.get('auth_token')
+        g.user_id = None
         if token:
             user_id = validate_auth_token(token)
             if user_id:
                 user = get_user_by_id(user_id)
                 session['user_id'] = user[0]
                 session['username'] = user[1]
+                g.user_id = user_id
         username = None
         if 'user_id' in session:
             username = session['username']
@@ -111,14 +113,18 @@ def home():
     pages = posts_count // posts_per_page + 1
     offset = posts_per_page * (current_page - 1)
     posts = get_all_posts_by_page(posts_per_page, offset)
-    
+    user = get_user_by_id(g.user_id)
+    admin = False
+    if user[4]:
+        admin = True
     users = get_all_users()
     return render_template('main.html',
                            posts=posts,
                            users=users,
                            username=g.username,
                            current_page=current_page,
-                           pages=pages)
+                           pages=pages,
+                           isadmin=admin)
 
 
 @app.route('/loadposts')
@@ -180,6 +186,22 @@ def add_post():
     content = data.get('content')
     add_new_post(title, content)
     return redirect('/')
+
+
+@app.route('/admin/post/edit/<int:post_id>', methods=['GET', 'POST'])
+@check_session
+@check_admin
+def edit_post(post_id):
+    post = get_post_by_id(post_id)
+    if request.method == 'POST':
+        data = request.form
+        new_title = data.get('title')
+        new_content = data.get('content')
+        update_post(post_id, new_title, new_content)
+        return redirect('/')
+    return render_template('edit_post.html',
+                           title = post[1],
+                           content = post[2])
 
 
 #http://127.0.0.1:5000/login
@@ -245,6 +267,23 @@ def admin():
                            zeroposts=zeroposts,
                            approveposts=approveposts,
                            disapproveposts=disapproveposts)
+    
+@app.route('/approve')
+@check_session
+@check_admin
+def approve():
+    id = request.args.get('id')
+    set_post_status(id, 1)
+    return redirect('/admin')
+
+
+@app.route('/disapprove')
+@check_session
+@check_admin
+def disapprove():
+    id = request.args.get('id')
+    set_post_status(id, 2)
+    return redirect('/admin')
 
 
 @app.route('/error500')

@@ -10,7 +10,8 @@ cur.execute(''' CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
             email TEXT,
-            password TEXT
+            password TEXT,
+            isadmin INTEGER DEFAULT 0
 )''')
 
 conn.commit()
@@ -20,6 +21,7 @@ cur.execute(''' CREATE TABLE IF NOT EXISTS posts(
             title TEXT,
             content TEXT,
             user_id INTEGER,
+            status INTEGER DEFAULT 0,
             FOREIGN KEY(user_id) REFERENCES users(id)
 )''')
 
@@ -63,6 +65,37 @@ def get_posts():
     return cur.fetchall() # [(1, 'title', 'content', 1), (2, 'title', 'content', 2)]
 
 
+def get_posts_by_status(status):
+    cur.execute(f'SELECT * FROM posts WHERE status={status}')
+    return cur.fetchall()
+
+
+def set_post_status(post_id, new_status):
+    cur.execute(f'UPDATE posts SET status={new_status} WHERE id={post_id}')
+    conn.commit()
+    
+    
+def delete_post(post_id: int):
+    '''Удаление поста по id
+    
+    :param post_id: ID поста
+    :type post_id: int
+    '''
+    cur.execute(f'DELETE FROM posts WHERE id={post_id}')
+    conn.commit()
+
+
+def get_posts_by_offset(limit, offset):
+    cur.execute(f'SELECT * FROM posts WHERE status=1 LIMIT {limit} OFFSET {offset}')
+    return cur.fetchall()
+
+
+def get_posts_count():
+    cur.execute('SELECT COUNT(*) FROM posts WHERE status=1')
+    result = cur.fetchone()[0]
+    return result
+
+
 def get_posts_by_search(text):
     cur.execute(f'''SELECT * FROM posts
                 WHERE title LIKE "%{text}%" or
@@ -78,6 +111,12 @@ def get_posts_by_user_id(user_id):
 def add_user(name, email, password):
     cur.execute('INSERT INTO users(name, email, password) VALUES (?, ?, ?)', [name, email, password])
     conn.commit()
+    
+    
+def set_isadmin(user_id, isadmin):
+    cur.execute(f'UPDATE users SET isadmin={isadmin} WHERE id={user_id}')
+    conn.commit()    
+
 
 def get_user_by_id(user_id):
     cur.execute(f'SELECT * FROM users WHERE id = {user_id}')

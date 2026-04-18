@@ -21,6 +21,7 @@ def init_db():
                 title TEXT,
                 content TEXT,
                 user_id INTEGER,
+                status INTEGER DEFAULT 0,
                 FOREIGN KEY (user_id) REFERENCES users(id)
                 )''')
     conn.commit()
@@ -58,8 +59,8 @@ def validate_token(token):
     return None
 
 
-def set_admin(user_id):
-    cur.execute(f'''UPDATE users SET is_admin = 1
+def set_admin(status, user_id):
+    cur.execute(f'''UPDATE users SET is_admin = {status}
                     WHERE id={user_id}''')
     conn.commit()
 
@@ -110,3 +111,21 @@ def search_posts_by_text(search_text):
                 WHERE title LIKE ? OR content LIKE ?''',
                 [f"%{search_text}%", f"%{search_text}%"])
     return cur.fetchall()
+
+
+def get_posts_by_status(status):
+    cur.execute(f'SELECT * FROM posts WHERE status={status}')
+    return cur.fetchall()
+
+def set_post_status(status, id):
+    cur.execute(f'UPDATE posts SET status={status} WHERE id={id}')
+    conn.commit()
+    
+    
+def update_post(post_id, title, content):
+    cur.execute('UPDATE posts SET title=?, content=? WHERE id=?', [title, content, post_id])
+    conn.commit()
+    
+def get_post_by_id(post_id):
+    cur.execute(f'SELECT * FROM posts WHERE id={post_id}')
+    return cur.fetchone()

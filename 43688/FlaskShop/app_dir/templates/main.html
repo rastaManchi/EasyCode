@@ -52,6 +52,9 @@
             <li>
                 <h3>{{ post[1] }}</h3>
                 <p>{{ post[2] }}</p>
+                {% if isadmin %}
+                    <a href="/admin/post/edit/{{post[0]}}">Изменить</a>
+                {% endif %}
             </li>
         {% endfor %}
 

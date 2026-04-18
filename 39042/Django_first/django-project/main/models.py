@@ -12,6 +12,16 @@ class Post(models.Model):
     created_at = models.DateTimeField("Время создания", default=datetime.now())
     
     
+class Comment(models.Model):
+    text = models.TextField('Текст комментария')
+    stars = models.IntegerField('Оценка')
+    likes = models.IntegerField('Лайки')
+    dislikes = models.IntegerField('Дизлайки')
+    created_at = models.DateTimeField("Время создания", default=datetime.now())
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=1)
+    
+    
 class Profile(models.Model):
     username = models.CharField('Имя', max_length=100)
     # avatar = models.ImageField('Автарка')

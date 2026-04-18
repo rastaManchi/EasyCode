@@ -3,7 +3,8 @@ from flask import (Flask,
                    request,
                    redirect,
                    session,
-                   g)
+                   g,
+                   jsonify)
 from db import *
 import smtplib
 import os
@@ -12,10 +13,30 @@ from email.mime.text import MIMEText
 import secrets
 from functools import wraps
 
+import traceback
+import logging
+from logging.handlers import RotatingFileHandler
+
+
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+
+
+format = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
+file_handler = RotatingFileHandler(
+    'logs/blog.log',
+    maxBytes=10240,
+    backupCount=10
+)
+file_handler.setFormatter(format)
+file_handler.setLevel(logging.INFO)
+
+
 def session_repair(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         token = request.cookies.get('auth_token')
+        g.user_id = None
         if token:
             user_id = validate_token(token)
             if user_id:
@@ -27,6 +48,18 @@ def session_repair(func):
         g.username = session.get('username')
         result = func(*args, **kwargs)
         return result
+    return wrapper
+
+
+def check_admin(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if g.user_id:
+            user = get_user_by_id(g.user_id)
+            if user[4]:
+                result = func(*args, **kwargs)
+                return result
+        return redirect('/')
     return wrapper
 
 
@@ -64,10 +97,41 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
 
+app.logger.addHandler(file_handler)
+app.logger.setLevel(logging.INFO)
+
+
 @app.route('/')
 @session_repair
 def main():
-    return render_template('main.html', username=g.username)
+    page = request.args.get('page', 1, type=int)
+    limit = 2
+    offset = (page - 1) * limit
+    posts_count = get_posts_count()
+    pages = (posts_count + limit - 1) // limit
+    posts = get_posts_by_offset(limit, offset)
+    return render_template('main.html',
+                           username=g.username,
+                           posts=posts,
+                           page=page,
+                           pages=pages)
+  
+    
+@app.route('/load_more')
+def load_more():
+    page = request.args.get('page', 1, type=int)
+    limit = 2
+    offset = (page - 1) * limit
+    posts = get_posts_by_offset(limit, offset)
+    result_posts = []
+    for post in posts:
+        result_posts.append({
+            'id': post[0],
+            'title': post[1],
+            'content': post[2],
+            'author': post[3]
+        })
+    return jsonify(result_posts)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -141,6 +205,67 @@ def user(user_id):
         posts = get_posts_by_user_id(user_id)
         return render_template('profile.html', posts=posts, user=user)
     return "Пользователь не найден!", 404
+
+
+@app.route('/admin')
+@session_repair
+@check_admin
+def admin():
+    zeroposts = get_posts_by_status(0)
+    approvedposts = get_posts_by_status(1)
+    disapprovedposts = get_posts_by_status(2)
+    return render_template('admin.html',
+                           zeroposts=zeroposts,
+                           approvedposts=approvedposts,
+                           disapprovedposts=disapprovedposts)
+    
+
+@app.route('/approve/<int:post_id>')
+@session_repair
+@check_admin
+def approve(post_id):
+    set_post_status(post_id, 1)
+    return redirect('/admin')
+
+
+@app.route('/disapprove/<int:post_id>')
+@session_repair
+@check_admin
+def disapprove(post_id):
+    set_post_status(post_id, 2)
+    return redirect('/admin')
+
+
+@app.route('/delete/<int:post_id>')
+@session_repair
+@check_admin
+def delete(post_id):
+    delete_post(post_id)
+    return redirect('/admin')
+
+
+@app.route('/error500')
+def test_error500():
+    10/0
+    return 'OK'
+
+
+@app.errorhandler(404)
+def error_404(error_text):
+    app.logger.error(error_text)
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(Exception)
+def handle_all_errors(error_text):
+    if app.debug:
+        error_traceback = traceback.format_exc()
+        return render_template('error_traceback.html',
+                               error_type=type(error_text).__name__,
+                               error_traceback = error_traceback)
+    else:
+        app.logger.error(error_text)
+        return render_template('500.html', error_text=error_text), 500
 
 
 if __name__=='__main__':

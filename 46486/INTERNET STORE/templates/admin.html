@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Непроверенные посты</h1>
+    <ul id="posts_list">
+        {% for post in zeroposts %}
+            <li>
+                <h3>{{post[1]}}</h3>
+                <p>{{post[2]}}</p>
+                <div>
+                    <a href="/disapprove/{{post[0]}}">Запретить</a>
+                    <a href="/approve/{{post[0]}}">Разрешить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Разрешенные посты</h1>
+    <ul id="posts_list">
+        {% for post in approvedposts %}
+            <li>
+                <h3>{{post[1]}}</h3>
+                <p>{{post[2]}}</p>
+                <div>
+                    <a href="/disapprove/{{post[0]}}">Запретить</a>
+                    <a href="/approve/{{post[0]}}">Разрешить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Запрещенные посты</h1>
+    <ul id="posts_list">
+        {% for post in disapprovedposts %}
+            <li>
+                <h3>{{post[1]}}</h3>
+                <p>{{post[2]}}</p>
+                <div>
+                    <a href="/disapprove/{{post[0]}}">Запретить</a>
+                    <a href="/approve/{{post[0]}}">Разрешить</a>
+                    <a href="/delete/{{post[0]}}">Удалить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

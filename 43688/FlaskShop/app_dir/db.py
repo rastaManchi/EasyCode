@@ -95,6 +95,9 @@ def get_status_posts(status):
     cur.execute(f'SELECT * FROM posts WHERE status={status}')
     return cur.fetchall()
 
+def set_post_status(id, status):
+    cur.execute(f'UPDATE posts SET status={status} WHERE id={id}')
+    conn.commit()
 
 def get_all_posts_by_page(limit, offset):
     cur.execute('''SELECT * FROM posts ORDER BY id DESC
@@ -122,6 +125,16 @@ def get_posts_by_user_id(user_id):
                     WHERE user_id={user_id}
                     ORDER BY id DESC''')
     return cur.fetchall() 
+
+
+def update_post(post_id, title, content):
+    cur.execute('UPDATE posts SET title=?, content=? WHERE id=?', [title, content, post_id])
+    conn.commit()
+
+
+def get_post_by_id(post_id):
+    cur.execute(f'SELECT * FROM posts WHERE id={post_id}')
+    return cur.fetchone()
 
 
 def add_user(name, email, password):
@@ -158,3 +171,5 @@ def set_isadmin(status, id):
     cur.execute(f'UPDATE users SET is_admin={status} WHERE id={id}')
     conn.commit()
     
+    
+set_isadmin(True, 1)
