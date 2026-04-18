@@ -66,6 +66,14 @@ def new_post(request):
 
 def post(request, post_id):
     post_data = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        data = request.POST
+        comment_text = data.get('comment_text')
+        comment_stars = data.get('comment_stars')
+        Comment.objects.create(text=comment_text,
+                                stars=comment_stars,
+                                post=post_data,
+                                author=request.user)
     comments = Comment.objects.filter(post=post_data)
     return render(request, 
                     'post.html', 

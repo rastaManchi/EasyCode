@@ -1,0 +1,315 @@
+/* Современный стильный дизайн для Django приложения */
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #ec4899;
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-input: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+    --success: #10b981;
+    --danger: #ef4444;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg-main) 0%, #1a1f3a 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+}
+
+header div {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+header a:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+/* Контейнеры */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Формы */
+form {
+    background: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px var(--shadow);
+    max-width: 500px;
+    margin: 3rem auto;
+    border: 1px solid var(--border);
+}
+
+h1, h2, h3 {
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.5rem;
+    background: var(--bg-input);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+button,
+input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+button:hover,
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+button:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Поиск */
+#search_value {
+    max-width: 600px;
+    margin: 2rem auto;
+    display: block;
+}
+
+#search_btn {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+/* Посты */
+#posts {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#posts li {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+#posts li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+    border-color: var(--primary);
+}
+
+#posts h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#posts p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+#posts a {
+    color: var(--danger);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+#posts a:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* Страница поста */
+pre {
+    background: var(--bg-input);
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--primary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Комментарии */
+.comment {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.comment:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+}
+
+.comment p {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.comment button {
+    width: auto;
+    padding: 0.5rem 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    background: var(--bg-input);
+    font-size: 0.9rem;
+}
+
+.comment button:hover {
+    background: var(--success);
+}
+
+.comment button:last-child:hover {
+    background: var(--danger);
+}
+
+/* Профиль */
+body h3, body h4 {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header div {
+        justify-content: center;
+    }
+
+    #posts {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+        margin: 2rem 1rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#posts li,
+form,
+.comment {
+    animation: fadeIn 0.5s ease;
+}

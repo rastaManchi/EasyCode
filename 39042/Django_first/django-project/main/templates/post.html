@@ -4,39 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <p>Дата: {{post.created_at}}</p>
-    <h3>{{post.title}}</h3>
-    <pre>
-        {{post.content}}
-    </pre>
-    <p>Просмотры: {{post.views_count}}</p>
+    <div class="container">
+        <p>Дата: {{post.created_at}}</p>
+        <h3>{{post.title}}</h3>
+        <pre>{{post.content}}</pre>
+        <p>Просмотры: {{post.views_count}}</p>
 
-    <form method="post">
-        <div>
-            <label for="comment_text">Текст: </label>
-            <textarea name="comment_text" id="comment_text"></textarea>
-        </div>
-        <div>
-            <label for="comment_stars">Оценка: </label>
-            <input name="comment_stars" type="number" min="0" max="10" id="comment_stars">
-        </div>
-        <div>
-            <button type="submit">Отправить</button>
-        </div>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="comment_text">Текст: </label>
+                <textarea name="comment_text" id="comment_text"></textarea>
+            </div>
+            <div>
+                <label for="comment_stars">Оценка: </label>
+                <input name="comment_stars" type="number" min="0" max="10" id="comment_stars">
+            </div>
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
 
-    <div>
+    <div class="container">
         {% for comment in comments %}
 
-            <div>
+            <div class="comment">
                 <p>Дата: {{comment.created_at}}</p>
                 <p>{{comment.text}}</p>
                 <p>Оценка: {{comment.stars}}</p>
                 <p>Лайки: {{comment.likes}}</p>
                 <p>Дизлайки: {{comment.dislikes}}</p>
                 <p>Автор: {{comment.author}}</p>
+                <button>Лайк</button>
+                <button>Дизлайк</button>
             </div>
 
         {% endfor %}

@@ -15,8 +15,8 @@ class Post(models.Model):
 class Comment(models.Model):
     text = models.TextField('Текст комментария')
     stars = models.IntegerField('Оценка')
-    likes = models.IntegerField('Лайки')
-    dislikes = models.IntegerField('Дизлайки')
+    likes = models.IntegerField('Лайки', default=0)
+    dislikes = models.IntegerField('Дизлайки', default=0)
     created_at = models.DateTimeField("Время создания", default=datetime.now())
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=1)
