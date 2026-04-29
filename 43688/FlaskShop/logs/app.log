@@ -45,3 +45,5 @@ sqlite3.OperationalError: no such column: None
 2026-04-29 16:59:39,325 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
 2026-04-29 17:00:13,109 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
 2026-04-29 17:00:16,362 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
+2026-04-29 17:00:58,429 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
+2026-04-29 17:01:00,784 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
