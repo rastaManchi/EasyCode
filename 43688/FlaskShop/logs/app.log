@@ -88,3 +88,4 @@ sqlite3.OperationalError: no such column: qwerty
 2026-04-22 16:43:06,044 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
 2026-04-22 16:43:52,960 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
 2026-04-29 15:43:24,815 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
+2026-04-29 15:47:43,826 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
