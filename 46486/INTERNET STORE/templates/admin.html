@@ -7,6 +7,8 @@
 </head>
 <body>
     
+    <a href="/admin/users">Пользователи</a>
+
     <h1>Непроверенные посты</h1>
     <ul id="posts_list">
         {% for post in zeroposts %}
@@ -16,6 +18,8 @@
                 <div>
                     <a href="/disapprove/{{post[0]}}">Запретить</a>
                     <a href="/approve/{{post[0]}}">Разрешить</a>
+                    <a href="/admin/post/edit/{{post[0]}}">Изменить</a>
+                    <a href="/delete/{{post[0]}}">Удалить</a>
                 </div>
             </li>
         {% endfor %}
@@ -30,6 +34,8 @@
                 <div>
                     <a href="/disapprove/{{post[0]}}">Запретить</a>
                     <a href="/approve/{{post[0]}}">Разрешить</a>
+                    <a href="/admin/post/edit/{{post[0]}}">Изменить</a>
+                    <a href="/delete/{{post[0]}}">Удалить</a>
                 </div>
             </li>
         {% endfor %}
@@ -44,6 +50,7 @@
                 <div>
                     <a href="/disapprove/{{post[0]}}">Запретить</a>
                     <a href="/approve/{{post[0]}}">Разрешить</a>
+                    <a href="/admin/post/edit/{{post[0]}}">Изменить</a>
                     <a href="/delete/{{post[0]}}">Удалить</a>
                 </div>
             </li>

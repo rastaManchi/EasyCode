@@ -57,6 +57,43 @@ cur.execute('''
 conn.commit()
 
 
+cur.execute('''
+        CREATE TABLE IF NOT EXISTS api_tokens(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            token TEXT,
+            requests_count INTEGER DEFAULT 0,
+            expires_at TIMESTAMP,
+            owner INTEGER,
+            FOREIGN KEY (owner) REFERENCES users(id)
+        )
+            ''')
+conn.commit()
+
+
+def create_token(owner):
+    token = secrets.token_hex(32)
+    expires_at = time.time() + 600
+    cur.execute('''INSERT INTO api_tokens(token, expires_at, owner)
+                VALUES (?, ?, ?)''', [token, expires_at, owner])
+    conn.commit()
+    return token
+
+
+def validate_api_token(token):
+    cur.execute(f'''SELECT * FROM api_tokens WHERE token="{token}" 
+                AND expires_at >= {time.time()}''')
+    result = cur.fetchone()
+    if result:
+        return True
+    return False
+
+
+def add_api_request(token):
+    cur.execute(f'''UPDATE api_tokens SET requests_count=requests_count+1
+                WHERE token="{token}" ''')
+    conn.commit()
+
+
 def create_auth_token(user_id, remember=False):
     token = secrets.token_hex(32)
     if remember:

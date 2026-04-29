@@ -84,6 +84,7 @@ def check_session(func):
         return res
     return wrapper
 
+
 def check_admin(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -96,6 +97,22 @@ def check_admin(func):
         else:
             return redirect('/'), 403
     return wrapper
+
+
+def api_check(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        auth_header = request.headers.get('Authorization')
+        if not auth_header:
+            return jsonify({'status': 'failed', 'msg': 'Не указан Authorization'}), 401
+        is_valid = validate_api_token(auth_header)
+        if not is_valid:
+            return jsonify({'status': 'failed', 'msg': 'Неверный Authorization'}), 401
+        result = func(*args, **kwargs)
+        add_api_request(auth_header)
+        return result
+    return wrapper
+
 
 #http://127.0.0.1:5000/test
 @app.route('/test')
@@ -254,6 +271,49 @@ def register():
     if g.username:
         return redirect('/')
     return render_template('register.html')
+
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = get_user_by_email(email)
+    if user and user[3] == password:
+        token = create_token(user[0])
+        return jsonify({
+            'status': 'success',
+            'msg': 'Токен создан',
+            'auth_token': token
+        })
+    return jsonify({
+            'status': 'failed',
+            'msg': 'Ошибка авторизации'
+        }), 401
+
+
+# http://127.0.0.1:5000/api/posts?page=1
+@app.route('/api/posts')
+@api_check
+def api_posts():
+    current_page = int(request.args.get('page', 1))
+    posts_per_page = 2
+    offset = posts_per_page * (current_page - 1)
+    posts = get_all_posts_by_page(posts_per_page, offset)
+    data = []
+    for post in posts:
+        data.append({
+            "id": post[0],
+            "title": post[1],
+            "content": post[2],
+            "author": post[3],
+            "status": post[4]
+        })
+    return jsonify({
+        'status': 'success',
+        'msg': 'Is OK :)',
+        'data': data
+    })
 
 
 @app.route('/admin')

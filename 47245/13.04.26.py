@@ -13,13 +13,15 @@ window = QWidget()
 window.setWindowTitle("Пример вкладок")
 
 
+def handle2(event):
+    if event.key() == Qt.Key.Key_Space:
+        print('Пробел отжат')
+        
+        
 def handle(event):
     if event.key() == Qt.Key.Key_Space:
         print('Пробел нажат')
         
-def handle2(event):
-    if event.key() == Qt.Key.Key_Space:
-        print('Пробел отжат')
         
 def handle3(event):
     if event.button() == Qt.MouseButton.LeftButton:

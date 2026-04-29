@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" value="{{old_name}}">
+        </div>
+
+        <div>
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" value="{{old_email}}">
+        </div>
+
+        <div>
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" value="{{old_password}}">
+        </div>
+
+        <div>
+            <label for="is_admin">Is Admin: </label>
+            <input type="checkbox" id="is_admin" name="is_admin" {% if is_admin %} checked {% endif %}>
+        </div>
+
+        <div>
+            <button type="submit">Изменить</button>
+        </div>
+    </form>
+</body>
+</html>

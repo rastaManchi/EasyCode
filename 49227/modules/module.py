@@ -1,0 +1,3 @@
+LEVEL = 'x'
+
+print(LEVEL)

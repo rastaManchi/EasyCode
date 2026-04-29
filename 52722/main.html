@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="login">
+        <button id="loginbtn">Отправить</button>
+    </div>
+
+    <div>
+        <h3 id="loginresult"></h3>
+    </div>
+
+    <script>
+        const loginInput = document.getElementById('login');
+        const loginBtn = document.getElementById('loginbtn');
+        const loginResult = document.getElementById('loginresult');
+
+        loginBtn.addEventListener('click', () => {
+            const loginValue = loginInput.value;
+            loginResult.textContent = loginValue;
+        });
+    </script>
+</body>
+</html>

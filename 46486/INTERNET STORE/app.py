@@ -63,6 +63,20 @@ def check_admin(func):
     return wrapper
 
 
+def api_check(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        api_token = request.headers.get('Authorization')
+        if not api_token:
+            return jsonify({'status': 'failed', 'status_code': '40101', 'msg': 'Токен не указан'}), 401
+        if not validate_api_token(api_token):
+            return jsonify({'status': 'failed', 'status_code': '40102', 'msg': 'Токен не валиден'}), 401
+        result = func(*args, **kwargs)
+        add_api_request(api_token)
+        return result
+    return wrapper
+
+
 load_dotenv()
 
 
@@ -242,6 +256,96 @@ def disapprove(post_id):
 def delete(post_id):
     delete_post(post_id)
     return redirect('/admin')
+
+
+@app.route('/admin/post/edit/<int:post_id>', methods=['GET', 'POST'])
+@session_repair
+@check_admin
+def edit_post(post_id):
+    post = get_post_by_id(post_id)
+    old_title = post[1]
+    old_content = post[2]
+    if request.method == 'POST':
+        data = request.form
+        new_title = data.get('title')
+        new_content = data.get('content')
+        update_post(post_id, new_title, new_content)
+        return redirect('/admin')
+    return render_template('edit_post.html',
+                           old_title=old_title,
+                           old_content=old_content)
+    
+    
+@app.route('/admin/users')
+@session_repair
+@check_admin
+def admin_users():
+    users = get_users()
+    return render_template('admin_users.html', users=users)
+
+
+@app.route('/admin/user/edit/<int:user_id>', methods=['GET', 'POST'])
+@session_repair
+@check_admin
+def edit_user(user_id):
+    user = get_user_by_id(user_id)
+    if request.method == 'POST':
+        data = request.form
+        new_name = data.get('name')
+        new_email = data.get('email')
+        new_password = data.get('password')
+        new_is_admin = 1 if data.get('is_admin') == 'on' else 0
+        update_user(user_id,
+                    new_name,
+                    new_email,
+                    new_password,
+                    new_is_admin)
+        return redirect('/admin/users')
+    return render_template('edit_user.html',
+                           old_name=user[1],
+                           old_email=user[2],
+                           old_password=user[3],
+                           is_admin=user[4])
+    
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = get_user_by_email(email)
+    if user and user[3] == password:
+        token = create_api_token(user[0])
+        return jsonify({
+            'status': 'successed',
+            'status_code': '2000',
+            'token': token
+        })
+    return jsonify({
+        'status': 'failed',
+        'status_code': '40103',
+        'msg': 'Данные неверные'
+    }), 401
+
+
+@app.route('/api/posts')
+@api_check
+def api_posts():
+    posts = get_posts_by_status(1)
+    data = []
+    for post in posts:
+        data.append({
+            'id': post[0],
+            'title': post[1],
+            'content': post[2],
+            'author': post[3]
+        })
+    return jsonify({
+        'status': 'successed',
+        'status_code': 2000,
+        'msg': 'Is OK :)',
+        'data': data
+    })
 
 
 @app.route('/error500')

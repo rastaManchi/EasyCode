@@ -38,6 +38,43 @@ cur.execute(''' CREATE TABLE IF NOT EXISTS auth_tokens(
 conn.commit()
 
 
+cur.execute(''' CREATE TABLE IF NOT EXISTS api_tokens(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            token TEXT,
+            user_id INTEGER,
+            expires_at TIMESTAMP,
+            requests_count INTEGER DEFAULT 0,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+)''')
+
+conn.commit()
+
+
+def create_api_token(user_id):
+    token = secrets.token_hex(64)
+    expires_at = time.time() + 600
+    cur.execute('''INSERT INTO api_tokens(token, user_id, expires_at)
+                VALUES (?, ?, ?)''', [token, user_id, expires_at])
+    conn.commit()
+    return token
+
+
+def validate_api_token(token):
+    cur.execute('''SELECT * FROM api_tokens
+                WHERE token=? AND expires_at > ?''', [token, time.time()])
+    result = cur.fetchone()
+    print(result)
+    if result:
+        return True
+    return False
+
+
+def add_api_request(token):
+    cur.execute(f'''UPDATE api_tokens SET requests_count=requests_count+1
+                WHERE token="{token}" ''')
+    conn.commit()
+    
+
 def create_token(user_id):
     token = secrets.token_hex(32)
     expires_at = time.time() + 60 * 10
@@ -83,6 +120,16 @@ def delete_post(post_id: int):
     '''
     cur.execute(f'DELETE FROM posts WHERE id={post_id}')
     conn.commit()
+    
+    
+def update_post(post_id, new_title, new_content):
+    cur.execute(f'UPDATE posts SET title="{new_title}", content="{new_content}" WHERE id={post_id}')
+    conn.commit()
+    
+    
+def get_post_by_id(post_id):
+    cur.execute(f'SELECT * FROM posts WHERE id={post_id}')
+    return cur.fetchone()
 
 
 def get_posts_by_offset(limit, offset):
@@ -110,6 +157,18 @@ def get_posts_by_user_id(user_id):
 
 def add_user(name, email, password):
     cur.execute('INSERT INTO users(name, email, password) VALUES (?, ?, ?)', [name, email, password])
+    conn.commit()
+    
+    
+def get_users():
+    cur.execute('SELECT * FROM users')
+    return cur.fetchall()
+
+
+def update_user(user_id, new_name, new_email, new_password, new_isadmin):
+    cur.execute(f'UPDATE users SET name="{new_name}", email="{new_email}",'
+                f'password="{new_password}", isadmin={new_isadmin} '
+                f'WHERE id={user_id}')
     conn.commit()
     
     

@@ -36,6 +36,7 @@
             <li>
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.content }}</p>
+                <a href="/post/{{post.id}}">Подробнее</a>
                 {% if request.user.is_superuser %}
                     <a href="/delete?post_id={{post.id}}">Удалить</a>
                 {% endif %}
