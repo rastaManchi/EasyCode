@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h4>Для отправки запросов понадобится Authorization: "TOKEN"</h4>
+
+    <div>
+        <ul>
+            <li>
+                <h2>POST</h2>
+                <p>Без API Token</p>
+
+                <pre>
+                    /api/login
+                </pre>
+
+                <p>Тело запроса</p>
+                <pre>
+                    {
+                        "name": "John",
+                        "password": "qwerty"
+                    }
+                </pre>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <input type="text" name="Authorization" id="Authorization">
+    </div>
+
+    <div>
+        <div>
+            <select name="method" id="method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="text" name="endpoint" id="endpoint">
+        </div>
+        
+        <div>
+            <input type="text" name="body" id="body">
+        </div>
+        
+        <div>
+            <button onclick="send_test()">Отправить</button>
+        </div>
+    </div>
+
+    <pre id="result"></pre>
+
+    <script>
+        const select = document.getElementById('method');
+        const endpoint = document.getElementById('endpoint');
+        const body = document.getElementById('body');
+        const result = document.getElementById('result');
+        const token = document.getElementById('Authorization')
+
+        function send_test() {
+            if (select.value == 'GET') {
+                fetch(`${endpoint.value}?${body.value}`, {
+                    headers: {'Authorization': token.value}
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data)
+                    result.textContent = JSON.stringify(data, null, 2);
+                })
+            }
+
+            else {
+                fetch(`${endpoint.value}`, {
+                    method: "POST",
+                    headers: {'Authorization': token.value,
+                            'Content-Type': 'application/json'
+                    },
+                    body: body.value
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data)
+                    result.textContent = JSON.stringify(data, null, 2);
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

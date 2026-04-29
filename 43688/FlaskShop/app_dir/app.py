@@ -314,6 +314,50 @@ def api_posts():
         'msg': 'Is OK :)',
         'data': data
     })
+    
+    
+@app.route('/api/users/<int:user_id>')
+@api_check
+def api_user_info(user_id):
+    user = get_user_by_id(user_id)
+    data_user = {
+        'id': user[0],
+        'name': user[1],
+        'email': user[2],
+        'is_admin': user[4]
+    }
+    posts = get_posts_by_user_id(user_id)
+    data_posts = []
+    for post in posts:
+        data_posts.append({
+            "id": post[0],
+            "title": post[1],
+            "content": post[2],
+            "author": post[3],
+            "status": post[4]
+        })
+    notifications = get_notifications_by_user_id(user_id)
+    data_notifications = []
+    for notification in notifications:
+        data_notifications.append({
+            "id": notification[0],
+            "user_id": notification[1],
+            "action": notification[2],
+            "details": notification[3],
+            "created_at": notification[4]
+        })
+    if user:
+        return jsonify({
+            'status': 'successed',
+            'msg': '',
+            'user': data_user,
+            'posts': data_posts,
+            'notifications': data_notifications
+        })
+    return jsonify({
+        'status': 'failed',
+        'msg': 'Пользователь не найден'
+    }), 404
 
 
 @app.route('/admin')
@@ -361,6 +405,11 @@ def error_404(error):
 def error_500(error):
     app.logger.error(error)
     return render_template('500.html'), 500
+
+
+@app.route('/docs')
+def docs():
+    return render_template('docs.html')
 
 
 app.run()
