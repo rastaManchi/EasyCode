@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Главная</h1>
+        {% if request.user.is_authenticated %}
+            <div>
+                <a href="/signout">Выход</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="/signup">Регистрация</a>
+                <a href="/signin">Вход</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="search">
+        <input id="inputSearch" type="text">
+        <button id="butSearch">Поиск</button>
+    </div>
+
+    <ul id="postBlock">
+        {% for post in posts %}
+            <li>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content }}</p>
+                {%if is_admin%}
+                    <button>Удалить пост</button>
+                {%endif%}
+                
+            </li>
+        {% endfor %}
+    </ul>
+    <script src="/static/JS/main.js"></script>
+</body>
+</html>
