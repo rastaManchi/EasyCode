@@ -1,16 +1,12 @@
-2026-04-29 15:58:45,551 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:03:50,025 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:24:04,239 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:25:33,425 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:27:07,924 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+2026-05-06 16:57:49,592 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\.venv\Lib\site-packages\flask\app.py : 875]
 Traceback (most recent call last):
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+  File "C:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+  File "C:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+  File "C:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
     rv = self.dispatch_request()
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+  File "C:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
   File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 83, in wrapper
@@ -21,29 +17,4 @@ Traceback (most recent call last):
     cur.execute(f'SELECT * FROM users WHERE id={id}')
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such column: None
-2026-04-29 16:27:07,950 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 406]
-2026-04-29 16:27:12,658 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:39:28,305 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:42:34,047 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:44:42,042 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:48:32,394 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:48:45,512 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:49:04,471 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:49:10,482 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:49:21,990 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:52:10,119 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:54:16,469 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:54:56,569 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:54:59,905 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:55:15,751 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:55:20,458 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:55:22,354 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:56:10,587 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:56:14,042 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 16:57:18,797 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:57:51,679 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 16:59:39,325 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 17:00:13,109 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 17:00:16,362 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
-2026-04-29 17:00:58,429 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-29 17:01:00,784 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 400]
+2026-05-06 16:57:49,601 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 406]

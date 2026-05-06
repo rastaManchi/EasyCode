@@ -1,28 +1,4 @@
-2026-04-15 16:01:08,734 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-15 16:01:12,426 ERROR: Exception on /admin/post/edit/100 [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
-Traceback (most recent call last):
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 81, in wrapper
-    res = func(*args, **kwargs)
-  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 92, in wrapper
-    result = func(*args, **kwargs)
-  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 193, in edit_post
-    title = post[1],
-            ~~~~^^^
-TypeError: 'NoneType' object is not subscriptable
-2026-04-15 16:01:12,428 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 292]
-2026-04-15 16:03:14,846 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-15 16:32:07,671 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-15 16:37:18,631 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
-2026-04-15 16:37:46,407 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+2026-04-15 16:38:43,777 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
 Traceback (most recent call last):
   File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
@@ -41,8 +17,9 @@ Traceback (most recent call last):
     cur.execute(f'SELECT * FROM users WHERE id={id}')
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such column: None
-2026-04-15 16:37:46,410 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 302]
-2026-04-15 16:37:48,835 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+2026-04-15 16:38:43,781 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 302]
+2026-04-22 15:51:08,767 INFO: Сайт запущен [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 64]
+2026-04-22 15:51:22,156 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
 Traceback (most recent call last):
   File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
@@ -61,8 +38,9 @@ Traceback (most recent call last):
     cur.execute(f'SELECT * FROM users WHERE id={id}')
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such column: None
-2026-04-15 16:37:48,836 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 302]
-2026-04-15 16:37:49,839 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+2026-04-22 15:51:22,159 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 310]
+2026-04-22 15:51:22,294 ERROR: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 304]
+2026-04-22 15:51:23,643 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
 Traceback (most recent call last):
   File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
@@ -81,5 +59,44 @@ Traceback (most recent call last):
     cur.execute(f'SELECT * FROM users WHERE id={id}')
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such column: None
-2026-04-15 16:37:49,840 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 302]
-2026-04-15 16:38:31,911 ERROR: Ошибка подключения: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 55]
+2026-04-22 15:51:23,644 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 310]
+2026-04-22 15:51:27,693 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 83, in wrapper
+    res = func(*args, **kwargs)
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 116, in home
+    user = get_user_by_id(g.user_id)
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\db.py", line 162, in get_user_by_id
+    cur.execute(f'SELECT * FROM users WHERE id={id}')
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: None
+2026-04-22 15:51:27,694 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 310]
+2026-04-22 15:51:30,341 ERROR: Exception on / [GET] [in C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py : 875]
+Traceback (most recent call last):
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rastabubblegum\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 83, in wrapper
+    res = func(*args, **kwargs)
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py", line 116, in home
+    user = get_user_by_id(g.user_id)
+  File "c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\db.py", line 162, in get_user_by_id
+    cur.execute(f'SELECT * FROM users WHERE id={id}')
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: None
+2026-04-22 15:51:30,343 ERROR: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application. [in c:\Users\rastabubblegum\Documents\GitHub\EasyCode\43688\FlaskShop\app_dir\app.py : 310]
