@@ -132,8 +132,9 @@ def home():
     posts = get_all_posts_by_page(posts_per_page, offset)
     user = get_user_by_id(g.user_id)
     admin = False
-    if user[4]:
-        admin = True
+    if user:
+        if user[4]:
+            admin = True
     users = get_all_users()
     return render_template('main.html',
                            posts=posts,
@@ -413,4 +414,4 @@ def docs():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)

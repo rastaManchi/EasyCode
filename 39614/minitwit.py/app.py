@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, make_response, session
+from flask import Flask, render_template, redirect, request, make_response, session, jsonify
 from help import *
 import os
 from dotenv import load_dotenv
@@ -16,6 +16,9 @@ from functools import wraps
 load_dotenv()
 from_email = os.getenv("EMAIL_USER")
 password = os.getenv("EMAIL_PASSWORD")
+
+
+cached = {}
 
 
 def send_mail(email_to):
@@ -79,6 +82,26 @@ def check_admin(func):
                 result = func(*args, **kwargs)
                 return result
         return redirect('/'), 403
+    return wrapper
+
+
+def api_check(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        api_token = request.headers.get('Authorization')
+        if not api_token:
+            return jsonify({
+                'status': 40101,
+                'msg': 'Authorization не указан'
+            }), 401
+        if not validate_api_token(api_token):
+            return jsonify({
+                'status': 40102,
+                'msg': 'Authorization не верный'
+            }), 401
+        result = func(*args, **kwargs)
+        add_api_request(api_token)
+        return result
     return wrapper
 
 
@@ -220,6 +243,72 @@ def search_posts():
     search_text = data.get('search_text')
     posts = search_posts_by_text(search_text)
     return posts
+
+
+@app.route('/docs')
+def docs():
+    return render_template('api_docs.html')
+
+
+@app.route('/api/v1/search_posts')
+@api_check
+def api_search_posts():
+    q = request.args.get('q')
+    
+    if f"api_search_q{q}" in cached and time.time() - cached[f"api_search_q{q}"].get('last_updated') < 20:
+        print(cached)
+        return jsonify(cached[f"api_search_q{q}"])
+    
+    posts = search_posts_by_text(q)
+    result = []
+    for post in posts:
+        result.append({
+            'id': post[0],
+            'title': post[1],
+            'content': post[2]
+        })
+    cached[f"api_search_q{q}"] = {
+            'status': 2000,
+            'msg': 'Кэшировано',
+            'data': result,
+            'last_updated': time.time()
+        }
+    return jsonify({
+            'status': 2000,
+            'msg': 'Успешно',
+            'data': result
+        })
+
+
+@app.route('/api/v1/login' , methods=['POST'])
+def api_login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    user = get_user_by_email(email)
+    if user and user[3] == password:
+        token = create_api_token(user[0])
+        return jsonify({
+            'status': 2000,
+            'msg': 'Успешно',
+            'token': token
+        })
+    return jsonify({
+                'status': 40103,
+                'msg': 'Данные неверные'
+            }), 401
+        
+
+
+@app.route('/api/v1/posts')
+@api_check
+def api_posts():
+    posts = get_all_posts()
+    return jsonify({
+        'status': 2000,
+        'msg': 'Hello',
+        'data': posts
+    })
 
 
 @app.errorhandler(404)

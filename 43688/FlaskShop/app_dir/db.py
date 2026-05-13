@@ -196,8 +196,10 @@ def get_user_by_email(email):
 
 
 def get_user_by_id(id):
-    cur.execute(f'SELECT * FROM users WHERE id={id}')
-    return cur.fetchone() # (1, 'Булат', '@mail.ru', '123')
+    if id:
+        cur.execute(f'SELECT * FROM users WHERE id={id}')
+        return cur.fetchone() # (1, 'Булат', '@mail.ru', '123')
+    return False
 
 def get_all_users():
     cur.execute('SELECT * FROM users')

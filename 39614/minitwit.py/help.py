@@ -34,10 +34,42 @@ def init_db():
                 FOREIGN KEY (user_id) REFERENCES users(id)
                 )''')
     conn.commit()
+    
+    
+    cur.execute('''CREATE TABLE IF NOT EXISTS api_tokens(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                token TEXT,
+                user_id INTEGER,
+                expires_at TIMESTAMP,
+                requests INTEGER DEFAULT 0,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+                )''')
+    conn.commit()
 
     return conn, cur 
 
 conn, cur = init_db()
+
+
+def add_api_request(token):
+    cur.execute('UPDATE api_tokens SET requests = requests + 1 WHERE token=?', [token])
+    conn.commit()
+
+
+def create_api_token(user_id):
+    token = secrets.token_hex(64)
+    expires_at = time.time() + 600
+    cur.execute('INSERT INTO api_tokens(token, user_id, expires_at) VALUES (?, ?, ?)', [token, user_id, expires_at])
+    conn.commit()
+    return token
+
+
+def validate_api_token(token):
+    cur.execute('SELECT * FROM api_tokens WHERE token=? AND expires_at >= ?', [token, time.time()])
+    result = cur.fetchone()
+    if result:
+        return True
+    return False
 
 
 def create_token(user_id, remember=False):

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Главная</h1>
+        <div>
+            {% if username %}
+                <h4>{{ username }}</h4>
+            {% else %}
+                <a href="{{ url_for('register') }}">Регистрация</a>
+                <a href="{{ url_for('login') }}">Вход</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <ul>
+
+        {% for user in users %}
+            <li>
+                <a href="/user/{{user[0]}}">{{ user[1] }}</a>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+    <form action="/search">
+        <input type="text" name="q" placeholder="Найти что-то">
+        <button type=submit>Поиск</button>
+    </form>
+
+    {% if pages > 1 %}
+        <div>
+            {% if current_page > 1 %}
+                <a href="/?page={{ current_page - 1 }}">Предыдущая</a>
+            {% endif %}
+            <p>{{current_page}} из {{ pages }}</p>
+            {% if current_page < pages %}
+                <a href="/?page={{ current_page + 1 }}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <ul id="posts_list">
+
+        {% for post in posts %}
+            <li>
+                <h3>{{ post[1] }}</h3>
+                <p>{{ post[2] }}</p>
+                {% if isadmin %}
+                    <a href="/admin/post/edit/{{post[0]}}">Изменить</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+
+    </ul>
+
+    <button onclick="load_more(this)" page="{{current_page + 1}}">Загрузить еще</button>
+
+    {% if pages > 1 %}
+        <div>
+            {% if current_page > 1 %}
+                <a href="/?page={{ current_page - 1 }}">Предыдущая</a>
+            {% endif %}
+            <p>{{current_page}} из {{ pages }}</p>
+            {% if current_page < pages %}
+                <a href="/?page={{ current_page + 1 }}">Следующая</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <script>
+        const posts_list = document.getElementById('posts_list')
+
+        function load_more(el) {
+            load_page = el.getAttribute('page');
+            fetch(`/loadposts?page=${load_page}`)
+            .then(response => {return response.json()})
+            .then(data => {
+                data.forEach(element => {
+                    posts_list.innerHTML += `
+                        <li>
+                            <h3>${element.title}</h3>
+                            <p>${element.content}</p>
+                        </li>
+                    `
+                });
+            });
+            el.setAttribute('page', parseInt(load_page) + 1)
+        }
+    </script>
+</body>
+</html>
