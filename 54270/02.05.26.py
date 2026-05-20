@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # y = x*x
-X = np.linspace(-6, 6, 100)
-Y = np.power(X, 2)
+X = np.linspace(0, 1, 200)
+Y = np.multiply(X, 2)
 
 
 model = tf.keras.Sequential([
@@ -17,8 +17,9 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(1)
 ])
 
-model.compile(optimizer='adam', loss='mse')
-model.fit(X, Y, epochs=250, batch_size=10)
+my_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+model.compile(optimizer=my_optimizer, loss='mse')
+model.fit(X, Y, epochs=100, batch_size=10)
 
 model.save('sin_model.keras')
 

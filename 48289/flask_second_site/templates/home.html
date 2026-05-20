@@ -20,5 +20,20 @@
         </nav>
     </header>
 
+
+    <ul>
+        {% if posts %}
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post[1] }}</h3>
+                    <p>{{ post[2] }}</p>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>Постов пока нет</p>
+        {% endif %}
+    </ul>
+
+
 </body>
 </html>

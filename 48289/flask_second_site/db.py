@@ -16,6 +16,29 @@ cur.execute('''
 conn.commit()
 
 
+cur.execute('''
+            CREATE TABLE IF NOT EXISTS posts(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                content TEXT,
+                author INTEGER,
+                FOREIGN KEY (author) REFERENCES users(id)
+            )
+            ''')
+conn.commit()
+
+
+def get_all_posts():
+    cur.execute('SELECT * FROM posts')
+    return cur.fetchall() # [(1, 'title', 'content', 1), (2, 'title', 'content', 1)]
+
+
+def create_post(title, content, author=1):
+    cur.execute('''INSERT INTO posts(title, content, author)
+                VALUES (?, ?, ?)''', [title, content, author])
+    conn.commit()
+
+
 def get_user_by_id(user_id):
     cur.execute('SELECT * FROM users WHERE id=?', [user_id])
     return cur.fetchone() # (1, 'Булат', 'admin@admin', 'qwerty')
