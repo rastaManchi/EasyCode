@@ -20,6 +20,13 @@
         </nav>
     </header>
 
+    <ul>
+        {% for user in users %}
+            <li>
+                <a href="/profile/{{user[0]}}">{{user[1]}}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
     <ul>
         {% if posts %}

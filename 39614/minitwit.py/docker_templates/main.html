@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>главная страница</title>
+</head>
+<body>
+    <div class="header">
+        <h1>главная</h1>
+        <div>
+            {% if username %}
+                <h4>{{username}}</h4>
+            {% else %}
+                <a href="{{ url_for('register')}}">Регистрация</a>
+                <a href="{{ url_for('login')}}">Войти</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <input type="text" id="search_input" placeholder="Введите что нибудь">
+        <button id="search_btn">Поиск</button>
+    </div>
+
+    {% if max_page != 1 %}
+        {% if current_page > 1 %}
+            <a href="/?page={{current_page - 1}}">Предыдущая</a>
+        {% endif %}
+        <p>{{current_page}} из {{max_page}}</p>
+        {% if current_page < max_page %}
+            <a href="/?page={{current_page + 1}}">Следующая</a>
+        {% endif %}
+    {% endif %}
+    
+    <ul id="posts_list">
+        {% for post in posts %}
+            <li>
+                <h2>{{post[1]}}</h2>
+                <p>{{post[2]}}</p>
+            </li>
+        {% endfor %}
+        
+    </ul>
+
+    <ul>
+        {% for user in users %}
+            <li>
+                <a href="/profile/{{user[0]}}">{{user[1]}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>

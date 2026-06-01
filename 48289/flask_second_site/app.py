@@ -8,7 +8,21 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     all_posts = get_all_posts()
-    return render_template('home.html', posts=all_posts)
+    all_users = get_all_users()
+    return render_template('home.html', 
+                           posts=all_posts,
+                           users=all_users)
+
+
+@app.route('/profile/<int:user_id>')
+def profile(user_id):
+    user = get_user_by_id(user_id)
+    posts = get_posts_by_user(user_id)
+    if user:
+        return render_template('profile.html',
+                               user=user,
+                               posts=posts)
+    return "Пользователь не найден", 404
 
 
 @app.route('/signin', methods=['GET', 'POST'])

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Документация API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .endpoint { background: #f5f5f5; padding: 15px; margin: 10px 0; border-left: 4px solid #007bff; }
+        .method { display: inline-block; padding: 5px 10px; border-radius: 3px; color: white; font-weight: bold; }
+        .get { background: #28a745; }
+        .post { background: #007bff; }
+        .put { background: #ffc107; color: #212529; }
+        .delete { background: #dc3545; }
+        code { background: #e9ecef; padding: 2px 5px; border-radius: 3px; }
+        pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow: auto; }
+        .tester { border: 1px solid #ddd; padding: 20px; margin-top: 30px; border-radius: 5px; }
+        .tester input, .tester select, .tester button { margin: 5px; padding: 8px; }
+        .response { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Документация API</h1>
+    <nav>
+        <a href="/">На главную</a> |
+        {% if user_name %}
+            <span>Вы вошли как: <strong>{{ user_name }}</strong></span> |
+            <a href="/logout">Выйти</a>
+        {% else %}
+            <a href="/login/">Вход</a> |
+            <a href="/register/">Регистрация</a>
+        {% endif %}
+    </nav>
+    <hr>
+    <h2>Базовый URL</h2>
+    <p><code>http://ваш-домен/api/v1/</code></p>
+    <h2>Аутентификация</h2>
+    <p>Для создания, обновления и удаления постов требуется токен.</p>
+    <pre>Authorization: ваш_токен</pre>
+    <h2>Эндпоинты</h2>
+    <div class="endpoint">
+        <h3><span class="method get">GET</span> Получение постов</h3>
+        <p><code>/api/v1/posts</code></p>
+        <p><strong>Параметры (query):</strong></p>
+        <ul>
+            <li><code>page</code> (int) — номер страницы (по умолч. 1)</li>
+            <li><code>per_page</code> (int) — постов на странице (по умолч. 10)</li>
+            <li><code>category_id</code> (int) — фильтр по категории</li>
+            <li><code>sort_by</code> (string) — поле сортировки: <code>created_at</code>, <code>title</code></li>
+            <li><code>order</code> (string) — направление: <code>asc</code>, <code>desc</code></li>
+            <li><code>q</code> (string) — поиск по заголовку и содержанию</li>
+        </ul>
+        <p>Пример: <code>/api/v1/posts?category_id=1&sort_by=title&order=asc&q=python</code></p>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method get">GET</span> Получение одного поста</h3>
+        <p><code>/api/v1/posts/{id}</code></p>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method post">POST</span> Вход в систему</h3>
+        <p><code>/api/v1/login</code></p>
+        <p>Тело запроса (JSON):</p>
+        <pre>{
+    "email": "user@example.com",
+    "password": "password123"
+}</pre>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method post">POST</span> Создание поста (токен)</h3>
+        <p><code>/api/v1/posts</code></p>
+        <p>Тело запроса (JSON):</p>
+        <pre>{
+    "title": "Заголовок",
+    "content": "Содержание...",
+    "category_id": 1
+}</pre>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method put">PUT</span> Обновление поста (токен)</h3>
+        <p><code>/api/v1/posts/{id}</code></p>
+        <p>Тело запроса (JSON):</p>
+        <pre>{
+    "title": "Новый заголовок",
+    "content": "Новое содержание...",
+    "category_id": 2
+}</pre>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method delete">DELETE</span> Удаление поста (админ-токен)</h3>
+        <p><code>/api/v1/posts/{id}</code></p>
+    </div>
+    <div class="endpoint">
+        <h3><span class="method get">GET</span> Категории</h3>
+        <p><code>/api/v1/categories</code></p>
+    </div>
+    <hr>
+    <div class="tester">
+        <h2>🛠 Тестер API</h2>
+        <p>Отправляйте запросы прямо отсюда:</p>
+        <div>
+            <select id="method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+            </select>
+            <input type="text" id="url" placeholder="/api/v1/posts" size="50" value="/api/v1/posts">
+            <br><br>
+            <label>Токен (Bearer):</label>
+            <input type="text" id="token" placeholder="вставьте токен" size="40">
+            <br><br>
+            <div id="body-container" style="display: none;">
+                <label>Тело запроса (JSON):</label><br>
+                <textarea id="body" rows="6" cols="60"></textarea>
+            </div>
+            <button onclick="sendRequest()">Отправить запрос</button>
+            <button onclick="clearResponse()">Очистить</button>
+        </div>
+        <div class="response" id="response">
+            <pre>Ответ появится здесь...</pre>
+        </div>
+    </div>
+    <script>
+        // Показывать/скрывать поле тела запроса в зависимости от метода
+        document.getElementById('method').addEventListener('change', function() {
+            const method = this.value;
+            const bodyContainer = document.getElementById('body-container');
+            if (method === 'POST' || method === 'PUT') {
+                bodyContainer.style.display = 'block';
+            } else {
+                bodyContainer.style.display = 'none';
+            }
+        });
+        async function sendRequest() {
+            const method = document.getElementById('method').value;
+            let url = document.getElementById('url').value;
+            const token = document.getElementById('token').value;
+            const bodyText = document.getElementById('body').value;
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            if (token) {
+                headers['Authorization'] = token;
+            }
+            const options = {
+                method: method,
+                headers: headers
+            };
+            if (method === 'POST' || method === 'PUT') {
+                options.body = bodyText;
+            }
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                document.getElementById('response').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('response').innerHTML = 
+                    '<pre style="color: red;">Ошибка: ' + error + '</pre>';
+            }
+        }
+        function clearResponse() {
+            document.getElementById('response').innerHTML = '<pre>Ответ появится здесь...</pre>';
+        }
+    </script>
+</body>
+</html>

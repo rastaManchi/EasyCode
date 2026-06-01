@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if zeroposts %}
+        <div>
+            <ul>
+                {% for post in zeroposts %}
+                    <li>
+                        <h4>{{ post[1] }}</h4>
+                        <p>{{ post[2] }}</p>
+                        <div>
+                            <a href="/approve?id={{ post[0] }}">Разрешить</a>
+                            <a href="/disapprove?id={{ post[0] }}">Запретить</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <h4>Непроверенных постов нет</h4>
+    {% endif %}
+</body>
+</html>

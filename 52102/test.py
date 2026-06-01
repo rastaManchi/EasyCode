@@ -1,20 +1,19 @@
-import tkinter as tk
+import requests
 
-root = tk.Tk()
-root.title("Омэрэканский бургэр")
-root.geometry('500x500')
+payload = {
+    'email': 'admin@admin',
+    'password': 'qwerty'
+}
 
-main_menu = tk.Menu()
-global_menu = main_menu
+result = requests.post("http://127.0.0.1:5000/api/login", json=payload)
+data = result.json()
+print(data)
+token = data.get('auth_token')
 
-for i in range(17):
-    before_menu = main_menu
-    main_menu = tk.Menu(before_menu, tearoff=0)
-    main_menu.add_command(label='Test')
-    before_menu.add_cascade(label="далее", menu=main_menu)
+headers = {
+    'Authorization': token
+}
 
-main_menu.add_command(label='о программе')
-main_menu.add_command(label='выход')
-
-root.config(menu=global_menu)
-root.mainloop()
+result = requests.get("http://127.0.0.1:5000/api/posts", headers=headers)
+data = result.json()
+print(data)

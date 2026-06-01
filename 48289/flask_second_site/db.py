@@ -37,6 +37,12 @@ def create_post(title, content, author=1):
     cur.execute('''INSERT INTO posts(title, content, author)
                 VALUES (?, ?, ?)''', [title, content, author])
     conn.commit()
+    
+
+def get_posts_by_user(user_id):
+    cur.execute('SELECT * FROM posts WHERE author=?',
+                [user_id])
+    return cur.fetchall()
 
 
 def get_user_by_id(user_id):
@@ -47,6 +53,11 @@ def get_user_by_id(user_id):
 def get_user_by_email(user_email):
     cur.execute(f'SELECT * FROM users WHERE email="{user_email}" ')
     return cur.fetchone()
+
+
+def get_all_users():
+    cur.execute('SELECT * FROM users')
+    return cur.fetchall()
 
 
 def create_user(user_name, user_email, user_password):
