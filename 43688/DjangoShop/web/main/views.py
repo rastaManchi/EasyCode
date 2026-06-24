@@ -10,7 +10,7 @@ def home(request):
     profiles = Profile.objects.all()
     posts = Post.objects.all()
     return render(request, 'main.html', {'username': username,
-                                         'users': profiles,
+                                         'profiles': profiles,
                                          'posts': posts
                                         })
     
@@ -46,3 +46,18 @@ def register_view(request):
             return redirect('/')
         return redirect('/register')
     return render(request, 'register.html', {})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
+def add_post_view(request):
+    if request.method == 'POST':
+        data = request.POST
+        title = data.get('title')
+        content = data.get('content')
+        Post.objects.create(title=title, content=content, author=request.user)
+        return redirect('/')
+    return render(request, 'add_post.html')

@@ -8,10 +8,9 @@
 </head>
 
 <body>
-    <h1>Профиль</h1>
-
+    <h1>Профиль - {{ profile.name }}</h1>
+    {{ profile.bio }}
     <h3>Добро пожаловать!</h3>
-    <a href="{{ url_for('new_post') }}">Новый пост</a>
 </body>
 
 </html>
