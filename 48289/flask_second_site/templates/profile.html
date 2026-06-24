@@ -9,6 +9,16 @@
     <h4>{{user[1]}}</h4>
 
     <ul>
+        {% for notification in logs_notifications %}
+            <li>
+                <h3>{{ notification[2] }}</h3>
+                <p>{{ notification[3] }}</p>
+                <pre>{{ notification[4] }}</pre>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <ul>
         {% for post in posts %}
             <li>
                 <h5>{{post[1]}}</h5>

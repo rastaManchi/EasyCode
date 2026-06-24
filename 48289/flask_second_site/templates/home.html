@@ -10,12 +10,21 @@
     <header>
         <nav>
             <ul>
-                <li>
-                    <a href="{{ url_for('signin') }}">Вход</a>
-                </li>
-                <li>
-                    <a href="/signup">Регистрация</a>
-                </li>
+                {% if user_name %}
+                    <li>
+                        <h3>{{ user_name }}</h3>
+                    </li>
+                    <li>
+                        <a href="/signout">Выйти</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url_for('signin') }}">Вход</a>
+                    </li>
+                    <li>
+                        <a href="/signup">Регистрация</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </header>

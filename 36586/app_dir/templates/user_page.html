@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница пользователя</title>
+</head>
+<body>
+    <h1>Профиль пользователя: {{ user[1] }}</h1>
+    <p>Email: {{ user[2] }}</p>
+    
+    {% if user[4] %}
+        <p>Последний вход: {{ user[4] }}</p>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="{{ url_for('add_post') }}"><button>Новый пост</button></a>
+        <a href="/logout"><button>Выйти</button></a>
+    </div>
+
+    <h2>Посты пользователя:</h2>
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post[1] }}</h3>
+                    <p>{{ post[2] }}</p>
+                    <small>Создан: {{ post[4] }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У пользователя пока нет постов.</p>
+    {% endif %}
+
+    <h2>История уведомлений:</h2>
+    {% if notifications %}
+        <ul>
+            {% for note in notifications %}
+                <li>
+                    <strong>{{ note[2] }}</strong>: {{ note[3] }} 
+                    <em>({{ note[4] }})</em>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет уведомлений.</p>
+    {% endif %}
+
+    <a href="/">На главную</a>
+</body>
+</html>

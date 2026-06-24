@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+</head>
+<body>
+    <h1>Редактирование пользователя</h1>
+    <nav>
+        <a href="/admin">Главная</a> | 
+        <a href="/admin/users">Пользователи</a> | 
+        <a href="/admin/posts">Посты</a> | 
+        <a href="/">На сайт</a>
+    </nav>
+    <hr>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="/admin/user/edit/{{ user[0] }}" method="POST">
+        <div>
+            <label for="name">Имя:</label><br>
+            <input type="text" id="name" name="name" value="{{ user[1] }}" required style="width: 300px;">
+        </div>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="{{ user[2] }}" required style="width: 300px;">
+        </div>
+        <div>
+            <label for="role">Роль:</label><br>
+            <select id="role" name="role" required>
+                <option value="user" {% if user[5] == 'user' %}selected{% endif %}>Пользователь</option>
+                <option value="admin" {% if user[5] == 'admin' %}selected{% endif %}>Администратор</option>
+            </select>
+        </div> 
+        <div>
+            <button type="submit">Сохранить изменения</button>
+            <a href="/admin/users" style="margin-left: 20px;">Отмена</a>
+        </div>
+    </form>
+    <hr>
+    <div style="color: gray; font-size: 0.9em;">
+        <p><strong>Информация о пользователе:</strong></p>
+        <ul>
+            <li>ID: {{ user[0] }}</li>
+            <li>Последний вход: {{ user[4] if user[4] else 'Никогда' }}</li>
+            <li>Текущая роль: {{ user[5] if user[5] else 'user' }}</li>
+        </ul>
+    </div>
+</body>
+</html>

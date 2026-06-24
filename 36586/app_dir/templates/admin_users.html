@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление пользователями</title>
+</head>
+<body>
+    <h1>Управление пользователями</h1>
+    <p>Вы вошли как: <strong>{{ user_name }}</strong> (Администратор)</p>
+    <nav>
+        <a href="/admin">Главная</a> | 
+        <a href="/admin/users">Пользователи</a> | 
+        <a href="/admin/posts">Посты</a> | 
+        <a href="/">На сайт</a> | 
+        <a href="/logout">Выйти</a>
+    </nav>
+    <hr>
+    <h2>Список пользователей</h2>
+    {% if users %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Роль</th>
+            <th>Последний вход</th>
+            <th>Действия</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+            <td>{{ user[4] if user[4] else 'Никогда' }}</td>
+            <td>
+                 <a href="/admin/user/edit/{{ user[0] }}">Редактировать</a>
+                <a href="/admin/user/delete/{{ user[0] }}" 
+                   onclick="return confirm('Вы уверены, что хотите удалить пользователя {{ user[1] }}?')">
+                   Удалить
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if current_page > 1 %}
+            <a href="/admin/users?page={{ current_page - 1 }}">Предыдущая</a>
+        {% endif %}
+        <span>Страница {{ current_page }} из {{ total_pages }}</span>
+        {% if current_page < total_pages %}
+            <a href="/admin/users?page={{ current_page + 1 }}">Следующая</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p>Пользователей не найдено.</p>
+    {% endif %}
+</body>
+</html>

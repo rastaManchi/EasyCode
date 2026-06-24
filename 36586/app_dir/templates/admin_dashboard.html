@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+</head>
+<body>
+    <h1>Админ-панель</h1>
+    <p>Вы вошли как: <strong>{{ user_name }}</strong> (Администратор)</p>
+    <nav>
+        <a href="/admin">Главная</a>  
+        <a href="/admin/users">Пользователи</a>  
+        <a href="/admin/posts">Посты</a>  
+        <a href="/">На сайт</a> 
+        <a href="/logout">Выйти</a>
+    </nav>
+    <hr>
+    <h2>Основная статистика</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Метрика</th>
+            <th>Значение</th>
+        </tr>
+        <tr>
+            <td>Пользователей</td>
+            <td>{{ stats.user_count }}</td>
+        </tr>
+        <tr>
+            <td>Постов</td>
+            <td>{{ stats.post_count }}</td>
+        </tr>
+        <tr>
+            <td>Категорий</td>
+            <td>{{ stats.category_count }}</td>
+        </tr>
+        <tr>
+            <td>Уведомлений</td>
+            <td>{{ stats.notification_count }}</td>
+        </tr>
+    </table>
+    <h2>Распределение постов по категориям</h2>
+    {% if stats.posts_by_category %}
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Категория</th>
+            <th>Количество постов</th>
+        </tr>
+        {% for category in stats.posts_by_category %}
+        <tr>
+            <td>{{ category[0] if category[0] else 'Без категории' }}</td>
+            <td>{{ category[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Нет данных о категориях.</p>
+    {% endif %}
+    <h2>Активные пользователи (последние 30 дней)</h2>
+    {% if stats.active_users %}
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Пользователь</th>
+            <th>Количество постов</th>
+        </tr>
+        {% for user in stats.active_users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>Нет активных пользователей за последние 30 дней.</p>
+    {% endif %}
+    
+    <h2>Последние действия</h2>
+    {% if recent_actions %}
+    <ul>
+        {% for action in recent_actions %}
+        <li>
+            <strong>{{ action[2] }}</strong>: {{ action[3] }} 
+            ({{ action[5] }}) <em>— {{ action[6] }}</em>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Нет действий для отображения.</p>
+    {% endif %}
+    
+    <h2>Быстрые ссылки</h2>
+    <ul>
+        <li><a href="/admin/users">Управление пользователями</a></li>
+        <li><a href="/admin/posts">Управление постами</a></li>
+        <li><a href="/">Перейти на сайт</a></li>
+    </ul>
+</body>
+</html>

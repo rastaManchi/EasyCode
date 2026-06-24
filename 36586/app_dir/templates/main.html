@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Главная</h1>
+        
+        <!-- Форма поиска -->
+        <div class="search-form">
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="Поиск постов..." 
+                       value="{{ search_query if search_query else '' }}">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+        
+        <div class="auth-section">
+            {% if user_name %}
+                <p>Вы вошли как: <strong>{{ user_name }}</strong></p>
+                <a href="/logout">Выйти</a>
+                <a href="{{ url_for('user_page', user_id=session['user_id']) }}">Мой профиль</a>
+                 <a href="/api/docs">Документация API</a>
+            {% else %}
+                <a href="{{ url_for('register') }}">Регистрация</a>
+                <a href="{{ url_for('login') }}">Вход</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if user_name %}
+        <div class="user-actions">
+            <a href="{{ url_for('add_post') }}"><button>Новый пост</button></a>
+        </div>
+    {% endif %}
+
+    <h2>Все посты:</h2>
+    
+    <div id="posts-container">
+        <!-- Посты будут загружаться сюда через AJAX -->
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post[1] }}</h3>
+                    <p>{{ post[2][:200] }}{% if post[2]|length > 200 %}...{% endif %}</p>
+                    <p><em>Автор: {{ post[6] }} | 
+                       Категория: <a href="/category/{{ post[4] }}">{{ post[7] if post[7] else 'Без категории' }}</a> | 
+                       Создан: {{ post[5] }}</em></p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="pagination">
+        <!-- Пагинация будет обновляться через AJAX -->
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}
+                <a href="/?page={{ current_page - 1 }}">Предыдущая</a>
+            {% endif %}
+            
+            <span>Страница {{ current_page }} из {{ total_pages }}</span>
+            
+            {% if current_page < total_pages %}
+                <a href="/?page={{ current_page + 1 }}">Следующая</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <h3>Все пользователи:</h3>
+    {% if users %}
+        <ul>
+            {% for user in users %}
+                <li>
+                    <a href="{{ url_for('user_page', user_id=user[0]) }}">
+                        {{ user[1] }}
+                    </a>
+                    {% if user[4] %}
+                        <small>(последний вход: {{ user[4] }})</small>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пользователей пока нет. <a href="{{ url_for('register') }}">Зарегистрируйтесь первым!</a></p>
+    {% endif %}
+
+    <script>
+    // Функция для загрузки постов через AJAX
+    function loadPosts(page = 1) {
+        // Показываем индикатор загрузки
+        document.getElementById('posts-container').innerHTML = '<p>Загрузка...</p>';      
+        // Отправляем AJAX-запрос
+        fetch(`/api/posts?page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                // Очищаем контейнер
+                const container = document.getElementById('posts-container');
+                container.innerHTML = '';
+                // Создаем список
+                const ul = document.createElement('ul');                
+                // Добавляем посты
+                data.posts.forEach(post => {
+                    const postElement = document.createElement('li');
+                    postElement.innerHTML = `
+                        <h3>${post.title}</h3>
+                        <p>${post.content}</p>
+                        <p><em>Автор: ${post.author} | 
+                           Категория: <a href="/category/${post.category_id}">${post.category}</a> | 
+                           Создан: ${post.created_at}</em></p>
+                    `;
+                    ul.appendChild(postElement);
+                });
+                container.appendChild(ul);                
+                // Обновляем пагинацию
+                updatePagination(data.page, data.total_pages);
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки постов:', error);
+                document.getElementById('posts-container').innerHTML = '<p>Ошибка загрузки постов</p>';
+            });
+    }
+
+    // Функция для обновления пагинации
+    function updatePagination(currentPage, totalPages) {
+        const pagination = document.getElementById('pagination');
+        if (!pagination) return;
+        let html = '';
+        if (currentPage > 1) {
+            html += `<a href="#" onclick="loadPosts(${currentPage - 1}); return false;">Предыдущая</a> `;
+        }
+        html += `<span>Страница ${currentPage} из ${totalPages}</span>`;
+        if (currentPage < totalPages) {
+            html += ` <a href="#" onclick="loadPosts(${currentPage + 1}); return false;">Следующая</a>`;
+        }  
+        pagination.innerHTML = html;    
+        // Обновляем URL в браузере без перезагрузки страницы
+        const newUrl = window.location.pathname + `?page=${currentPage}`;
+        window.history.pushState({page: currentPage}, '', newUrl);
+    }
+
+    // Обработчик кнопок назад/вперед в браузере
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.page) {
+            loadPosts(event.state.page);
+        }
+    });
+
+    // Загружаем посты при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        // Проверяем, есть ли параметр page в URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page') || 1;
+        // Если есть кэшированные данные на сервере, используем AJAX
+        if (parseInt(page) > 1) {
+            loadPosts(page);
+        }
+    });
+    </script>
+</body>
+</html>

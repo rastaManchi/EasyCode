@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Категория: {{ category[1] }}</title>
+</head>
+<body>
+    <h1>Категория: {{ category[1] }}</h1>
+    
+    {% if category[2] %}
+        <p>{{ category[2] }}</p>
+    {% endif %}
+    
+    <a href="/">На главную</a>
+    
+    <h2>Посты в этой категории:</h2>
+    
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post[1] }}</h3>
+                    <p>{{ post[2][:200] }}{% if post[2]|length > 200 %}...{% endif %}</p>
+                    <p><em>Автор: {{ post[6] }} | Создан: {{ post[5] }}</em></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>В этой категории пока нет постов.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, redirect
 from db import (get_user_by_email, 
                 create_user,
                 create_auth_token,
                 validate_auth_token,
-                get_user_by_id)
+                get_user_by_id,
+                create_api_token,
+                validate_api_token)
 import secrets
 from functools import wraps
 
@@ -27,8 +29,16 @@ def check_api(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         api_token = request.headers.get('Authorization')
-        # TODO: Валидация токена
-        
+        if not api_token:
+            return jsonify({
+                'status': 'error',
+                'message': 'Токен не указан'
+            }), 401
+        if not validate_api_token(api_token):
+            return jsonify({
+                'status': 'error',
+                'message': 'Токен не действителен'
+            }), 401
         result = func(*args, **kwargs)
         return result
     return wrapper
@@ -77,7 +87,26 @@ def signup():
     return render_template('signup.html')
 
 
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json()
+    email = data.get('login')
+    password = data.get('password')
+    user = get_user_by_email(email)
+    if user:
+        if password == user[3]:
+            token = create_api_token(user[0])
+            return jsonify({
+                'status': 'success',
+                'token': token
+            })
+    return jsonify({
+        'status': 'failed'
+    })
+
+
 @app.route('/api/info')
+@check_api
 def info():
     return jsonify({
         'status': 'success',

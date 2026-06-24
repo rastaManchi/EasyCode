@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование поста</title>
+</head>
+<body>
+    <h1>Редактирование поста</h1>
+    <nav>
+        <a href="/admin">Главная</a>  
+        <a href="/admin/posts">Посты</a> 
+        <a href="/admin/users">Пользователи</a> 
+        <a href="/">На сайт</a>
+    </nav>
+    <hr>
+    <form action="/admin/post/edit/{{ post[0] }}" method="POST">
+        <div>
+            <label for="title">Заголовок:</label><br>
+            <input type="text" id="title" name="title" value="{{ post[1] }}" required style="width: 500px;">
+        </div>
+        <div>
+            <label for="category">Категория:</label><br>
+            <select id="category" name="category" required>
+                <option value="">Выберите категорию</option>
+                {% for category in categories %}
+                <option value="{{ category[0] }}" 
+                        {% if category[0] == post[4] %}selected{% endif %}>
+                    {{ category[1] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="content">Содержание:</label><br>
+            <textarea id="content" name="content" rows="15" style="width: 500px;" required>{{ post[2] }}</textarea>
+        </div>
+        <div>
+            <button type="submit">Сохранить изменения</button>
+            <a href="/admin/posts" style="margin-left: 20px;">Отмена</a>
+        </div>
+    </form>
+    <hr>
+    <div style="color: gray; font-size: 0.9em;">
+        <p><strong>Информация о посте:</strong></p>
+        <ul>
+            <li>ID: {{ post[0] }}</li>
+            <li>Автор: {{ post[3] }}</li>
+            <li>Создан: {{ post[5] }}</li>
+            <li>Текущая категория: {{ post[7] if post[7] else 'Без категории' }}</li>
+        </ul>
+    </div>
+</body>
+</html>

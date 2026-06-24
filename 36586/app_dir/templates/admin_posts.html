@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление постами</title>
+</head>
+<body>
+    <h1>Управление постами</h1>
+    <p>Вы вошли как: <strong>{{ user_name }}</strong> (Администратор)</p>
+    <nav>
+        <a href="/admin">Главная</a> | 
+        <a href="/admin/users">Пользователи</a> | 
+        <a href="/admin/posts">Посты</a> | 
+        <a href="/">На сайт</a> | 
+        <a href="/logout">Выйти</a>
+    </nav>
+    <hr>
+    <h2>Список постов</h2>  
+    {% if posts %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Заголовок</th>
+            <th>Автор</th>
+            <th>Категория</th>
+            <th>Создан</th>
+            <th>Действия</th>
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post[0] }}</td>
+            <td>{{ post[1][:50] }}{% if post[1]|length > 50 %}...{% endif %}</td>
+            <td>{{ post[6] if post[6] else 'Неизвестно' }}</td>
+            <td>{{ post[7] if post[7] else 'Без категории' }}</td>
+            <td>{{ post[5] }}</td>
+            <td>
+                 <a href="/admin/post/edit/{{ post[0] }}">Редактировать</a>
+                <a href="/admin/post/delete/{{ post[0] }}" 
+                   onclick="return confirm('Вы уверены, что хотите удалить пост ?')">
+                   Удалить
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if current_page > 1 %}
+            <a href="/admin/posts?page={{ current_page - 1 }}">Предыдущая</a>
+        {% endif %}
+        
+        <span>Страница {{ current_page }} из {{ total_pages }}</span>
+        
+        {% if current_page < total_pages %}
+            <a href="/admin/posts?page={{ current_page + 1 }}">Следующая</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <p>Постов не найдено.</p>
+    {% endif %}
+</body>
+</html>

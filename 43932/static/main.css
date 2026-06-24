@@ -1,0 +1,209 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: underline;
+    color: blueviolet;
+}
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: linear-gradient(145deg, #eef2f5 0%, #d9e2e9 100%);
+    color: #1e2f3e;
+    line-height: 1.5;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+}
+
+/* Центрирование контента (без дополнительных обёрток в HTML) */
+body > * {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Карточка для всех блоков (header, form, ul) */
+.header, form, ul, .posts-list, .profile-actions {
+    background: #ffffffdd;
+    backdrop-filter: blur(2px);
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    padding: 1.8rem 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.2s;
+}
+
+/* Шапка (div.header) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: white;
+    border-bottom: 3px solid #3498db;
+}
+
+.header h1 {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #1e4663, #3498db);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.5px;
+}
+
+/* Ссылки в шапке */
+.header a {
+    margin-left: 1.2rem;
+    font-weight: 600;
+}
+
+/* Все ссылки */
+a {
+    text-decoration: none;
+    color: #2c5282;
+    transition: 0.2s;
+}
+
+a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+/* Формы */
+form {
+    background: white;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin: 1rem 0 0.4rem 0;
+    color: #1e4663;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e0;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fefefe;
+    transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+button, input[type="submit"] {
+    background: linear-gradient(95deg, #2c3e50, #3498db);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-top: 1.2rem;
+    transition: 0.2s;
+    width: auto;
+    display: inline-block;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: linear-gradient(95deg, #1e2f3f, #2980b9);
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Список постов (ul) */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #fafcff;
+    border-left: 6px solid #3498db;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+    border-radius: 20px;
+    transition: 0.15s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+li:hover {
+    transform: translateX(4px);
+    background: white;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+
+li h2, li h3 {
+    color: #1e4663;
+    margin-bottom: 0.5rem;
+}
+
+li p {
+    color: #2d4a6e;
+}
+
+/* Сообщения об ошибках (в login.html есть div с message) */
+.message {
+    background: #fff0f0;
+    border-left: 5px solid #e53e3e;
+    padding: 0.8rem 1.2rem;
+    border-radius: 18px;
+    margin-bottom: 1.5rem;
+    color: #c00;
+    font-weight: 500;
+}
+
+/* Кнопка "Новый пост" и подобные действия */
+.profile-actions {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+/* Адаптивность */
+@media (max-width: 680px) {
+    body {
+        padding: 1rem;
+    }
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .header a {
+        margin: 0 0.5rem;
+    }
+    .header div {
+        margin-top: 0.5rem;
+    }
+    .header h1 {
+        font-size: 1.6rem;
+    }
+    li {
+        padding: 1rem;
+    }
+}

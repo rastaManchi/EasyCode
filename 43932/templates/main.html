@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="../static/main.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Главная</h1>
+
+        <form action="/search" method="GET">
+            <input type="text" name="q">
+            <button type="submit">Найти</button>
+        </form>
+        <div>
+            {% if user_id %}
+                 <a href="{{url_for('user_page', user_id=user_id)}}">
+                        {{ user_name }}
+                    </a>
+            {% else %}
+                <a href="{{ url_for('register')  }}">Регистрация</a>
+                <a href="{{ url_for('login')  }}">Логин</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <ul id="posts_list">
+        {% for  post in posts %}
+            <li>
+                <h2>{{post[1]}}</h2>
+                <p>{{post[2]}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <button onclick="load_posts()">Загрузить еще</button>
+    <div class="users-section">
+        <h3>Все пользователи:</h3>
+        {% if users %}
+            <ul class="users-list">
+            {% for user in users %}
+                <li>
+                    <a href="{{url_for('user_page', user_id=user[0])}}">
+                        {{ user[1] }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Пользователя пока нет. <a href="{{ url_for('register')}}">Зарегистрируйтесь первым!</a></p>
+        {% endif %}
+    </div>
+
+    <script>
+        const posts_list = document.getElementById('posts_list')
+
+        function load_posts() {
+            fetch('/api/v1/posts')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(post => {
+                    post_element = document.createElement('li')
+                    post_element.innerHTML = `
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>
+                    `
+                    posts_list.appendChild(post_element)
+                });
+            })
+        }
+    </script>
+
+</body>
+</html>

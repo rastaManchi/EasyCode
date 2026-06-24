@@ -1,4 +1,6 @@
 import sqlite3
+import secrets
+import time
 
 
 conn = sqlite3.connect('mydb.db', check_same_thread=False)
@@ -26,6 +28,61 @@ cur.execute('''
             )
             ''')
 conn.commit()
+
+
+cur.execute('''
+            CREATE TABLE IF NOT EXISTS notifications(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                action TEXT,
+                details TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            ''')
+conn.commit()
+
+
+cur.execute('''
+            CREATE TABLE IF NOT EXISTS auth_tokens(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                token TEXT,
+                user_id INTEGER,
+                expires_at TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+            ''')
+conn.commit()
+
+
+
+def create_auth_token(user_id):
+    token = secrets.token_hex(32)
+    expires_at = time.time() + 600
+    cur.execute('''INSERT INTO auth_tokens(token, user_id, expires_at)
+                VALUES (?, ?, ?)''', [token, user_id, expires_at])
+    conn.commit()
+    return token
+
+
+def validate_auth_token(token):
+    cur.execute('''SELECT * FROM auth_tokens
+                WHERE token=? AND expires_at>?''', [token, time.time()])
+    result = cur.fetchone()
+    if result:
+        return result[2]
+    return 0
+
+
+def add_log_notification(user_id, action, details):
+    cur.execute('''INSERT INTO notifications(user_id, action, details)
+                VALUES (?, ?, ?)''', [user_id, action, details])
+    conn.commit()
+    
+    
+def get_logs_notifications_by_user(user_id):
+    cur.execute('SELECT * FROM notifications WHERE user_id=?', [user_id])
+    return cur.fetchall()
 
 
 def get_all_posts():
