@@ -61,3 +61,8 @@ def add_post_view(request):
         Post.objects.create(title=title, content=content, author=request.user)
         return redirect('/')
     return render(request, 'add_post.html')
+
+
+def post_view(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'post.html', {'post': post})

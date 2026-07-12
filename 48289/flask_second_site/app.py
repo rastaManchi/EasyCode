@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from db import *
 from dotenv import load_dotenv
 load_dotenv()
@@ -132,6 +132,45 @@ def add_post():
     create_post(title, content)
     return redirect('/')
 
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.json
+    login = data.get('login')
+    password = data.get('password')
+    user = get_user_by_email(login)
+    if user:
+        if user[3] == password:
+            token = create_api_token(user[0])
+            return jsonify({
+                'status': 'successed',
+                'token': token
+            })
+    return jsonify({
+        'status': 'failed'
+    }), 401
+
+@app.route('/api/users')
+def api_users():
+    api_token = request.headers.get('Authorization')
+    if not api_token:
+        return jsonify({
+            'status': 'failed',
+            'msg': 'Токен не указан'
+        }), 401
+    if not validate_api_token(api_token):
+        return jsonify({
+            'status': 'failed',
+            'msg': 'Токен не валиден'
+        }), 401
+    return jsonify({
+        'status': 'successed'
+    })
+
+
+
+@app.errorhandler(404)
+def error_404(e):
+    return "404Error", 401
 
 if __name__ == '__main__':
     app.run()

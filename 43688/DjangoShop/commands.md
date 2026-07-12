@@ -7,3 +7,5 @@
 Выполнить миграции: `python manage.py migrate`
 Создать админа: `python manage.py createsuperuser`
 Создать файл для миграции: `python manage.py makemigrations`
+
+Создать файл зависимостей: `pip freeze > requirements.txt`

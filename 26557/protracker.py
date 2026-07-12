@@ -1,6 +1,3 @@
-
-
-
 class Item:
     def __init__(self, name, description, image, craft, price, matches, pickrate, winrate):
         self.name = name

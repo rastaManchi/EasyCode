@@ -156,14 +156,14 @@ def search():
 @app.route('/api/v1/posts')
 def api_posts():
     posts = get_all_post()
-    result = []
-    for post in posts:
-        result.append({
-            'id': post[0],
-            'title': post[1],
-            'content': post[2]
-        })
-    return jsonify(result)
+    # result = []
+    # for post in posts:
+    #     result.append({
+    #         'id': post[0],
+    #         'title': post[1],
+    #         'content': post[2]
+    #     })
+    return jsonify(posts)
 
 
 @app.route('/test500')
