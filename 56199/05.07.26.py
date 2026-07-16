@@ -6,7 +6,7 @@ clicks = 0
 
 def click():
     global clicks
-    clicks += 1
+    clicks += 2
     button['text'] = f"{clicks}"
     button['background'] = "#ff0000"
     root.after(2000, reset_text)
