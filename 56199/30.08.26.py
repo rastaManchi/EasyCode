@@ -6,6 +6,15 @@ def append_to_label(value):
     result.set(current_text + value)
 
 
+def clear_input():
+    result.set("")
+
+
+def get_result():
+    math_result = eval(result.get())
+    result.set(math_result)
+
+
 root = tk.Tk()
 
 
@@ -31,10 +40,21 @@ column = 0
 row = 1
 for struct_row in struct:
     for item in struct_row:
-        tk.Button(text=item, 
-                  padx=20, 
-                  pady=20,
-                  command=lambda text=item: append_to_label(text)).grid(column=column, row=row)
+        if item == 'C':
+            tk.Button(text=item, 
+                        padx=20, 
+                        pady=20,
+                        command=clear_input).grid(column=column, row=row)
+        elif item == '=':
+            tk.Button(text=item, 
+                        padx=20, 
+                        pady=20,
+                        command=get_result).grid(column=column, row=row)
+        else:
+            tk.Button(text=item, 
+                    padx=20, 
+                    pady=20,
+                    command=lambda text=item: append_to_label(text)).grid(column=column, row=row)
         column += 1
     column = 0
     row += 1
