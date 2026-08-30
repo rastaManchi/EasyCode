@@ -2,8 +2,8 @@ import tkinter as tk
 
 
 def append_to_label(value):
-    current_text = input_panel.get()
-    input_panel.set(current_text + value)
+    current_text = result.get()
+    result.set(current_text + value)
 
 
 root = tk.Tk()
@@ -21,7 +21,9 @@ struct = [
     ['C', '0', '=', '-']
 ]
 
-input_panel = tk.Entry()
+result = tk.StringVar()
+
+input_panel = tk.Entry(textvariable=result)
 input_panel.grid(row=0, column=0, columnspan=4)
 
 
@@ -32,7 +34,7 @@ for struct_row in struct:
         tk.Button(text=item, 
                   padx=20, 
                   pady=20,
-                  command=lambda: append_to_label(item)).grid(column=column, row=row)
+                  command=lambda text=item: append_to_label(text)).grid(column=column, row=row)
         column += 1
     column = 0
     row += 1
