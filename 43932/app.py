@@ -183,4 +183,4 @@ def error_500(error_text):
     return render_template('500.html'), 500
 
 
-app.run(debug=True)
+app.run(debug=True, host="0.0.0.0")

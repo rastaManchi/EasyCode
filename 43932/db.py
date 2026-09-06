@@ -37,9 +37,6 @@ default_categories = [
     ('Спорт', ' Новости и статьи о спорте')
 ]
 
-for category in default_categories:
-    cur.execute('INSERT OR IGNORE INTO categories(name, description) VALUES (?,?)', category)
-
 def add_user(name,email,password):
     cur.execute('''INSERT OR IGNORE INTO users (name, email, password) VALUES (?, ?, ?)''',[name, email, password])
     conn.commit()
